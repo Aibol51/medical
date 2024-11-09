@@ -14,6 +14,7 @@ import (
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
 	emaillog "github.com/suyuan32/simple-admin-core/api/internal/handler/emaillog"
 	emailprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/emailprovider"
+	medicine "github.com/suyuan32/simple-admin-core/api/internal/handler/medicine"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
@@ -831,5 +832,39 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: publicapi.GetPublicSystemConfigurationListHandler(serverCtx),
 			},
 		},
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/medicine/create",
+					Handler: medicine.CreateMedicineHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medicine/update",
+					Handler: medicine.UpdateMedicineHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medicine/delete",
+					Handler: medicine.DeleteMedicineHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medicine/list",
+					Handler: medicine.GetMedicineListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medicine",
+					Handler: medicine.GetMedicineByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
 }

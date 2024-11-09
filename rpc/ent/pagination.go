@@ -11,6 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
@@ -462,6 +463,87 @@ func (dd *DictionaryDetailQuery) Page(
 
 	dd = dd.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := dd.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type MedicinePager struct {
+	Order  medicine.OrderOption
+	Filter func(*MedicineQuery) (*MedicineQuery, error)
+}
+
+// MedicinePaginateOption enables pagination customization.
+type MedicinePaginateOption func(*MedicinePager)
+
+// DefaultMedicineOrder is the default ordering of Medicine.
+var DefaultMedicineOrder = Desc(medicine.FieldID)
+
+func newMedicinePager(opts []MedicinePaginateOption) (*MedicinePager, error) {
+	pager := &MedicinePager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultMedicineOrder
+	}
+	return pager, nil
+}
+
+func (p *MedicinePager) ApplyFilter(query *MedicineQuery) (*MedicineQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// MedicinePageList is Medicine PageList result.
+type MedicinePageList struct {
+	List        []*Medicine  `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (m *MedicineQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MedicinePaginateOption,
+) (*MedicinePageList, error) {
+
+	pager, err := newMedicinePager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if m, err = pager.ApplyFilter(m); err != nil {
+		return nil, err
+	}
+
+	ret := &MedicinePageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		m = m.Order(pager.Order)
+	} else {
+		m = m.Order(DefaultMedicineOrder)
+	}
+
+	m = m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := m.All(ctx)
 	if err != nil {
 		return nil, err
 	}

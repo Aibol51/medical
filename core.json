@@ -1314,6 +1314,146 @@
         }
       }
     },
+    "/medicine": {
+      "post": {
+        "description": "Get medicine by ID | 通过ID获取Medicine信息",
+        "tags": [
+          "medicine"
+        ],
+        "summary": "Get medicine by ID | 通过ID获取Medicine信息",
+        "operationId": "GetMedicineById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "MedicineInfoResp",
+            "schema": {
+              "$ref": "#/definitions/MedicineInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/medicine/create": {
+      "post": {
+        "description": "Create medicine information | 创建Medicine信息",
+        "tags": [
+          "medicine"
+        ],
+        "summary": "Create medicine information | 创建Medicine信息",
+        "operationId": "CreateMedicine",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MedicineInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/medicine/delete": {
+      "post": {
+        "description": "Delete medicine information | 删除Medicine信息",
+        "tags": [
+          "medicine"
+        ],
+        "summary": "Delete medicine information | 删除Medicine信息",
+        "operationId": "DeleteMedicine",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/medicine/list": {
+      "post": {
+        "description": "Get medicine list | 获取Medicine信息列表",
+        "tags": [
+          "medicine"
+        ],
+        "summary": "Get medicine list | 获取Medicine信息列表",
+        "operationId": "GetMedicineList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MedicineListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "MedicineListResp",
+            "schema": {
+              "$ref": "#/definitions/MedicineListResp"
+            }
+          }
+        }
+      }
+    },
+    "/medicine/update": {
+      "post": {
+        "description": "Update medicine information | 更新Medicine信息",
+        "tags": [
+          "medicine"
+        ],
+        "summary": "Update medicine information | 更新Medicine信息",
+        "operationId": "UpdateMedicine",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MedicineInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/menu/create": {
       "post": {
         "description": "Create menu information | 创建菜单",
@@ -4892,6 +5032,178 @@
           "type": "string",
           "x-go-name": "Data",
           "$ref": "#/definitions/LoginInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MedicineInfo": {
+      "description": "The response data of medicine information | Medicine信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "description": {
+          "description": "Description | 药品描述",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "images": {
+          "description": "Images | 图片路径",
+          "type": "string",
+          "x-go-name": "Images"
+        },
+        "name": {
+          "description": "Medicine name | 药品名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "quantity": {
+          "description": "Quantity in stock | 库存数量",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Quantity"
+        },
+        "remarks": {
+          "description": "Remarks | 备注信息",
+          "type": "string",
+          "x-go-name": "Remarks"
+        },
+        "sort": {
+          "description": "Sort Number | 排序编号",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status 1: normal 2: ban | 状态 1 正常 2 禁用",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Status"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MedicineInfoResp": {
+      "description": "The medicine information response | Medicine信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MedicineInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MedicineListInfo": {
+      "description": "The medicine list data | Medicine信息列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The medicine list data | Medicine信息列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MedicineInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MedicineListReq": {
+      "description": "Get medicine list request params | Medicine列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "description": {
+          "description": "Description",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "remarks": {
+          "description": "Remarks",
+          "type": "string",
+          "x-go-name": "Remarks"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MedicineListResp": {
+      "description": "The response data of medicine list | Medicine信息列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MedicineListInfo"
         },
         "msg": {
           "description": "Message | 提示信息",

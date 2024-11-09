@@ -1663,3 +1663,59 @@ type ConfigurationInfoResp struct {
 	// Configuration information | 参数配置数据
 	Data ConfigurationInfo `json:"data"`
 }
+
+// The response data of medicine information | Medicine信息
+// swagger:model MedicineInfo
+type MedicineInfo struct {
+	BaseIDInfo
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
+	Status *uint32 `json:"status,optional"`
+	// Sort Number | 排序编号
+	Sort *uint32 `json:"sort,optional"`
+	// Medicine name | 药品名称
+	Name *string `json:"name,optional"`
+	// Quantity in stock | 库存数量
+	Quantity *uint32 `json:"quantity,optional"`
+	// Description | 药品描述
+	Description *string `json:"description,optional"`
+	// Remarks | 备注信息
+	Remarks *string `json:"remarks,optional"`
+	// Images | 图片路径
+	Images *string `json:"images,optional"`
+}
+
+// The response data of medicine list | Medicine信息列表数据
+// swagger:model MedicineListResp
+type MedicineListResp struct {
+	BaseDataInfo
+	// Medicine list data | Medicine信息列表数据
+	Data MedicineListInfo `json:"data"`
+}
+
+// The medicine list data | Medicine信息列表数据
+// swagger:model MedicineListInfo
+type MedicineListInfo struct {
+	BaseListInfo
+	// The medicine list data | Medicine信息列表数据
+	Data []MedicineInfo `json:"data"`
+}
+
+// Get medicine list request params | Medicine列表请求参数
+// swagger:model MedicineListReq
+type MedicineListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// Description
+	Description *string `json:"description,optional"`
+	// Remarks
+	Remarks *string `json:"remarks,optional"`
+}
+
+// The medicine information response | Medicine信息返回体
+// swagger:model MedicineInfoResp
+type MedicineInfoResp struct {
+	BaseDataInfo
+	// The medicine information | Medicine信息数据
+	Data MedicineInfo `json:"data"`
+}

@@ -69,6 +69,18 @@ func (f DictionaryDetailFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictionaryDetailMutation", m)
 }
 
+// The MedicineFunc type is an adapter to allow the use of ordinary
+// function as Medicine mutator.
+type MedicineFunc func(context.Context, *ent.MedicineMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MedicineFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.MedicineMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MedicineMutation", m)
+}
+
 // The MenuFunc type is an adapter to allow the use of ordinary
 // function as Menu mutator.
 type MenuFunc func(context.Context, *ent.MenuMutation) (ent.Value, error)

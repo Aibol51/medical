@@ -21,6 +21,9 @@ type Dictionary func(*sql.Selector)
 // DictionaryDetail is the predicate function for dictionarydetail builders.
 type DictionaryDetail func(*sql.Selector)
 
+// Medicine is the predicate function for medicine builders.
+type Medicine func(*sql.Selector)
+
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 

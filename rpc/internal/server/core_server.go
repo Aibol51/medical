@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
@@ -182,6 +183,32 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in *core.BaseMsg) (*core.DictionaryDetailListResp, error) {
 	l := dictionarydetail.NewGetDictionaryDetailByDictionaryNameLogic(ctx, s.svcCtx)
 	return l.GetDictionaryDetailByDictionaryName(in)
+}
+
+// Medicine management
+func (s *CoreServer) CreateMedicine(ctx context.Context, in *core.MedicineInfo) (*core.BaseIDResp, error) {
+	l := medicine.NewCreateMedicineLogic(ctx, s.svcCtx)
+	return l.CreateMedicine(in)
+}
+
+func (s *CoreServer) UpdateMedicine(ctx context.Context, in *core.MedicineInfo) (*core.BaseResp, error) {
+	l := medicine.NewUpdateMedicineLogic(ctx, s.svcCtx)
+	return l.UpdateMedicine(in)
+}
+
+func (s *CoreServer) GetMedicineList(ctx context.Context, in *core.MedicineListReq) (*core.MedicineListResp, error) {
+	l := medicine.NewGetMedicineListLogic(ctx, s.svcCtx)
+	return l.GetMedicineList(in)
+}
+
+func (s *CoreServer) GetMedicineById(ctx context.Context, in *core.IDReq) (*core.MedicineInfo, error) {
+	l := medicine.NewGetMedicineByIdLogic(ctx, s.svcCtx)
+	return l.GetMedicineById(in)
+}
+
+func (s *CoreServer) DeleteMedicine(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := medicine.NewDeleteMedicineLogic(ctx, s.svcCtx)
+	return l.DeleteMedicine(in)
 }
 
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {

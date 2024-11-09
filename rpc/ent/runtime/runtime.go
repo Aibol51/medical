@@ -11,6 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
@@ -157,6 +158,33 @@ func init() {
 	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
 	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
 	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
+	medicineMixin := schema.Medicine{}.Mixin()
+	medicineMixinFields0 := medicineMixin[0].Fields()
+	_ = medicineMixinFields0
+	medicineMixinFields1 := medicineMixin[1].Fields()
+	_ = medicineMixinFields1
+	medicineMixinFields2 := medicineMixin[2].Fields()
+	_ = medicineMixinFields2
+	medicineFields := schema.Medicine{}.Fields()
+	_ = medicineFields
+	// medicineDescCreatedAt is the schema descriptor for created_at field.
+	medicineDescCreatedAt := medicineMixinFields0[1].Descriptor()
+	// medicine.DefaultCreatedAt holds the default value on creation for the created_at field.
+	medicine.DefaultCreatedAt = medicineDescCreatedAt.Default.(func() time.Time)
+	// medicineDescUpdatedAt is the schema descriptor for updated_at field.
+	medicineDescUpdatedAt := medicineMixinFields0[2].Descriptor()
+	// medicine.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	medicine.DefaultUpdatedAt = medicineDescUpdatedAt.Default.(func() time.Time)
+	// medicine.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	medicine.UpdateDefaultUpdatedAt = medicineDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// medicineDescStatus is the schema descriptor for status field.
+	medicineDescStatus := medicineMixinFields1[0].Descriptor()
+	// medicine.DefaultStatus holds the default value on creation for the status field.
+	medicine.DefaultStatus = medicineDescStatus.Default.(uint8)
+	// medicineDescSort is the schema descriptor for sort field.
+	medicineDescSort := medicineMixinFields2[0].Descriptor()
+	// medicine.DefaultSort holds the default value on creation for the sort field.
+	medicine.DefaultSort = medicineDescSort.Default.(uint32)
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0

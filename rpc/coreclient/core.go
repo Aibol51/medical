@@ -36,6 +36,9 @@ type (
 	Empty                    = core.Empty
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
+	MedicineInfo             = core.MedicineInfo
+	MedicineListReq          = core.MedicineListReq
+	MedicineListResp         = core.MedicineListResp
 	MenuInfo                 = core.MenuInfo
 	MenuInfoList             = core.MenuInfoList
 	MenuRoleInfo             = core.MenuRoleInfo
@@ -100,6 +103,12 @@ type (
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		// Medicine management
+		CreateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMedicineList(ctx context.Context, in *MedicineListReq, opts ...grpc.CallOption) (*MedicineListResp, error)
+		GetMedicineById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MedicineInfo, error)
+		DeleteMedicine(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -300,6 +309,32 @@ func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, op
 func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
+}
+
+// Medicine management
+func (m *defaultCore) CreateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateMedicine(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateMedicine(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMedicineList(ctx context.Context, in *MedicineListReq, opts ...grpc.CallOption) (*MedicineListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMedicineList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMedicineById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MedicineInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMedicineById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteMedicine(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteMedicine(ctx, in, opts...)
 }
 
 func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {

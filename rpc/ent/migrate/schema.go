@@ -131,6 +131,25 @@ var (
 			},
 		},
 	}
+	// MedicinesColumns holds the columns for the "medicines" table.
+	MedicinesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
+		{Name: "name", Type: field.TypeString, Comment: "Medicine name | 药品名称"},
+		{Name: "quantity", Type: field.TypeUint32, Comment: "Quantity in stock | 库存数量"},
+		{Name: "description", Type: field.TypeString, Nullable: true, Comment: "Description | 药品描述"},
+		{Name: "remarks", Type: field.TypeString, Nullable: true, Comment: "Remarks | 备注信息"},
+		{Name: "images", Type: field.TypeString, Nullable: true, Comment: "Images | 图片路径", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+	}
+	// MedicinesTable holds the schema information for the "medicines" table.
+	MedicinesTable = &schema.Table{
+		Name:       "medicines",
+		Columns:    MedicinesColumns,
+		PrimaryKey: []*schema.Column{MedicinesColumns[0]},
+	}
 	// SysMenusColumns holds the columns for the "sys_menus" table.
 	SysMenusColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -406,6 +425,7 @@ var (
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		MedicinesTable,
 		SysMenusTable,
 		SysOauthProvidersTable,
 		SysPositionsTable,
@@ -435,6 +455,9 @@ func init() {
 	SysDictionaryDetailsTable.ForeignKeys[0].RefTable = SysDictionariesTable
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
+	}
+	MedicinesTable.Annotation = &entsql.Annotation{
+		Table: "medicines",
 	}
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{

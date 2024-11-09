@@ -21,6 +21,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
@@ -46,6 +47,8 @@ type Client struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// Medicine is the client for interacting with the Medicine builders.
+	Medicine *MedicineClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
@@ -74,6 +77,7 @@ func (c *Client) init() {
 	c.Department = NewDepartmentClient(c.config)
 	c.Dictionary = NewDictionaryClient(c.config)
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
+	c.Medicine = NewMedicineClient(c.config)
 	c.Menu = NewMenuClient(c.config)
 	c.OauthProvider = NewOauthProviderClient(c.config)
 	c.Position = NewPositionClient(c.config)
@@ -177,6 +181,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
+		Medicine:         NewMedicineClient(cfg),
 		Menu:             NewMenuClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
@@ -207,6 +212,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
+		Medicine:         NewMedicineClient(cfg),
 		Menu:             NewMenuClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
@@ -242,8 +248,8 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
-		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail,
+		c.Medicine, c.Menu, c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -253,8 +259,8 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
-		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail,
+		c.Medicine, c.Menu, c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -273,6 +279,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Dictionary.mutate(ctx, m)
 	case *DictionaryDetailMutation:
 		return c.DictionaryDetail.mutate(ctx, m)
+	case *MedicineMutation:
+		return c.Medicine.mutate(ctx, m)
 	case *MenuMutation:
 		return c.Menu.mutate(ctx, m)
 	case *OauthProviderMutation:
@@ -1032,6 +1040,139 @@ func (c *DictionaryDetailClient) mutate(ctx context.Context, m *DictionaryDetail
 		return (&DictionaryDetailDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown DictionaryDetail mutation op: %q", m.Op())
+	}
+}
+
+// MedicineClient is a client for the Medicine schema.
+type MedicineClient struct {
+	config
+}
+
+// NewMedicineClient returns a client for the Medicine from the given config.
+func NewMedicineClient(c config) *MedicineClient {
+	return &MedicineClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `medicine.Hooks(f(g(h())))`.
+func (c *MedicineClient) Use(hooks ...Hook) {
+	c.hooks.Medicine = append(c.hooks.Medicine, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `medicine.Intercept(f(g(h())))`.
+func (c *MedicineClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Medicine = append(c.inters.Medicine, interceptors...)
+}
+
+// Create returns a builder for creating a Medicine entity.
+func (c *MedicineClient) Create() *MedicineCreate {
+	mutation := newMedicineMutation(c.config, OpCreate)
+	return &MedicineCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Medicine entities.
+func (c *MedicineClient) CreateBulk(builders ...*MedicineCreate) *MedicineCreateBulk {
+	return &MedicineCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *MedicineClient) MapCreateBulk(slice any, setFunc func(*MedicineCreate, int)) *MedicineCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &MedicineCreateBulk{err: fmt.Errorf("calling to MedicineClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*MedicineCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &MedicineCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Medicine.
+func (c *MedicineClient) Update() *MedicineUpdate {
+	mutation := newMedicineMutation(c.config, OpUpdate)
+	return &MedicineUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MedicineClient) UpdateOne(m *Medicine) *MedicineUpdateOne {
+	mutation := newMedicineMutation(c.config, OpUpdateOne, withMedicine(m))
+	return &MedicineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MedicineClient) UpdateOneID(id uint64) *MedicineUpdateOne {
+	mutation := newMedicineMutation(c.config, OpUpdateOne, withMedicineID(id))
+	return &MedicineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Medicine.
+func (c *MedicineClient) Delete() *MedicineDelete {
+	mutation := newMedicineMutation(c.config, OpDelete)
+	return &MedicineDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *MedicineClient) DeleteOne(m *Medicine) *MedicineDeleteOne {
+	return c.DeleteOneID(m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *MedicineClient) DeleteOneID(id uint64) *MedicineDeleteOne {
+	builder := c.Delete().Where(medicine.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MedicineDeleteOne{builder}
+}
+
+// Query returns a query builder for Medicine.
+func (c *MedicineClient) Query() *MedicineQuery {
+	return &MedicineQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeMedicine},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Medicine entity by its id.
+func (c *MedicineClient) Get(ctx context.Context, id uint64) (*Medicine, error) {
+	return c.Query().Where(medicine.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MedicineClient) GetX(ctx context.Context, id uint64) *Medicine {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *MedicineClient) Hooks() []Hook {
+	return c.hooks.Medicine
+}
+
+// Interceptors returns the client interceptors.
+func (c *MedicineClient) Interceptors() []Interceptor {
+	return c.inters.Medicine
+}
+
+func (c *MedicineClient) mutate(ctx context.Context, m *MedicineMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&MedicineCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&MedicineUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&MedicineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&MedicineDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Medicine mutation op: %q", m.Op())
 	}
 }
 
@@ -1982,11 +2123,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		API, Configuration, Department, Dictionary, DictionaryDetail, Medicine, Menu,
 		OauthProvider, Position, Role, Token, User []ent.Hook
 	}
 	inters struct {
-		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		API, Configuration, Department, Dictionary, DictionaryDetail, Medicine, Menu,
 		OauthProvider, Position, Role, Token, User []ent.Interceptor
 	}
 )

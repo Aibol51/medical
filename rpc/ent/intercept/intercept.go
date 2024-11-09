@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
@@ -213,6 +214,33 @@ func (f TraverseDictionaryDetail) Traverse(ctx context.Context, q ent.Query) err
 	return fmt.Errorf("unexpected query type %T. expect *ent.DictionaryDetailQuery", q)
 }
 
+// The MedicineFunc type is an adapter to allow the use of ordinary function as a Querier.
+type MedicineFunc func(context.Context, *ent.MedicineQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f MedicineFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.MedicineQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.MedicineQuery", q)
+}
+
+// The TraverseMedicine type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseMedicine func(context.Context, *ent.MedicineQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseMedicine) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseMedicine) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.MedicineQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.MedicineQuery", q)
+}
+
 // The MenuFunc type is an adapter to allow the use of ordinary function as a Querier.
 type MenuFunc func(context.Context, *ent.MenuQuery) (ent.Value, error)
 
@@ -388,6 +416,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.DictionaryQuery, predicate.Dictionary, dictionary.OrderOption]{typ: ent.TypeDictionary, tq: q}, nil
 	case *ent.DictionaryDetailQuery:
 		return &query[*ent.DictionaryDetailQuery, predicate.DictionaryDetail, dictionarydetail.OrderOption]{typ: ent.TypeDictionaryDetail, tq: q}, nil
+	case *ent.MedicineQuery:
+		return &query[*ent.MedicineQuery, predicate.Medicine, medicine.OrderOption]{typ: ent.TypeMedicine, tq: q}, nil
 	case *ent.MenuQuery:
 		return &query[*ent.MenuQuery, predicate.Menu, menu.OrderOption]{typ: ent.TypeMenu, tq: q}, nil
 	case *ent.OauthProviderQuery:
