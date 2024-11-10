@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+// News message
+
+message NewsInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // Sort Number | 排序编号
+  optional uint32 sort = 5;
+  // Chinese title | 中文标题
+  optional string title_zh = 6;
+  // English title | 英文标题
+  optional string title_en = 7;
+  // Russian title | 俄语标题
+  optional string title_ru = 8;
+  // Kazakh title | 哈萨克语标题
+  optional string title_kk = 9;
+  // Chinese content | 中文内容
+  optional string content_zh = 10;
+  // English content | 英文内容
+  optional string content_en = 11;
+  // Russian content | 俄语内容
+  optional string content_ru = 12;
+  // Kazakh content | 哈萨克语内容
+  optional string content_kk = 13;
+  // Cover image URL | 封面图片URL
+  optional string cover_url = 14;
+}
+
+message NewsListResp {
+  uint64 total = 1;
+  repeated NewsInfo data = 2;
+}
+
+message NewsListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string title_zh = 3;
+  optional string title_en = 4;
+  optional string title_ru = 5;
+}
+
+
+service Core {
+
+  // News management
+  // group: news
+  rpc createNews (NewsInfo) returns (BaseIDResp);
+  // group: news
+  rpc updateNews (NewsInfo) returns (BaseResp);
+  // group: news
+  rpc getNewsList (NewsListReq) returns (NewsListResp);
+  // group: news
+  rpc getNewsById (IDReq) returns (NewsInfo);
+  // group: news
+  rpc deleteNews (IDsReq) returns (BaseResp);
+
+
+}

@@ -44,6 +44,9 @@ type (
 	MenuRoleInfo             = core.MenuRoleInfo
 	MenuRoleListResp         = core.MenuRoleListResp
 	Meta                     = core.Meta
+	NewsInfo                 = core.NewsInfo
+	NewsListReq              = core.NewsListReq
+	NewsListResp             = core.NewsListResp
 	OauthLoginReq            = core.OauthLoginReq
 	OauthProviderInfo        = core.OauthProviderInfo
 	OauthProviderListReq     = core.OauthProviderListReq
@@ -114,6 +117,12 @@ type (
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+		// News management
+		CreateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetNewsList(ctx context.Context, in *NewsListReq, opts ...grpc.CallOption) (*NewsListResp, error)
+		GetNewsById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*NewsInfo, error)
+		DeleteNews(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// OauthProvider management
 		CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -360,6 +369,32 @@ func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts .
 func (m *defaultCore) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetMenuList(ctx, in, opts...)
+}
+
+// News management
+func (m *defaultCore) CreateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateNews(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateNews(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetNewsList(ctx context.Context, in *NewsListReq, opts ...grpc.CallOption) (*NewsListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetNewsList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetNewsById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*NewsInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetNewsById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteNews(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteNews(ctx, in, opts...)
 }
 
 // OauthProvider management

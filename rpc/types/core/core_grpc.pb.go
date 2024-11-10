@@ -58,6 +58,11 @@ const (
 	Core_DeleteMenu_FullMethodName                          = "/core.Core/deleteMenu"
 	Core_GetMenuListByRole_FullMethodName                   = "/core.Core/getMenuListByRole"
 	Core_GetMenuList_FullMethodName                         = "/core.Core/getMenuList"
+	Core_CreateNews_FullMethodName                          = "/core.Core/createNews"
+	Core_UpdateNews_FullMethodName                          = "/core.Core/updateNews"
+	Core_GetNewsList_FullMethodName                         = "/core.Core/getNewsList"
+	Core_GetNewsById_FullMethodName                         = "/core.Core/getNewsById"
+	Core_DeleteNews_FullMethodName                          = "/core.Core/deleteNews"
 	Core_CreateOauthProvider_FullMethodName                 = "/core.Core/createOauthProvider"
 	Core_UpdateOauthProvider_FullMethodName                 = "/core.Core/updateOauthProvider"
 	Core_GetOauthProviderList_FullMethodName                = "/core.Core/getOauthProviderList"
@@ -177,6 +182,17 @@ type CoreClient interface {
 	GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 	//  group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	// News management
+	// group: news
+	CreateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: news
+	UpdateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: news
+	GetNewsList(ctx context.Context, in *NewsListReq, opts ...grpc.CallOption) (*NewsListResp, error)
+	// group: news
+	GetNewsById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*NewsInfo, error)
+	// group: news
+	DeleteNews(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	//  OauthProvider management
 	//  group: oauthprovider
 	CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -640,6 +656,56 @@ func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...g
 	return out, nil
 }
 
+func (c *coreClient) CreateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateNews_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateNews(ctx context.Context, in *NewsInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateNews_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetNewsList(ctx context.Context, in *NewsListReq, opts ...grpc.CallOption) (*NewsListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NewsListResp)
+	err := c.cc.Invoke(ctx, Core_GetNewsList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetNewsById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*NewsInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NewsInfo)
+	err := c.cc.Invoke(ctx, Core_GetNewsById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteNews(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteNews_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseIDResp)
@@ -1018,6 +1084,17 @@ type CoreServer interface {
 	GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error)
 	//  group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
+	// News management
+	// group: news
+	CreateNews(context.Context, *NewsInfo) (*BaseIDResp, error)
+	// group: news
+	UpdateNews(context.Context, *NewsInfo) (*BaseResp, error)
+	// group: news
+	GetNewsList(context.Context, *NewsListReq) (*NewsListResp, error)
+	// group: news
+	GetNewsById(context.Context, *IDReq) (*NewsInfo, error)
+	// group: news
+	DeleteNews(context.Context, *IDsReq) (*BaseResp, error)
 	//  OauthProvider management
 	//  group: oauthprovider
 	CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error)
@@ -1207,6 +1284,21 @@ func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *BaseMsg) (*Me
 }
 func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
+}
+func (UnimplementedCoreServer) CreateNews(context.Context, *NewsInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNews not implemented")
+}
+func (UnimplementedCoreServer) UpdateNews(context.Context, *NewsInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNews not implemented")
+}
+func (UnimplementedCoreServer) GetNewsList(context.Context, *NewsListReq) (*NewsListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNewsList not implemented")
+}
+func (UnimplementedCoreServer) GetNewsById(context.Context, *IDReq) (*NewsInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNewsById not implemented")
+}
+func (UnimplementedCoreServer) DeleteNews(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteNews not implemented")
 }
 func (UnimplementedCoreServer) CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOauthProvider not implemented")
@@ -2018,6 +2110,96 @@ func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateNews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewsInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateNews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateNews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateNews(ctx, req.(*NewsInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateNews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewsInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateNews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateNews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateNews(ctx, req.(*NewsInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetNewsList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewsListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetNewsList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetNewsList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetNewsList(ctx, req.(*NewsListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetNewsById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetNewsById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetNewsById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetNewsById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteNews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteNews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteNews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteNews(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateOauthProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OauthProviderInfo)
 	if err := dec(in); err != nil {
@@ -2702,6 +2884,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getMenuList",
 			Handler:    _Core_GetMenuList_Handler,
+		},
+		{
+			MethodName: "createNews",
+			Handler:    _Core_CreateNews_Handler,
+		},
+		{
+			MethodName: "updateNews",
+			Handler:    _Core_UpdateNews_Handler,
+		},
+		{
+			MethodName: "getNewsList",
+			Handler:    _Core_GetNewsList_Handler,
+		},
+		{
+			MethodName: "getNewsById",
+			Handler:    _Core_GetNewsById_Handler,
+		},
+		{
+			MethodName: "deleteNews",
+			Handler:    _Core_DeleteNews_Handler,
 		},
 		{
 			MethodName: "createOauthProvider",

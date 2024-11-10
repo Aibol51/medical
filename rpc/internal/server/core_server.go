@@ -15,6 +15,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/news"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
@@ -234,6 +235,32 @@ func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.BaseMsg) (*
 func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*core.MenuInfoList, error) {
 	l := menu.NewGetMenuListLogic(ctx, s.svcCtx)
 	return l.GetMenuList(in)
+}
+
+// News management
+func (s *CoreServer) CreateNews(ctx context.Context, in *core.NewsInfo) (*core.BaseIDResp, error) {
+	l := news.NewCreateNewsLogic(ctx, s.svcCtx)
+	return l.CreateNews(in)
+}
+
+func (s *CoreServer) UpdateNews(ctx context.Context, in *core.NewsInfo) (*core.BaseResp, error) {
+	l := news.NewUpdateNewsLogic(ctx, s.svcCtx)
+	return l.UpdateNews(in)
+}
+
+func (s *CoreServer) GetNewsList(ctx context.Context, in *core.NewsListReq) (*core.NewsListResp, error) {
+	l := news.NewGetNewsListLogic(ctx, s.svcCtx)
+	return l.GetNewsList(in)
+}
+
+func (s *CoreServer) GetNewsById(ctx context.Context, in *core.IDReq) (*core.NewsInfo, error) {
+	l := news.NewGetNewsByIdLogic(ctx, s.svcCtx)
+	return l.GetNewsById(in)
+}
+
+func (s *CoreServer) DeleteNews(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := news.NewDeleteNewsLogic(ctx, s.svcCtx)
+	return l.DeleteNews(in)
 }
 
 // OauthProvider management
