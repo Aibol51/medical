@@ -23,6 +23,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -51,6 +52,8 @@ type Client struct {
 	Medicine *MedicineClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
+	// News is the client for interacting with the News builders.
+	News *NewsClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
 	// Position is the client for interacting with the Position builders.
@@ -79,6 +82,7 @@ func (c *Client) init() {
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
 	c.Medicine = NewMedicineClient(c.config)
 	c.Menu = NewMenuClient(c.config)
+	c.News = NewNewsClient(c.config)
 	c.OauthProvider = NewOauthProviderClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
@@ -183,6 +187,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Medicine:         NewMedicineClient(cfg),
 		Menu:             NewMenuClient(cfg),
+		News:             NewNewsClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
@@ -214,6 +219,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Medicine:         NewMedicineClient(cfg),
 		Menu:             NewMenuClient(cfg),
+		News:             NewNewsClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
@@ -249,7 +255,8 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
 		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail,
-		c.Medicine, c.Menu, c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.Medicine, c.Menu, c.News, c.OauthProvider, c.Position, c.Role, c.Token,
+		c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -260,7 +267,8 @@ func (c *Client) Use(hooks ...Hook) {
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
 		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail,
-		c.Medicine, c.Menu, c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.Medicine, c.Menu, c.News, c.OauthProvider, c.Position, c.Role, c.Token,
+		c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -283,6 +291,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Medicine.mutate(ctx, m)
 	case *MenuMutation:
 		return c.Menu.mutate(ctx, m)
+	case *NewsMutation:
+		return c.News.mutate(ctx, m)
 	case *OauthProviderMutation:
 		return c.OauthProvider.mutate(ctx, m)
 	case *PositionMutation:
@@ -1357,6 +1367,139 @@ func (c *MenuClient) mutate(ctx context.Context, m *MenuMutation) (Value, error)
 	}
 }
 
+// NewsClient is a client for the News schema.
+type NewsClient struct {
+	config
+}
+
+// NewNewsClient returns a client for the News from the given config.
+func NewNewsClient(c config) *NewsClient {
+	return &NewsClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `news.Hooks(f(g(h())))`.
+func (c *NewsClient) Use(hooks ...Hook) {
+	c.hooks.News = append(c.hooks.News, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `news.Intercept(f(g(h())))`.
+func (c *NewsClient) Intercept(interceptors ...Interceptor) {
+	c.inters.News = append(c.inters.News, interceptors...)
+}
+
+// Create returns a builder for creating a News entity.
+func (c *NewsClient) Create() *NewsCreate {
+	mutation := newNewsMutation(c.config, OpCreate)
+	return &NewsCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of News entities.
+func (c *NewsClient) CreateBulk(builders ...*NewsCreate) *NewsCreateBulk {
+	return &NewsCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *NewsClient) MapCreateBulk(slice any, setFunc func(*NewsCreate, int)) *NewsCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &NewsCreateBulk{err: fmt.Errorf("calling to NewsClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*NewsCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &NewsCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for News.
+func (c *NewsClient) Update() *NewsUpdate {
+	mutation := newNewsMutation(c.config, OpUpdate)
+	return &NewsUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *NewsClient) UpdateOne(n *News) *NewsUpdateOne {
+	mutation := newNewsMutation(c.config, OpUpdateOne, withNews(n))
+	return &NewsUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *NewsClient) UpdateOneID(id uint64) *NewsUpdateOne {
+	mutation := newNewsMutation(c.config, OpUpdateOne, withNewsID(id))
+	return &NewsUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for News.
+func (c *NewsClient) Delete() *NewsDelete {
+	mutation := newNewsMutation(c.config, OpDelete)
+	return &NewsDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *NewsClient) DeleteOne(n *News) *NewsDeleteOne {
+	return c.DeleteOneID(n.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *NewsClient) DeleteOneID(id uint64) *NewsDeleteOne {
+	builder := c.Delete().Where(news.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &NewsDeleteOne{builder}
+}
+
+// Query returns a query builder for News.
+func (c *NewsClient) Query() *NewsQuery {
+	return &NewsQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeNews},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a News entity by its id.
+func (c *NewsClient) Get(ctx context.Context, id uint64) (*News, error) {
+	return c.Query().Where(news.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *NewsClient) GetX(ctx context.Context, id uint64) *News {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *NewsClient) Hooks() []Hook {
+	return c.hooks.News
+}
+
+// Interceptors returns the client interceptors.
+func (c *NewsClient) Interceptors() []Interceptor {
+	return c.inters.News
+}
+
+func (c *NewsClient) mutate(ctx context.Context, m *NewsMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&NewsCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&NewsUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&NewsUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&NewsDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown News mutation op: %q", m.Op())
+	}
+}
+
 // OauthProviderClient is a client for the OauthProvider schema.
 type OauthProviderClient struct {
 	config
@@ -2124,11 +2267,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 type (
 	hooks struct {
 		API, Configuration, Department, Dictionary, DictionaryDetail, Medicine, Menu,
-		OauthProvider, Position, Role, Token, User []ent.Hook
+		News, OauthProvider, Position, Role, Token, User []ent.Hook
 	}
 	inters struct {
 		API, Configuration, Department, Dictionary, DictionaryDetail, Medicine, Menu,
-		OauthProvider, Position, Role, Token, User []ent.Interceptor
+		News, OauthProvider, Position, Role, Token, User []ent.Interceptor
 	}
 )
 

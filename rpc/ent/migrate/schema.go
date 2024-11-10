@@ -205,6 +205,29 @@ var (
 			},
 		},
 	}
+	// NewsColumns holds the columns for the "news" table.
+	NewsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
+		{Name: "title_zh", Type: field.TypeString, Nullable: true, Comment: "Chinese title | 中文标题"},
+		{Name: "title_en", Type: field.TypeString, Nullable: true, Comment: "English title | 英文标题"},
+		{Name: "title_ru", Type: field.TypeString, Nullable: true, Comment: "Russian title | 俄语标题"},
+		{Name: "title_kk", Type: field.TypeString, Nullable: true, Comment: "Kazakh title | 哈萨克语标题"},
+		{Name: "content_zh", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Chinese content | 中文内容"},
+		{Name: "content_en", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "English content | 英文内容"},
+		{Name: "content_ru", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Russian content | 俄语内容"},
+		{Name: "content_kk", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Kazakh content | 哈萨克语内容"},
+		{Name: "cover_url", Type: field.TypeString, Nullable: true, Comment: "Cover image URL | 封面图片URL"},
+	}
+	// NewsTable holds the schema information for the "news" table.
+	NewsTable = &schema.Table{
+		Name:       "news",
+		Columns:    NewsColumns,
+		PrimaryKey: []*schema.Column{NewsColumns[0]},
+	}
 	// SysOauthProvidersColumns holds the columns for the "sys_oauth_providers" table.
 	SysOauthProvidersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -427,6 +450,7 @@ var (
 		SysDictionaryDetailsTable,
 		MedicinesTable,
 		SysMenusTable,
+		NewsTable,
 		SysOauthProvidersTable,
 		SysPositionsTable,
 		SysRolesTable,
@@ -462,6 +486,9 @@ func init() {
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{
 		Table: "sys_menus",
+	}
+	NewsTable.Annotation = &entsql.Annotation{
+		Table: "news",
 	}
 	SysOauthProvidersTable.Annotation = &entsql.Annotation{
 		Table: "sys_oauth_providers",

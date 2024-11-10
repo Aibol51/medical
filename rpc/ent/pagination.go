@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -625,6 +626,87 @@ func (m *MenuQuery) Page(
 
 	m = m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type NewsPager struct {
+	Order  news.OrderOption
+	Filter func(*NewsQuery) (*NewsQuery, error)
+}
+
+// NewsPaginateOption enables pagination customization.
+type NewsPaginateOption func(*NewsPager)
+
+// DefaultNewsOrder is the default ordering of News.
+var DefaultNewsOrder = Desc(news.FieldID)
+
+func newNewsPager(opts []NewsPaginateOption) (*NewsPager, error) {
+	pager := &NewsPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultNewsOrder
+	}
+	return pager, nil
+}
+
+func (p *NewsPager) ApplyFilter(query *NewsQuery) (*NewsQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// NewsPageList is News PageList result.
+type NewsPageList struct {
+	List        []*News      `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (n *NewsQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...NewsPaginateOption,
+) (*NewsPageList, error) {
+
+	pager, err := newNewsPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if n, err = pager.ApplyFilter(n); err != nil {
+		return nil, err
+	}
+
+	ret := &NewsPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := n.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		n = n.Order(pager.Order)
+	} else {
+		n = n.Order(DefaultNewsOrder)
+	}
+
+	n = n.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := n.All(ctx)
 	if err != nil {
 		return nil, err
 	}

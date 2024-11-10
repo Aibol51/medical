@@ -19,6 +19,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -91,6 +92,7 @@ func checkColumn(table, column string) error {
 			dictionarydetail.Table: dictionarydetail.ValidColumn,
 			medicine.Table:         medicine.ValidColumn,
 			menu.Table:             menu.ValidColumn,
+			news.Table:             news.ValidColumn,
 			oauthprovider.Table:    oauthprovider.ValidColumn,
 			position.Table:         position.ValidColumn,
 			role.Table:             role.ValidColumn,

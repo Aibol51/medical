@@ -15,6 +15,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
@@ -268,6 +269,33 @@ func (f TraverseMenu) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.MenuQuery", q)
 }
 
+// The NewsFunc type is an adapter to allow the use of ordinary function as a Querier.
+type NewsFunc func(context.Context, *ent.NewsQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f NewsFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.NewsQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.NewsQuery", q)
+}
+
+// The TraverseNews type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseNews func(context.Context, *ent.NewsQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseNews) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseNews) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.NewsQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.NewsQuery", q)
+}
+
 // The OauthProviderFunc type is an adapter to allow the use of ordinary function as a Querier.
 type OauthProviderFunc func(context.Context, *ent.OauthProviderQuery) (ent.Value, error)
 
@@ -420,6 +448,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.MedicineQuery, predicate.Medicine, medicine.OrderOption]{typ: ent.TypeMedicine, tq: q}, nil
 	case *ent.MenuQuery:
 		return &query[*ent.MenuQuery, predicate.Menu, menu.OrderOption]{typ: ent.TypeMenu, tq: q}, nil
+	case *ent.NewsQuery:
+		return &query[*ent.NewsQuery, predicate.News, news.OrderOption]{typ: ent.TypeNews, tq: q}, nil
 	case *ent.OauthProviderQuery:
 		return &query[*ent.OauthProviderQuery, predicate.OauthProvider, oauthprovider.OrderOption]{typ: ent.TypeOauthProvider, tq: q}, nil
 	case *ent.PositionQuery:

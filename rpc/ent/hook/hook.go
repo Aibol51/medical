@@ -93,6 +93,18 @@ func (f MenuFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MenuMutation", m)
 }
 
+// The NewsFunc type is an adapter to allow the use of ordinary
+// function as News mutator.
+type NewsFunc func(context.Context, *ent.NewsMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f NewsFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.NewsMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.NewsMutation", m)
+}
+
 // The OauthProviderFunc type is an adapter to allow the use of ordinary
 // function as OauthProvider mutator.
 type OauthProviderFunc func(context.Context, *ent.OauthProviderMutation) (ent.Value, error)

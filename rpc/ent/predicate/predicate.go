@@ -27,6 +27,9 @@ type Medicine func(*sql.Selector)
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 
+// News is the predicate function for news builders.
+type News func(*sql.Selector)
+
 // OauthProvider is the predicate function for oauthprovider builders.
 type OauthProvider func(*sql.Selector)
 

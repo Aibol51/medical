@@ -17,6 +17,7 @@ import (
 	medicine "github.com/suyuan32/simple-admin-core/api/internal/handler/medicine"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
+	news "github.com/suyuan32/simple-admin-core/api/internal/handler/news"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	publicapi "github.com/suyuan32/simple-admin-core/api/internal/handler/publicapi"
@@ -862,6 +863,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/medicine",
 					Handler: medicine.GetMedicineByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/news/create",
+					Handler: news.CreateNewsHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/news/update",
+					Handler: news.UpdateNewsHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/news/delete",
+					Handler: news.DeleteNewsHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/news/list",
+					Handler: news.GetNewsListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/news",
+					Handler: news.GetNewsByIdHandler(serverCtx),
 				},
 			}...,
 		),

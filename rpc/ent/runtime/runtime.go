@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -270,6 +271,33 @@ func init() {
 	menuDescRealPath := menuFields[21].Descriptor()
 	// menu.DefaultRealPath holds the default value on creation for the real_path field.
 	menu.DefaultRealPath = menuDescRealPath.Default.(string)
+	newsMixin := schema.News{}.Mixin()
+	newsMixinFields0 := newsMixin[0].Fields()
+	_ = newsMixinFields0
+	newsMixinFields1 := newsMixin[1].Fields()
+	_ = newsMixinFields1
+	newsMixinFields2 := newsMixin[2].Fields()
+	_ = newsMixinFields2
+	newsFields := schema.News{}.Fields()
+	_ = newsFields
+	// newsDescCreatedAt is the schema descriptor for created_at field.
+	newsDescCreatedAt := newsMixinFields0[1].Descriptor()
+	// news.DefaultCreatedAt holds the default value on creation for the created_at field.
+	news.DefaultCreatedAt = newsDescCreatedAt.Default.(func() time.Time)
+	// newsDescUpdatedAt is the schema descriptor for updated_at field.
+	newsDescUpdatedAt := newsMixinFields0[2].Descriptor()
+	// news.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	news.DefaultUpdatedAt = newsDescUpdatedAt.Default.(func() time.Time)
+	// news.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	news.UpdateDefaultUpdatedAt = newsDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// newsDescStatus is the schema descriptor for status field.
+	newsDescStatus := newsMixinFields1[0].Descriptor()
+	// news.DefaultStatus holds the default value on creation for the status field.
+	news.DefaultStatus = newsDescStatus.Default.(uint8)
+	// newsDescSort is the schema descriptor for sort field.
+	newsDescSort := newsMixinFields2[0].Descriptor()
+	// news.DefaultSort holds the default value on creation for the sort field.
+	news.DefaultSort = newsDescSort.Default.(uint32)
 	oauthproviderMixin := schema.OauthProvider{}.Mixin()
 	oauthproviderMixinFields0 := oauthproviderMixin[0].Fields()
 	_ = oauthproviderMixinFields0

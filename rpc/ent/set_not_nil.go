@@ -1665,6 +1665,294 @@ func (m *MenuCreate) SetNotNilRealPath(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilUpdatedAt(value *time.Time) *NewsUpdate {
+	if value != nil {
+		return n.SetUpdatedAt(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilUpdatedAt(value *time.Time) *NewsUpdateOne {
+	if value != nil {
+		return n.SetUpdatedAt(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilUpdatedAt(value *time.Time) *NewsCreate {
+	if value != nil {
+		return n.SetUpdatedAt(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilStatus(value *uint8) *NewsUpdate {
+	if value != nil {
+		return n.SetStatus(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilStatus(value *uint8) *NewsUpdateOne {
+	if value != nil {
+		return n.SetStatus(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilStatus(value *uint8) *NewsCreate {
+	if value != nil {
+		return n.SetStatus(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilSort(value *uint32) *NewsUpdate {
+	if value != nil {
+		return n.SetSort(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilSort(value *uint32) *NewsUpdateOne {
+	if value != nil {
+		return n.SetSort(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilSort(value *uint32) *NewsCreate {
+	if value != nil {
+		return n.SetSort(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilTitleZh(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetTitleZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilTitleZh(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetTitleZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilTitleZh(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetTitleZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilTitleEn(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetTitleEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilTitleEn(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetTitleEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilTitleEn(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetTitleEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilTitleRu(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetTitleRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilTitleRu(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetTitleRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilTitleRu(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetTitleRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilTitleKk(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetTitleKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilTitleKk(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetTitleKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilTitleKk(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetTitleKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilContentZh(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetContentZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilContentZh(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetContentZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilContentZh(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetContentZh(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilContentEn(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetContentEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilContentEn(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetContentEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilContentEn(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetContentEn(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilContentRu(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetContentRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilContentRu(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetContentRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilContentRu(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetContentRu(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilContentKk(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetContentKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilContentKk(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetContentKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilContentKk(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetContentKk(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdate) SetNotNilCoverURL(value *string) *NewsUpdate {
+	if value != nil {
+		return n.SetCoverURL(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsUpdateOne) SetNotNilCoverURL(value *string) *NewsUpdateOne {
+	if value != nil {
+		return n.SetCoverURL(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
+func (n *NewsCreate) SetNotNilCoverURL(value *string) *NewsCreate {
+	if value != nil {
+		return n.SetCoverURL(*value)
+	}
+	return n
+}
+
+// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilUpdatedAt(value *time.Time) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetUpdatedAt(*value)

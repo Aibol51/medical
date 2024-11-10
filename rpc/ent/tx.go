@@ -28,6 +28,8 @@ type Tx struct {
 	Medicine *MedicineClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
+	// News is the client for interacting with the News builders.
+	News *NewsClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
 	// Position is the client for interacting with the Position builders.
@@ -176,6 +178,7 @@ func (tx *Tx) init() {
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
 	tx.Medicine = NewMedicineClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
+	tx.News = NewNewsClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)

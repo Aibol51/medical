@@ -1574,6 +1574,146 @@
         }
       }
     },
+    "/news": {
+      "post": {
+        "description": "Get news by ID | 通过ID获取News信息",
+        "tags": [
+          "news"
+        ],
+        "summary": "Get news by ID | 通过ID获取News信息",
+        "operationId": "GetNewsById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "NewsInfoResp",
+            "schema": {
+              "$ref": "#/definitions/NewsInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/news/create": {
+      "post": {
+        "description": "Create news information | 创建News信息",
+        "tags": [
+          "news"
+        ],
+        "summary": "Create news information | 创建News信息",
+        "operationId": "CreateNews",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/NewsInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/news/delete": {
+      "post": {
+        "description": "Delete news information | 删除News信息",
+        "tags": [
+          "news"
+        ],
+        "summary": "Delete news information | 删除News信息",
+        "operationId": "DeleteNews",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/news/list": {
+      "post": {
+        "description": "Get news list | 获取News信息列表",
+        "tags": [
+          "news"
+        ],
+        "summary": "Get news list | 获取News信息列表",
+        "operationId": "GetNewsList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/NewsListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "NewsListResp",
+            "schema": {
+              "$ref": "#/definitions/NewsListResp"
+            }
+          }
+        }
+      }
+    },
+    "/news/update": {
+      "post": {
+        "description": "Update news information | 更新News信息",
+        "tags": [
+          "news"
+        ],
+        "summary": "Update news information | 更新News信息",
+        "operationId": "UpdateNews",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/NewsInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/oauth/login": {
       "post": {
         "description": "Oauth log in | Oauth 登录",
@@ -5695,6 +5835,197 @@
           "type": "string",
           "maxLength": 50,
           "x-go-name": "Title"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "NewsInfo": {
+      "description": "The response data of news information | News信息",
+      "type": "object",
+      "properties": {
+        "contentEn": {
+          "description": "English content | 英文内容",
+          "type": "string",
+          "x-go-name": "ContentEn"
+        },
+        "contentKk": {
+          "description": "Kazakh content | 哈萨克语内容",
+          "type": "string",
+          "x-go-name": "ContentKk"
+        },
+        "contentRu": {
+          "description": "Russian content | 俄语内容",
+          "type": "string",
+          "x-go-name": "ContentRu"
+        },
+        "contentZh": {
+          "description": "Chinese content | 中文内容",
+          "type": "string",
+          "x-go-name": "ContentZh"
+        },
+        "coverUrl": {
+          "description": "Cover image URL | 封面图片URL",
+          "type": "string",
+          "x-go-name": "CoverUrl"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "sort": {
+          "description": "Sort Number | 排序编号",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status 1: normal 2: ban | 状态 1 正常 2 禁用",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Status"
+        },
+        "titleEn": {
+          "description": "English title | 英文标题",
+          "type": "string",
+          "x-go-name": "TitleEn"
+        },
+        "titleKk": {
+          "description": "Kazakh title | 哈萨克语标题",
+          "type": "string",
+          "x-go-name": "TitleKk"
+        },
+        "titleRu": {
+          "description": "Russian title | 俄语标题",
+          "type": "string",
+          "x-go-name": "TitleRu"
+        },
+        "titleZh": {
+          "description": "Chinese title | 中文标题",
+          "type": "string",
+          "x-go-name": "TitleZh"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "NewsInfoResp": {
+      "description": "The news information response | News信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/NewsInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "NewsListInfo": {
+      "description": "The news list data | News信息列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The news list data | News信息列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NewsInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "NewsListReq": {
+      "description": "Get news list request params | News列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "titleEn": {
+          "description": "TitleEn",
+          "type": "string",
+          "x-go-name": "TitleEn"
+        },
+        "titleRu": {
+          "description": "TitleRu",
+          "type": "string",
+          "x-go-name": "TitleRu"
+        },
+        "titleZh": {
+          "description": "TitleZh",
+          "type": "string",
+          "x-go-name": "TitleZh"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "NewsListResp": {
+      "description": "The response data of news list | News信息列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/NewsListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
