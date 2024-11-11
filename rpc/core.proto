@@ -31,6 +31,43 @@ message ApiListResp {
   repeated ApiInfo data = 2;
 }
 
+message AppointmentInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Patient name | 患者姓名
+  optional string patient_name = 4;
+  //  Phone number | 联系电话
+  optional string phone_number = 5;
+  //  ID card number | 身份证号
+  optional string id_card = 6;
+  //  Gender 1:male 2:female | 性别 1:男 2:女
+  optional int32 gender = 7;
+  //  Age | 年龄
+  optional int32 age = 8;
+  //  Appointment time | 预约时间
+  optional int64 appointment_time = 9;
+  //  Symptoms description | 症状描述
+  optional string symptoms = 10;
+  //  Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期
+  optional int32 status = 11;
+  //  Remarks | 备注信息
+  optional string remarks = 12;
+}
+
+message AppointmentListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string patient_name = 3;
+  optional string phone_number = 4;
+  optional string id_card = 5;
+}
+
+message AppointmentListResp {
+  uint64 total = 1;
+  repeated AppointmentInfo data = 2;
+}
+
 message BaseIDResp {
   uint64 id = 1;
   string msg = 2;
@@ -482,6 +519,17 @@ service Core {
   rpc getApiById(IDReq) returns (ApiInfo);
   //  group: api
   rpc deleteApi(IDsReq) returns (BaseResp);
+  //  Appointment management
+  //  group: appointment
+  rpc createAppointment(AppointmentInfo) returns (BaseUUIDResp);
+  //  group: appointment
+  rpc updateAppointment(AppointmentInfo) returns (BaseResp);
+  //  group: appointment
+  rpc getAppointmentList(AppointmentListReq) returns (AppointmentListResp);
+  //  group: appointment
+  rpc getAppointmentById(UUIDReq) returns (AppointmentInfo);
+  //  group: appointment
+  rpc deleteAppointment(UUIDsReq) returns (BaseResp);
   //  group: authority
   rpc getMenuAuthority(IDReq) returns (RoleMenuAuthorityResp);
   //  group: authority

@@ -16,6 +16,9 @@ type (
 	ApiInfo                  = core.ApiInfo
 	ApiListReq               = core.ApiListReq
 	ApiListResp              = core.ApiListResp
+	AppointmentInfo          = core.AppointmentInfo
+	AppointmentListReq       = core.AppointmentListReq
+	AppointmentListResp      = core.AppointmentListResp
 	BaseIDResp               = core.BaseIDResp
 	BaseMsg                  = core.BaseMsg
 	BaseResp                 = core.BaseResp
@@ -78,6 +81,12 @@ type (
 		GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
 		GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error)
 		DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Appointment management
+		CreateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetAppointmentList(ctx context.Context, in *AppointmentListReq, opts ...grpc.CallOption) (*AppointmentListResp, error)
+		GetAppointmentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AppointmentInfo, error)
+		DeleteAppointment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
@@ -194,6 +203,32 @@ func (m *defaultCore) GetApiById(ctx context.Context, in *IDReq, opts ...grpc.Ca
 func (m *defaultCore) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteApi(ctx, in, opts...)
+}
+
+// Appointment management
+func (m *defaultCore) CreateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateAppointment(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateAppointment(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetAppointmentList(ctx context.Context, in *AppointmentListReq, opts ...grpc.CallOption) (*AppointmentListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetAppointmentList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetAppointmentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AppointmentInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetAppointmentById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteAppointment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteAppointment(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error) {

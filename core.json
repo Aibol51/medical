@@ -161,6 +161,146 @@
         }
       }
     },
+    "/appointment": {
+      "post": {
+        "description": "Get appointment by ID | 通过ID获取Appointment信息",
+        "tags": [
+          "appointment"
+        ],
+        "summary": "Get appointment by ID | 通过ID获取Appointment信息",
+        "operationId": "GetAppointmentById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AppointmentInfoResp",
+            "schema": {
+              "$ref": "#/definitions/AppointmentInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/appointment/create": {
+      "post": {
+        "description": "Create appointment information | 创建Appointment信息",
+        "tags": [
+          "appointment"
+        ],
+        "summary": "Create appointment information | 创建Appointment信息",
+        "operationId": "CreateAppointment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AppointmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/appointment/delete": {
+      "post": {
+        "description": "Delete appointment information | 删除Appointment信息",
+        "tags": [
+          "appointment"
+        ],
+        "summary": "Delete appointment information | 删除Appointment信息",
+        "operationId": "DeleteAppointment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/appointment/list": {
+      "post": {
+        "description": "Get appointment list | 获取Appointment信息列表",
+        "tags": [
+          "appointment"
+        ],
+        "summary": "Get appointment list | 获取Appointment信息列表",
+        "operationId": "GetAppointmentList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AppointmentListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AppointmentListResp",
+            "schema": {
+              "$ref": "#/definitions/AppointmentListResp"
+            }
+          }
+        }
+      }
+    },
+    "/appointment/update": {
+      "post": {
+        "description": "Update appointment information | 更新Appointment信息",
+        "tags": [
+          "appointment"
+        ],
+        "summary": "Update appointment information | 更新Appointment信息",
+        "operationId": "UpdateAppointment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AppointmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/authority/api/create_or_update": {
       "post": {
         "description": "Create or update API authorization information | 创建或更新API权限",
@@ -3720,6 +3860,188 @@
           "type": "string",
           "x-go-name": "Data",
           "$ref": "#/definitions/ApiListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "AppointmentInfo": {
+      "description": "The response data of appointment information | Appointment信息",
+      "type": "object",
+      "properties": {
+        "age": {
+          "description": "Age | 年龄",
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Age"
+        },
+        "appointmentTime": {
+          "description": "Appointment time | 预约时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "AppointmentTime"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "gender": {
+          "description": "Gender 1:male 2:female | 性别 1:男 2:女",
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Gender"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "idCard": {
+          "description": "ID card number | 身份证号",
+          "type": "string",
+          "x-go-name": "IdCard"
+        },
+        "patientName": {
+          "description": "Patient name | 患者姓名",
+          "type": "string",
+          "x-go-name": "PatientName"
+        },
+        "phoneNumber": {
+          "description": "Phone number | 联系电话",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        },
+        "remarks": {
+          "description": "Remarks | 备注信息",
+          "type": "string",
+          "x-go-name": "Remarks"
+        },
+        "status": {
+          "description": "Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期",
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Status"
+        },
+        "symptoms": {
+          "description": "Symptoms description | 症状描述",
+          "type": "string",
+          "x-go-name": "Symptoms"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "AppointmentInfoResp": {
+      "description": "The appointment information response | Appointment信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/AppointmentInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "AppointmentListInfo": {
+      "description": "The appointment list data | Appointment信息列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The appointment list data | Appointment信息列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppointmentInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "AppointmentListReq": {
+      "description": "Get appointment list request params | Appointment列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "idCard": {
+          "description": "IdCard",
+          "type": "string",
+          "x-go-name": "IdCard"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "patientName": {
+          "description": "PatientName",
+          "type": "string",
+          "x-go-name": "PatientName"
+        },
+        "phoneNumber": {
+          "description": "PhoneNumber",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "AppointmentListResp": {
+      "description": "The response data of appointment list | Appointment信息列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/AppointmentListInfo"
         },
         "msg": {
           "description": "Message | 提示信息",

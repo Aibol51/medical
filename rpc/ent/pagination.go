@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -136,6 +137,87 @@ func (a *APIQuery) Page(
 		a = a.Order(pager.Order)
 	} else {
 		a = a.Order(DefaultAPIOrder)
+	}
+
+	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := a.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type AppointmentPager struct {
+	Order  appointment.OrderOption
+	Filter func(*AppointmentQuery) (*AppointmentQuery, error)
+}
+
+// AppointmentPaginateOption enables pagination customization.
+type AppointmentPaginateOption func(*AppointmentPager)
+
+// DefaultAppointmentOrder is the default ordering of Appointment.
+var DefaultAppointmentOrder = Desc(appointment.FieldID)
+
+func newAppointmentPager(opts []AppointmentPaginateOption) (*AppointmentPager, error) {
+	pager := &AppointmentPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultAppointmentOrder
+	}
+	return pager, nil
+}
+
+func (p *AppointmentPager) ApplyFilter(query *AppointmentQuery) (*AppointmentQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// AppointmentPageList is Appointment PageList result.
+type AppointmentPageList struct {
+	List        []*Appointment `json:"list"`
+	PageDetails *PageDetails   `json:"pageDetails"`
+}
+
+func (a *AppointmentQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...AppointmentPaginateOption,
+) (*AppointmentPageList, error) {
+
+	pager, err := newAppointmentPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if a, err = pager.ApplyFilter(a); err != nil {
+		return nil, err
+	}
+
+	ret := &AppointmentPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := a.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		a = a.Order(pager.Order)
+	} else {
+		a = a.Order(DefaultAppointmentOrder)
 	}
 
 	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

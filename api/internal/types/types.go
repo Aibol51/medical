@@ -1783,3 +1783,63 @@ type NewsInfoResp struct {
 	// The news information | News信息数据
 	Data NewsInfo `json:"data"`
 }
+
+// The response data of appointment information | Appointment信息
+// swagger:model AppointmentInfo
+type AppointmentInfo struct {
+	BaseUUIDInfo
+	// Patient name | 患者姓名
+	PatientName *string `json:"patientName,optional"`
+	// Phone number | 联系电话
+	PhoneNumber *string `json:"phoneNumber,optional"`
+	// ID card number | 身份证号
+	IdCard *string `json:"idCard,optional"`
+	// Gender 1:male 2:female | 性别 1:男 2:女
+	Gender *int32 `json:"gender,optional"`
+	// Age | 年龄
+	Age *int32 `json:"age,optional"`
+	// Appointment time | 预约时间
+	AppointmentTime *int64 `json:"appointmentTime,optional"`
+	// Symptoms description | 症状描述
+	Symptoms *string `json:"symptoms,optional"`
+	// Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期
+	Status *int32 `json:"status,optional"`
+	// Remarks | 备注信息
+	Remarks *string `json:"remarks,optional"`
+}
+
+// The response data of appointment list | Appointment信息列表数据
+// swagger:model AppointmentListResp
+type AppointmentListResp struct {
+	BaseDataInfo
+	// Appointment list data | Appointment信息列表数据
+	Data AppointmentListInfo `json:"data"`
+}
+
+// The appointment list data | Appointment信息列表数据
+// swagger:model AppointmentListInfo
+type AppointmentListInfo struct {
+	BaseListInfo
+	// The appointment list data | Appointment信息列表数据
+	Data []AppointmentInfo `json:"data"`
+}
+
+// Get appointment list request params | Appointment列表请求参数
+// swagger:model AppointmentListReq
+type AppointmentListReq struct {
+	PageInfo
+	// PatientName
+	PatientName *string `json:"patientName,optional"`
+	// PhoneNumber
+	PhoneNumber *string `json:"phoneNumber,optional"`
+	// IdCard
+	IdCard *string `json:"idCard,optional"`
+}
+
+// The appointment information response | Appointment信息返回体
+// swagger:model AppointmentInfoResp
+type AppointmentInfoResp struct {
+	BaseDataInfo
+	// The appointment information | Appointment信息数据
+	Data AppointmentInfo `json:"data"`
+}

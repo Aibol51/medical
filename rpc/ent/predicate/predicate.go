@@ -9,6 +9,9 @@ import (
 // API is the predicate function for api builders.
 type API func(*sql.Selector)
 
+// Appointment is the predicate function for appointment builders.
+type Appointment func(*sql.Selector)
+
 // Configuration is the predicate function for configuration builders.
 type Configuration func(*sql.Selector)
 

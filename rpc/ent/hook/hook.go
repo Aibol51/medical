@@ -21,6 +21,18 @@ func (f APIFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) 
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.APIMutation", m)
 }
 
+// The AppointmentFunc type is an adapter to allow the use of ordinary
+// function as Appointment mutator.
+type AppointmentFunc func(context.Context, *ent.AppointmentMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AppointmentFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.AppointmentMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AppointmentMutation", m)
+}
+
 // The ConfigurationFunc type is an adapter to allow the use of ordinary
 // function as Configuration mutator.
 type ConfigurationFunc func(context.Context, *ent.ConfigurationMutation) (ent.Value, error)

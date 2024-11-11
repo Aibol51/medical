@@ -9,6 +9,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -105,6 +106,33 @@ func (f TraverseAPI) Traverse(ctx context.Context, q ent.Query) error {
 		return f(ctx, q)
 	}
 	return fmt.Errorf("unexpected query type %T. expect *ent.APIQuery", q)
+}
+
+// The AppointmentFunc type is an adapter to allow the use of ordinary function as a Querier.
+type AppointmentFunc func(context.Context, *ent.AppointmentQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f AppointmentFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.AppointmentQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.AppointmentQuery", q)
+}
+
+// The TraverseAppointment type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseAppointment func(context.Context, *ent.AppointmentQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseAppointment) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseAppointment) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.AppointmentQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.AppointmentQuery", q)
 }
 
 // The ConfigurationFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -436,6 +464,8 @@ func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
 	case *ent.APIQuery:
 		return &query[*ent.APIQuery, predicate.API, api.OrderOption]{typ: ent.TypeAPI, tq: q}, nil
+	case *ent.AppointmentQuery:
+		return &query[*ent.AppointmentQuery, predicate.Appointment, appointment.OrderOption]{typ: ent.TypeAppointment, tq: q}, nil
 	case *ent.ConfigurationQuery:
 		return &query[*ent.ConfigurationQuery, predicate.Configuration, configuration.OrderOption]{typ: ent.TypeConfiguration, tq: q}, nil
 	case *ent.DepartmentQuery:

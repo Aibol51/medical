@@ -177,6 +177,246 @@ func (a *APICreate) SetNotNilIsRequired(value *bool) *APICreate {
 }
 
 // set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilUpdatedAt(value *time.Time) *AppointmentUpdate {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilUpdatedAt(value *time.Time) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilUpdatedAt(value *time.Time) *AppointmentCreate {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilPatientName(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetPatientName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilPatientName(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetPatientName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilPatientName(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetPatientName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilPhoneNumber(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetPhoneNumber(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilPhoneNumber(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetPhoneNumber(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilPhoneNumber(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetPhoneNumber(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilIDCard(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetIDCard(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilIDCard(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetIDCard(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilIDCard(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetIDCard(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilGender(value *int32) *AppointmentUpdate {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilGender(value *int32) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilGender(value *int32) *AppointmentCreate {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilAge(value *int32) *AppointmentUpdate {
+	if value != nil {
+		return a.SetAge(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilAge(value *int32) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetAge(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilAge(value *int32) *AppointmentCreate {
+	if value != nil {
+		return a.SetAge(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilAppointmentTime(value *int64) *AppointmentUpdate {
+	if value != nil {
+		return a.SetAppointmentTime(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilAppointmentTime(value *int64) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetAppointmentTime(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilAppointmentTime(value *int64) *AppointmentCreate {
+	if value != nil {
+		return a.SetAppointmentTime(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilSymptoms(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetSymptoms(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilSymptoms(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetSymptoms(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilSymptoms(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetSymptoms(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilStatus(value *int32) *AppointmentUpdate {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilStatus(value *int32) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilStatus(value *int32) *AppointmentCreate {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilRemarks(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetRemarks(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilRemarks(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetRemarks(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilRemarks(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetRemarks(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
 func (c *ConfigurationUpdate) SetNotNilUpdatedAt(value *time.Time) *ConfigurationUpdate {
 	if value != nil {
 		return c.SetUpdatedAt(*value)

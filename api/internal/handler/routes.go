@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	api "github.com/suyuan32/simple-admin-core/api/internal/handler/api"
+	appointment "github.com/suyuan32/simple-admin-core/api/internal/handler/appointment"
 	authority "github.com/suyuan32/simple-admin-core/api/internal/handler/authority"
 	base "github.com/suyuan32/simple-admin-core/api/internal/handler/base"
 	captcha "github.com/suyuan32/simple-admin-core/api/internal/handler/captcha"
@@ -897,6 +898,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/news",
 					Handler: news.GetNewsByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/appointment/create",
+					Handler: appointment.CreateAppointmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/appointment/update",
+					Handler: appointment.UpdateAppointmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/appointment/delete",
+					Handler: appointment.DeleteAppointmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/appointment/list",
+					Handler: appointment.GetAppointmentListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/appointment",
+					Handler: appointment.GetAppointmentByIdHandler(serverCtx),
 				},
 			}...,
 		),

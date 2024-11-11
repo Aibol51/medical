@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -86,6 +87,7 @@ func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
 			api.Table:              api.ValidColumn,
+			appointment.Table:      appointment.ValidColumn,
 			configuration.Table:    configuration.ValidColumn,
 			department.Table:       department.ValidColumn,
 			dictionary.Table:       dictionary.ValidColumn,

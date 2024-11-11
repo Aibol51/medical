@@ -34,6 +34,27 @@ var (
 			},
 		},
 	}
+	// AppointmentsColumns holds the columns for the "appointments" table.
+	AppointmentsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "patient_name", Type: field.TypeString, Nullable: true, Comment: "Patient name | 患者姓名"},
+		{Name: "phone_number", Type: field.TypeString, Nullable: true, Comment: "Phone number | 联系电话"},
+		{Name: "id_card", Type: field.TypeString, Nullable: true, Comment: "ID card number | 身份证号"},
+		{Name: "gender", Type: field.TypeInt32, Nullable: true, Comment: "Gender 1:male 2:female | 性别 1:男 2:女"},
+		{Name: "age", Type: field.TypeInt32, Nullable: true, Comment: "Age | 年龄"},
+		{Name: "appointment_time", Type: field.TypeInt64, Nullable: true, Comment: "Appointment time | 预约时间"},
+		{Name: "symptoms", Type: field.TypeString, Nullable: true, Comment: "Symptoms description | 症状描述"},
+		{Name: "status", Type: field.TypeInt32, Nullable: true, Comment: "Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期", Default: 1},
+		{Name: "remarks", Type: field.TypeString, Nullable: true, Comment: "Remarks | 备注信息"},
+	}
+	// AppointmentsTable holds the schema information for the "appointments" table.
+	AppointmentsTable = &schema.Table{
+		Name:       "appointments",
+		Columns:    AppointmentsColumns,
+		PrimaryKey: []*schema.Column{AppointmentsColumns[0]},
+	}
 	// SysConfigurationColumns holds the columns for the "sys_configuration" table.
 	SysConfigurationColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -444,6 +465,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
+		AppointmentsTable,
 		SysConfigurationTable,
 		SysDepartmentsTable,
 		SysDictionariesTable,
@@ -465,6 +487,9 @@ var (
 func init() {
 	SysApisTable.Annotation = &entsql.Annotation{
 		Table: "sys_apis",
+	}
+	AppointmentsTable.Annotation = &entsql.Annotation{
+		Table: "appointments",
 	}
 	SysConfigurationTable.Annotation = &entsql.Annotation{
 		Table: "sys_configuration",

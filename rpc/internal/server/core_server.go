@@ -7,6 +7,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/configuration"
@@ -60,6 +61,32 @@ func (s *CoreServer) GetApiById(ctx context.Context, in *core.IDReq) (*core.ApiI
 func (s *CoreServer) DeleteApi(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := api.NewDeleteApiLogic(ctx, s.svcCtx)
 	return l.DeleteApi(in)
+}
+
+// Appointment management
+func (s *CoreServer) CreateAppointment(ctx context.Context, in *core.AppointmentInfo) (*core.BaseUUIDResp, error) {
+	l := appointment.NewCreateAppointmentLogic(ctx, s.svcCtx)
+	return l.CreateAppointment(in)
+}
+
+func (s *CoreServer) UpdateAppointment(ctx context.Context, in *core.AppointmentInfo) (*core.BaseResp, error) {
+	l := appointment.NewUpdateAppointmentLogic(ctx, s.svcCtx)
+	return l.UpdateAppointment(in)
+}
+
+func (s *CoreServer) GetAppointmentList(ctx context.Context, in *core.AppointmentListReq) (*core.AppointmentListResp, error) {
+	l := appointment.NewGetAppointmentListLogic(ctx, s.svcCtx)
+	return l.GetAppointmentList(in)
+}
+
+func (s *CoreServer) GetAppointmentById(ctx context.Context, in *core.UUIDReq) (*core.AppointmentInfo, error) {
+	l := appointment.NewGetAppointmentByIdLogic(ctx, s.svcCtx)
+	return l.GetAppointmentById(in)
+}
+
+func (s *CoreServer) DeleteAppointment(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := appointment.NewDeleteAppointmentLogic(ctx, s.svcCtx)
+	return l.DeleteAppointment(in)
 }
 
 func (s *CoreServer) GetMenuAuthority(ctx context.Context, in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {

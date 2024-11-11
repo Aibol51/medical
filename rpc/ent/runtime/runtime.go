@@ -7,6 +7,7 @@ import (
 
 	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -53,6 +54,29 @@ func init() {
 	apiDescIsRequired := apiFields[5].Descriptor()
 	// api.DefaultIsRequired holds the default value on creation for the is_required field.
 	api.DefaultIsRequired = apiDescIsRequired.Default.(bool)
+	appointmentMixin := schema.Appointment{}.Mixin()
+	appointmentMixinFields0 := appointmentMixin[0].Fields()
+	_ = appointmentMixinFields0
+	appointmentFields := schema.Appointment{}.Fields()
+	_ = appointmentFields
+	// appointmentDescCreatedAt is the schema descriptor for created_at field.
+	appointmentDescCreatedAt := appointmentMixinFields0[1].Descriptor()
+	// appointment.DefaultCreatedAt holds the default value on creation for the created_at field.
+	appointment.DefaultCreatedAt = appointmentDescCreatedAt.Default.(func() time.Time)
+	// appointmentDescUpdatedAt is the schema descriptor for updated_at field.
+	appointmentDescUpdatedAt := appointmentMixinFields0[2].Descriptor()
+	// appointment.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	appointment.DefaultUpdatedAt = appointmentDescUpdatedAt.Default.(func() time.Time)
+	// appointment.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	appointment.UpdateDefaultUpdatedAt = appointmentDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// appointmentDescStatus is the schema descriptor for status field.
+	appointmentDescStatus := appointmentFields[7].Descriptor()
+	// appointment.DefaultStatus holds the default value on creation for the status field.
+	appointment.DefaultStatus = appointmentDescStatus.Default.(int32)
+	// appointmentDescID is the schema descriptor for id field.
+	appointmentDescID := appointmentMixinFields0[0].Descriptor()
+	// appointment.DefaultID holds the default value on creation for the id field.
+	appointment.DefaultID = appointmentDescID.Default.(func() uuid.UUID)
 	configurationMixin := schema.Configuration{}.Mixin()
 	configurationMixinFields0 := configurationMixin[0].Fields()
 	_ = configurationMixinFields0

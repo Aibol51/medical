@@ -16,6 +16,8 @@ type Tx struct {
 	config
 	// API is the client for interacting with the API builders.
 	API *APIClient
+	// Appointment is the client for interacting with the Appointment builders.
+	Appointment *AppointmentClient
 	// Configuration is the client for interacting with the Configuration builders.
 	Configuration *ConfigurationClient
 	// Department is the client for interacting with the Department builders.
@@ -172,6 +174,7 @@ func (tx *Tx) Client() *Client {
 
 func (tx *Tx) init() {
 	tx.API = NewAPIClient(tx.config)
+	tx.Appointment = NewAppointmentClient(tx.config)
 	tx.Configuration = NewConfigurationClient(tx.config)
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)

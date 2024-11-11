@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/appointment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -38,6 +39,7 @@ const (
 
 	// Node types.
 	TypeAPI              = "API"
+	TypeAppointment      = "Appointment"
 	TypeConfiguration    = "Configuration"
 	TypeDepartment       = "Department"
 	TypeDictionary       = "Dictionary"
@@ -760,6 +762,1191 @@ func (m *APIMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *APIMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown API edge %s", name)
+}
+
+// AppointmentMutation represents an operation that mutates the Appointment nodes in the graph.
+type AppointmentMutation struct {
+	config
+	op                  Op
+	typ                 string
+	id                  *uuid.UUID
+	created_at          *time.Time
+	updated_at          *time.Time
+	patient_name        *string
+	phone_number        *string
+	id_card             *string
+	gender              *int32
+	addgender           *int32
+	age                 *int32
+	addage              *int32
+	appointment_time    *int64
+	addappointment_time *int64
+	symptoms            *string
+	status              *int32
+	addstatus           *int32
+	remarks             *string
+	clearedFields       map[string]struct{}
+	done                bool
+	oldValue            func(context.Context) (*Appointment, error)
+	predicates          []predicate.Appointment
+}
+
+var _ ent.Mutation = (*AppointmentMutation)(nil)
+
+// appointmentOption allows management of the mutation configuration using functional options.
+type appointmentOption func(*AppointmentMutation)
+
+// newAppointmentMutation creates new mutation for the Appointment entity.
+func newAppointmentMutation(c config, op Op, opts ...appointmentOption) *AppointmentMutation {
+	m := &AppointmentMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAppointment,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAppointmentID sets the ID field of the mutation.
+func withAppointmentID(id uuid.UUID) appointmentOption {
+	return func(m *AppointmentMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Appointment
+		)
+		m.oldValue = func(ctx context.Context) (*Appointment, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Appointment.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAppointment sets the old Appointment of the mutation.
+func withAppointment(node *Appointment) appointmentOption {
+	return func(m *AppointmentMutation) {
+		m.oldValue = func(context.Context) (*Appointment, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AppointmentMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AppointmentMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of Appointment entities.
+func (m *AppointmentMutation) SetID(id uuid.UUID) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *AppointmentMutation) ID() (id uuid.UUID, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *AppointmentMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uuid.UUID{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().Appointment.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppointmentMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppointmentMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppointmentMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppointmentMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppointmentMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppointmentMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetPatientName sets the "patient_name" field.
+func (m *AppointmentMutation) SetPatientName(s string) {
+	m.patient_name = &s
+}
+
+// PatientName returns the value of the "patient_name" field in the mutation.
+func (m *AppointmentMutation) PatientName() (r string, exists bool) {
+	v := m.patient_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPatientName returns the old "patient_name" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldPatientName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPatientName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPatientName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPatientName: %w", err)
+	}
+	return oldValue.PatientName, nil
+}
+
+// ClearPatientName clears the value of the "patient_name" field.
+func (m *AppointmentMutation) ClearPatientName() {
+	m.patient_name = nil
+	m.clearedFields[appointment.FieldPatientName] = struct{}{}
+}
+
+// PatientNameCleared returns if the "patient_name" field was cleared in this mutation.
+func (m *AppointmentMutation) PatientNameCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldPatientName]
+	return ok
+}
+
+// ResetPatientName resets all changes to the "patient_name" field.
+func (m *AppointmentMutation) ResetPatientName() {
+	m.patient_name = nil
+	delete(m.clearedFields, appointment.FieldPatientName)
+}
+
+// SetPhoneNumber sets the "phone_number" field.
+func (m *AppointmentMutation) SetPhoneNumber(s string) {
+	m.phone_number = &s
+}
+
+// PhoneNumber returns the value of the "phone_number" field in the mutation.
+func (m *AppointmentMutation) PhoneNumber() (r string, exists bool) {
+	v := m.phone_number
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPhoneNumber returns the old "phone_number" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldPhoneNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPhoneNumber is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPhoneNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPhoneNumber: %w", err)
+	}
+	return oldValue.PhoneNumber, nil
+}
+
+// ClearPhoneNumber clears the value of the "phone_number" field.
+func (m *AppointmentMutation) ClearPhoneNumber() {
+	m.phone_number = nil
+	m.clearedFields[appointment.FieldPhoneNumber] = struct{}{}
+}
+
+// PhoneNumberCleared returns if the "phone_number" field was cleared in this mutation.
+func (m *AppointmentMutation) PhoneNumberCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldPhoneNumber]
+	return ok
+}
+
+// ResetPhoneNumber resets all changes to the "phone_number" field.
+func (m *AppointmentMutation) ResetPhoneNumber() {
+	m.phone_number = nil
+	delete(m.clearedFields, appointment.FieldPhoneNumber)
+}
+
+// SetIDCard sets the "id_card" field.
+func (m *AppointmentMutation) SetIDCard(s string) {
+	m.id_card = &s
+}
+
+// IDCard returns the value of the "id_card" field in the mutation.
+func (m *AppointmentMutation) IDCard() (r string, exists bool) {
+	v := m.id_card
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIDCard returns the old "id_card" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldIDCard(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIDCard is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIDCard requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIDCard: %w", err)
+	}
+	return oldValue.IDCard, nil
+}
+
+// ClearIDCard clears the value of the "id_card" field.
+func (m *AppointmentMutation) ClearIDCard() {
+	m.id_card = nil
+	m.clearedFields[appointment.FieldIDCard] = struct{}{}
+}
+
+// IDCardCleared returns if the "id_card" field was cleared in this mutation.
+func (m *AppointmentMutation) IDCardCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldIDCard]
+	return ok
+}
+
+// ResetIDCard resets all changes to the "id_card" field.
+func (m *AppointmentMutation) ResetIDCard() {
+	m.id_card = nil
+	delete(m.clearedFields, appointment.FieldIDCard)
+}
+
+// SetGender sets the "gender" field.
+func (m *AppointmentMutation) SetGender(i int32) {
+	m.gender = &i
+	m.addgender = nil
+}
+
+// Gender returns the value of the "gender" field in the mutation.
+func (m *AppointmentMutation) Gender() (r int32, exists bool) {
+	v := m.gender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGender returns the old "gender" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldGender(ctx context.Context) (v int32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGender is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGender requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGender: %w", err)
+	}
+	return oldValue.Gender, nil
+}
+
+// AddGender adds i to the "gender" field.
+func (m *AppointmentMutation) AddGender(i int32) {
+	if m.addgender != nil {
+		*m.addgender += i
+	} else {
+		m.addgender = &i
+	}
+}
+
+// AddedGender returns the value that was added to the "gender" field in this mutation.
+func (m *AppointmentMutation) AddedGender() (r int32, exists bool) {
+	v := m.addgender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearGender clears the value of the "gender" field.
+func (m *AppointmentMutation) ClearGender() {
+	m.gender = nil
+	m.addgender = nil
+	m.clearedFields[appointment.FieldGender] = struct{}{}
+}
+
+// GenderCleared returns if the "gender" field was cleared in this mutation.
+func (m *AppointmentMutation) GenderCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldGender]
+	return ok
+}
+
+// ResetGender resets all changes to the "gender" field.
+func (m *AppointmentMutation) ResetGender() {
+	m.gender = nil
+	m.addgender = nil
+	delete(m.clearedFields, appointment.FieldGender)
+}
+
+// SetAge sets the "age" field.
+func (m *AppointmentMutation) SetAge(i int32) {
+	m.age = &i
+	m.addage = nil
+}
+
+// Age returns the value of the "age" field in the mutation.
+func (m *AppointmentMutation) Age() (r int32, exists bool) {
+	v := m.age
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAge returns the old "age" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldAge(ctx context.Context) (v int32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAge is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAge requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAge: %w", err)
+	}
+	return oldValue.Age, nil
+}
+
+// AddAge adds i to the "age" field.
+func (m *AppointmentMutation) AddAge(i int32) {
+	if m.addage != nil {
+		*m.addage += i
+	} else {
+		m.addage = &i
+	}
+}
+
+// AddedAge returns the value that was added to the "age" field in this mutation.
+func (m *AppointmentMutation) AddedAge() (r int32, exists bool) {
+	v := m.addage
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearAge clears the value of the "age" field.
+func (m *AppointmentMutation) ClearAge() {
+	m.age = nil
+	m.addage = nil
+	m.clearedFields[appointment.FieldAge] = struct{}{}
+}
+
+// AgeCleared returns if the "age" field was cleared in this mutation.
+func (m *AppointmentMutation) AgeCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldAge]
+	return ok
+}
+
+// ResetAge resets all changes to the "age" field.
+func (m *AppointmentMutation) ResetAge() {
+	m.age = nil
+	m.addage = nil
+	delete(m.clearedFields, appointment.FieldAge)
+}
+
+// SetAppointmentTime sets the "appointment_time" field.
+func (m *AppointmentMutation) SetAppointmentTime(i int64) {
+	m.appointment_time = &i
+	m.addappointment_time = nil
+}
+
+// AppointmentTime returns the value of the "appointment_time" field in the mutation.
+func (m *AppointmentMutation) AppointmentTime() (r int64, exists bool) {
+	v := m.appointment_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppointmentTime returns the old "appointment_time" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldAppointmentTime(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppointmentTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppointmentTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppointmentTime: %w", err)
+	}
+	return oldValue.AppointmentTime, nil
+}
+
+// AddAppointmentTime adds i to the "appointment_time" field.
+func (m *AppointmentMutation) AddAppointmentTime(i int64) {
+	if m.addappointment_time != nil {
+		*m.addappointment_time += i
+	} else {
+		m.addappointment_time = &i
+	}
+}
+
+// AddedAppointmentTime returns the value that was added to the "appointment_time" field in this mutation.
+func (m *AppointmentMutation) AddedAppointmentTime() (r int64, exists bool) {
+	v := m.addappointment_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearAppointmentTime clears the value of the "appointment_time" field.
+func (m *AppointmentMutation) ClearAppointmentTime() {
+	m.appointment_time = nil
+	m.addappointment_time = nil
+	m.clearedFields[appointment.FieldAppointmentTime] = struct{}{}
+}
+
+// AppointmentTimeCleared returns if the "appointment_time" field was cleared in this mutation.
+func (m *AppointmentMutation) AppointmentTimeCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldAppointmentTime]
+	return ok
+}
+
+// ResetAppointmentTime resets all changes to the "appointment_time" field.
+func (m *AppointmentMutation) ResetAppointmentTime() {
+	m.appointment_time = nil
+	m.addappointment_time = nil
+	delete(m.clearedFields, appointment.FieldAppointmentTime)
+}
+
+// SetSymptoms sets the "symptoms" field.
+func (m *AppointmentMutation) SetSymptoms(s string) {
+	m.symptoms = &s
+}
+
+// Symptoms returns the value of the "symptoms" field in the mutation.
+func (m *AppointmentMutation) Symptoms() (r string, exists bool) {
+	v := m.symptoms
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSymptoms returns the old "symptoms" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldSymptoms(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSymptoms is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSymptoms requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSymptoms: %w", err)
+	}
+	return oldValue.Symptoms, nil
+}
+
+// ClearSymptoms clears the value of the "symptoms" field.
+func (m *AppointmentMutation) ClearSymptoms() {
+	m.symptoms = nil
+	m.clearedFields[appointment.FieldSymptoms] = struct{}{}
+}
+
+// SymptomsCleared returns if the "symptoms" field was cleared in this mutation.
+func (m *AppointmentMutation) SymptomsCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldSymptoms]
+	return ok
+}
+
+// ResetSymptoms resets all changes to the "symptoms" field.
+func (m *AppointmentMutation) ResetSymptoms() {
+	m.symptoms = nil
+	delete(m.clearedFields, appointment.FieldSymptoms)
+}
+
+// SetStatus sets the "status" field.
+func (m *AppointmentMutation) SetStatus(i int32) {
+	m.status = &i
+	m.addstatus = nil
+}
+
+// Status returns the value of the "status" field in the mutation.
+func (m *AppointmentMutation) Status() (r int32, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old "status" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldStatus(ctx context.Context) (v int32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds i to the "status" field.
+func (m *AppointmentMutation) AddStatus(i int32) {
+	if m.addstatus != nil {
+		*m.addstatus += i
+	} else {
+		m.addstatus = &i
+	}
+}
+
+// AddedStatus returns the value that was added to the "status" field in this mutation.
+func (m *AppointmentMutation) AddedStatus() (r int32, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearStatus clears the value of the "status" field.
+func (m *AppointmentMutation) ClearStatus() {
+	m.status = nil
+	m.addstatus = nil
+	m.clearedFields[appointment.FieldStatus] = struct{}{}
+}
+
+// StatusCleared returns if the "status" field was cleared in this mutation.
+func (m *AppointmentMutation) StatusCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldStatus]
+	return ok
+}
+
+// ResetStatus resets all changes to the "status" field.
+func (m *AppointmentMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+	delete(m.clearedFields, appointment.FieldStatus)
+}
+
+// SetRemarks sets the "remarks" field.
+func (m *AppointmentMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the value of the "remarks" field in the mutation.
+func (m *AppointmentMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old "remarks" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemarks is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ClearRemarks clears the value of the "remarks" field.
+func (m *AppointmentMutation) ClearRemarks() {
+	m.remarks = nil
+	m.clearedFields[appointment.FieldRemarks] = struct{}{}
+}
+
+// RemarksCleared returns if the "remarks" field was cleared in this mutation.
+func (m *AppointmentMutation) RemarksCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldRemarks]
+	return ok
+}
+
+// ResetRemarks resets all changes to the "remarks" field.
+func (m *AppointmentMutation) ResetRemarks() {
+	m.remarks = nil
+	delete(m.clearedFields, appointment.FieldRemarks)
+}
+
+// Where appends a list predicates to the AppointmentMutation builder.
+func (m *AppointmentMutation) Where(ps ...predicate.Appointment) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the AppointmentMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *AppointmentMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Appointment, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *AppointmentMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *AppointmentMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (Appointment).
+func (m *AppointmentMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *AppointmentMutation) Fields() []string {
+	fields := make([]string, 0, 11)
+	if m.created_at != nil {
+		fields = append(fields, appointment.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appointment.FieldUpdatedAt)
+	}
+	if m.patient_name != nil {
+		fields = append(fields, appointment.FieldPatientName)
+	}
+	if m.phone_number != nil {
+		fields = append(fields, appointment.FieldPhoneNumber)
+	}
+	if m.id_card != nil {
+		fields = append(fields, appointment.FieldIDCard)
+	}
+	if m.gender != nil {
+		fields = append(fields, appointment.FieldGender)
+	}
+	if m.age != nil {
+		fields = append(fields, appointment.FieldAge)
+	}
+	if m.appointment_time != nil {
+		fields = append(fields, appointment.FieldAppointmentTime)
+	}
+	if m.symptoms != nil {
+		fields = append(fields, appointment.FieldSymptoms)
+	}
+	if m.status != nil {
+		fields = append(fields, appointment.FieldStatus)
+	}
+	if m.remarks != nil {
+		fields = append(fields, appointment.FieldRemarks)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *AppointmentMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case appointment.FieldCreatedAt:
+		return m.CreatedAt()
+	case appointment.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appointment.FieldPatientName:
+		return m.PatientName()
+	case appointment.FieldPhoneNumber:
+		return m.PhoneNumber()
+	case appointment.FieldIDCard:
+		return m.IDCard()
+	case appointment.FieldGender:
+		return m.Gender()
+	case appointment.FieldAge:
+		return m.Age()
+	case appointment.FieldAppointmentTime:
+		return m.AppointmentTime()
+	case appointment.FieldSymptoms:
+		return m.Symptoms()
+	case appointment.FieldStatus:
+		return m.Status()
+	case appointment.FieldRemarks:
+		return m.Remarks()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *AppointmentMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case appointment.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appointment.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appointment.FieldPatientName:
+		return m.OldPatientName(ctx)
+	case appointment.FieldPhoneNumber:
+		return m.OldPhoneNumber(ctx)
+	case appointment.FieldIDCard:
+		return m.OldIDCard(ctx)
+	case appointment.FieldGender:
+		return m.OldGender(ctx)
+	case appointment.FieldAge:
+		return m.OldAge(ctx)
+	case appointment.FieldAppointmentTime:
+		return m.OldAppointmentTime(ctx)
+	case appointment.FieldSymptoms:
+		return m.OldSymptoms(ctx)
+	case appointment.FieldStatus:
+		return m.OldStatus(ctx)
+	case appointment.FieldRemarks:
+		return m.OldRemarks(ctx)
+	}
+	return nil, fmt.Errorf("unknown Appointment field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppointmentMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case appointment.FieldCreatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appointment.FieldUpdatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appointment.FieldPatientName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPatientName(v)
+		return nil
+	case appointment.FieldPhoneNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPhoneNumber(v)
+		return nil
+	case appointment.FieldIDCard:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIDCard(v)
+		return nil
+	case appointment.FieldGender:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGender(v)
+		return nil
+	case appointment.FieldAge:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAge(v)
+		return nil
+	case appointment.FieldAppointmentTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppointmentTime(v)
+		return nil
+	case appointment.FieldSymptoms:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSymptoms(v)
+		return nil
+	case appointment.FieldStatus:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case appointment.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Appointment field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *AppointmentMutation) AddedFields() []string {
+	var fields []string
+	if m.addgender != nil {
+		fields = append(fields, appointment.FieldGender)
+	}
+	if m.addage != nil {
+		fields = append(fields, appointment.FieldAge)
+	}
+	if m.addappointment_time != nil {
+		fields = append(fields, appointment.FieldAppointmentTime)
+	}
+	if m.addstatus != nil {
+		fields = append(fields, appointment.FieldStatus)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *AppointmentMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appointment.FieldGender:
+		return m.AddedGender()
+	case appointment.FieldAge:
+		return m.AddedAge()
+	case appointment.FieldAppointmentTime:
+		return m.AddedAppointmentTime()
+	case appointment.FieldStatus:
+		return m.AddedStatus()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppointmentMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case appointment.FieldGender:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddGender(v)
+		return nil
+	case appointment.FieldAge:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAge(v)
+		return nil
+	case appointment.FieldAppointmentTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAppointmentTime(v)
+		return nil
+	case appointment.FieldStatus:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Appointment numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *AppointmentMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(appointment.FieldPatientName) {
+		fields = append(fields, appointment.FieldPatientName)
+	}
+	if m.FieldCleared(appointment.FieldPhoneNumber) {
+		fields = append(fields, appointment.FieldPhoneNumber)
+	}
+	if m.FieldCleared(appointment.FieldIDCard) {
+		fields = append(fields, appointment.FieldIDCard)
+	}
+	if m.FieldCleared(appointment.FieldGender) {
+		fields = append(fields, appointment.FieldGender)
+	}
+	if m.FieldCleared(appointment.FieldAge) {
+		fields = append(fields, appointment.FieldAge)
+	}
+	if m.FieldCleared(appointment.FieldAppointmentTime) {
+		fields = append(fields, appointment.FieldAppointmentTime)
+	}
+	if m.FieldCleared(appointment.FieldSymptoms) {
+		fields = append(fields, appointment.FieldSymptoms)
+	}
+	if m.FieldCleared(appointment.FieldStatus) {
+		fields = append(fields, appointment.FieldStatus)
+	}
+	if m.FieldCleared(appointment.FieldRemarks) {
+		fields = append(fields, appointment.FieldRemarks)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *AppointmentMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AppointmentMutation) ClearField(name string) error {
+	switch name {
+	case appointment.FieldPatientName:
+		m.ClearPatientName()
+		return nil
+	case appointment.FieldPhoneNumber:
+		m.ClearPhoneNumber()
+		return nil
+	case appointment.FieldIDCard:
+		m.ClearIDCard()
+		return nil
+	case appointment.FieldGender:
+		m.ClearGender()
+		return nil
+	case appointment.FieldAge:
+		m.ClearAge()
+		return nil
+	case appointment.FieldAppointmentTime:
+		m.ClearAppointmentTime()
+		return nil
+	case appointment.FieldSymptoms:
+		m.ClearSymptoms()
+		return nil
+	case appointment.FieldStatus:
+		m.ClearStatus()
+		return nil
+	case appointment.FieldRemarks:
+		m.ClearRemarks()
+		return nil
+	}
+	return fmt.Errorf("unknown Appointment nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *AppointmentMutation) ResetField(name string) error {
+	switch name {
+	case appointment.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appointment.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appointment.FieldPatientName:
+		m.ResetPatientName()
+		return nil
+	case appointment.FieldPhoneNumber:
+		m.ResetPhoneNumber()
+		return nil
+	case appointment.FieldIDCard:
+		m.ResetIDCard()
+		return nil
+	case appointment.FieldGender:
+		m.ResetGender()
+		return nil
+	case appointment.FieldAge:
+		m.ResetAge()
+		return nil
+	case appointment.FieldAppointmentTime:
+		m.ResetAppointmentTime()
+		return nil
+	case appointment.FieldSymptoms:
+		m.ResetSymptoms()
+		return nil
+	case appointment.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case appointment.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	}
+	return fmt.Errorf("unknown Appointment field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *AppointmentMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *AppointmentMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *AppointmentMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *AppointmentMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *AppointmentMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *AppointmentMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *AppointmentMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Appointment unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *AppointmentMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Appointment edge %s", name)
 }
 
 // ConfigurationMutation represents an operation that mutates the Configuration nodes in the graph.

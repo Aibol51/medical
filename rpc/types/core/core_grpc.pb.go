@@ -24,6 +24,11 @@ const (
 	Core_GetApiList_FullMethodName                          = "/core.Core/getApiList"
 	Core_GetApiById_FullMethodName                          = "/core.Core/getApiById"
 	Core_DeleteApi_FullMethodName                           = "/core.Core/deleteApi"
+	Core_CreateAppointment_FullMethodName                   = "/core.Core/createAppointment"
+	Core_UpdateAppointment_FullMethodName                   = "/core.Core/updateAppointment"
+	Core_GetAppointmentList_FullMethodName                  = "/core.Core/getAppointmentList"
+	Core_GetAppointmentById_FullMethodName                  = "/core.Core/getAppointmentById"
+	Core_DeleteAppointment_FullMethodName                   = "/core.Core/deleteAppointment"
 	Core_GetMenuAuthority_FullMethodName                    = "/core.Core/getMenuAuthority"
 	Core_CreateOrUpdateMenuAuthority_FullMethodName         = "/core.Core/createOrUpdateMenuAuthority"
 	Core_InitDatabase_FullMethodName                        = "/core.Core/initDatabase"
@@ -109,6 +114,17 @@ type CoreClient interface {
 	GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error)
 	//  group: api
 	DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Appointment management
+	// group: appointment
+	CreateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: appointment
+	UpdateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: appointment
+	GetAppointmentList(ctx context.Context, in *AppointmentListReq, opts ...grpc.CallOption) (*AppointmentListResp, error)
+	// group: appointment
+	GetAppointmentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AppointmentInfo, error)
+	// group: appointment
+	DeleteAppointment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	//  group: authority
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 	//  group: authority
@@ -310,6 +326,56 @@ func (c *coreClient) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.Cal
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_DeleteApi_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateAppointment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateAppointment(ctx context.Context, in *AppointmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateAppointment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetAppointmentList(ctx context.Context, in *AppointmentListReq, opts ...grpc.CallOption) (*AppointmentListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AppointmentListResp)
+	err := c.cc.Invoke(ctx, Core_GetAppointmentList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetAppointmentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AppointmentInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AppointmentInfo)
+	err := c.cc.Invoke(ctx, Core_GetAppointmentById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteAppointment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteAppointment_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1011,6 +1077,17 @@ type CoreServer interface {
 	GetApiById(context.Context, *IDReq) (*ApiInfo, error)
 	//  group: api
 	DeleteApi(context.Context, *IDsReq) (*BaseResp, error)
+	// Appointment management
+	// group: appointment
+	CreateAppointment(context.Context, *AppointmentInfo) (*BaseUUIDResp, error)
+	// group: appointment
+	UpdateAppointment(context.Context, *AppointmentInfo) (*BaseResp, error)
+	// group: appointment
+	GetAppointmentList(context.Context, *AppointmentListReq) (*AppointmentListResp, error)
+	// group: appointment
+	GetAppointmentById(context.Context, *UUIDReq) (*AppointmentInfo, error)
+	// group: appointment
+	DeleteAppointment(context.Context, *UUIDsReq) (*BaseResp, error)
 	//  group: authority
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
 	//  group: authority
@@ -1182,6 +1259,21 @@ func (UnimplementedCoreServer) GetApiById(context.Context, *IDReq) (*ApiInfo, er
 }
 func (UnimplementedCoreServer) DeleteApi(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
+}
+func (UnimplementedCoreServer) CreateAppointment(context.Context, *AppointmentInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAppointment not implemented")
+}
+func (UnimplementedCoreServer) UpdateAppointment(context.Context, *AppointmentInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppointment not implemented")
+}
+func (UnimplementedCoreServer) GetAppointmentList(context.Context, *AppointmentListReq) (*AppointmentListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAppointmentList not implemented")
+}
+func (UnimplementedCoreServer) GetAppointmentById(context.Context, *UUIDReq) (*AppointmentInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAppointmentById not implemented")
+}
+func (UnimplementedCoreServer) DeleteAppointment(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppointment not implemented")
 }
 func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuAuthority not implemented")
@@ -1494,6 +1586,96 @@ func _Core_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteApi(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateAppointment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AppointmentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateAppointment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateAppointment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateAppointment(ctx, req.(*AppointmentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateAppointment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AppointmentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateAppointment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateAppointment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateAppointment(ctx, req.(*AppointmentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetAppointmentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AppointmentListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetAppointmentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetAppointmentList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetAppointmentList(ctx, req.(*AppointmentListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetAppointmentById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetAppointmentById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetAppointmentById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetAppointmentById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteAppointment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteAppointment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteAppointment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteAppointment(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2748,6 +2930,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteApi",
 			Handler:    _Core_DeleteApi_Handler,
+		},
+		{
+			MethodName: "createAppointment",
+			Handler:    _Core_CreateAppointment_Handler,
+		},
+		{
+			MethodName: "updateAppointment",
+			Handler:    _Core_UpdateAppointment_Handler,
+		},
+		{
+			MethodName: "getAppointmentList",
+			Handler:    _Core_GetAppointmentList_Handler,
+		},
+		{
+			MethodName: "getAppointmentById",
+			Handler:    _Core_GetAppointmentById_Handler,
+		},
+		{
+			MethodName: "deleteAppointment",
+			Handler:    _Core_DeleteAppointment_Handler,
 		},
 		{
 			MethodName: "getMenuAuthority",
