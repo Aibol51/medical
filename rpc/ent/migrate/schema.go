@@ -48,6 +48,7 @@ var (
 		{Name: "symptoms", Type: field.TypeString, Nullable: true, Comment: "Symptoms description | 症状描述"},
 		{Name: "status", Type: field.TypeInt32, Nullable: true, Comment: "Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期", Default: 1},
 		{Name: "remarks", Type: field.TypeString, Nullable: true, Comment: "Remarks | 备注信息"},
+		{Name: "user_id", Type: field.TypeString, Nullable: true, Comment: "User ID | 用户ID"},
 	}
 	// AppointmentsTable holds the schema information for the "appointments" table.
 	AppointmentsTable = &schema.Table{
@@ -319,6 +320,33 @@ var (
 			},
 		},
 	}
+	// SwiperColumns holds the columns for the "Swiper" table.
+	SwiperColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
+		{Name: "title_zh", Type: field.TypeString, Nullable: true, Comment: "Chinese title | 中文标题"},
+		{Name: "title_en", Type: field.TypeString, Nullable: true, Comment: "English title | 英文标题"},
+		{Name: "title_ru", Type: field.TypeString, Nullable: true, Comment: "Russian title | 俄语标题"},
+		{Name: "title_kk", Type: field.TypeString, Nullable: true, Comment: "Kazakh title | 哈萨克语标题"},
+		{Name: "banner_zh", Type: field.TypeString, Nullable: true, Comment: "Chinese banner image | 中文轮播图"},
+		{Name: "banner_en", Type: field.TypeString, Nullable: true, Comment: "English banner image | 英文轮播图"},
+		{Name: "banner_ru", Type: field.TypeString, Nullable: true, Comment: "Russian banner image | 俄语轮播图"},
+		{Name: "banner_kk", Type: field.TypeString, Nullable: true, Comment: "Kazakh banner image | 哈萨克语轮播图"},
+		{Name: "content_zh", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Chinese content | 中文内容"},
+		{Name: "content_en", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "English content | 英文内容"},
+		{Name: "content_ru", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Russian content | 俄语内容"},
+		{Name: "content_kk", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Kazakh content | 哈萨克语内容"},
+		{Name: "jump_url", Type: field.TypeString, Nullable: true, Comment: "Jump Url | 跳转地址"},
+	}
+	// SwiperTable holds the schema information for the "Swiper" table.
+	SwiperTable = &schema.Table{
+		Name:       "Swiper",
+		Columns:    SwiperColumns,
+		PrimaryKey: []*schema.Column{SwiperColumns[0]},
+	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
@@ -476,6 +504,7 @@ var (
 		SysOauthProvidersTable,
 		SysPositionsTable,
 		SysRolesTable,
+		SwiperTable,
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,
@@ -523,6 +552,9 @@ func init() {
 	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
+	}
+	SwiperTable.Annotation = &entsql.Annotation{
+		Table: "Swiper",
 	}
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",

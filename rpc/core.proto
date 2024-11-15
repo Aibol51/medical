@@ -53,6 +53,8 @@ message AppointmentInfo {
   optional int32 status = 11;
   //  Remarks | 备注信息
   optional string remarks = 12;
+  //  User ID | 用户ID
+  optional string user_id = 13;
 }
 
 message AppointmentListReq {
@@ -431,6 +433,55 @@ message RoleMenuAuthorityResp {
   repeated uint64 menu_ids = 1;
 }
 
+message SwiperInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  Chinese title | 中文标题
+  optional string title_zh = 6;
+  //  English title | 英文标题
+  optional string title_en = 7;
+  //  Russian title | 俄语标题
+  optional string title_ru = 8;
+  //  Kazakh title | 哈萨克语标题
+  optional string title_kk = 9;
+  //  Chinese banner image | 中文轮播图
+  optional string banner_zh = 10;
+  //  English banner image | 英文轮播图
+  optional string banner_en = 11;
+  //  Russian banner image | 俄语轮播图
+  optional string banner_ru = 12;
+  //  Kazakh banner image | 哈萨克语轮播图
+  optional string banner_kk = 13;
+  //  Chinese content | 中文内容
+  optional string content_zh = 14;
+  //  English content | 英文内容
+  optional string content_en = 15;
+  //  Russian content | 俄语内容
+  optional string content_ru = 16;
+  //  Kazakh content | 哈萨克语内容
+  optional string content_kk = 17;
+  //  Jump Url | 跳转地址
+  optional string jump_url = 18;
+}
+
+message SwiperListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string title_zh = 3;
+  optional string title_en = 4;
+  optional string title_ru = 5;
+}
+
+message SwiperListResp {
+  uint64 total = 1;
+  repeated SwiperInfo data = 2;
+}
+
 message TokenInfo {
   optional string id = 1;
   optional int64 created_at = 2;
@@ -651,6 +702,17 @@ service Core {
   rpc getRoleById(IDReq) returns (RoleInfo);
   //  group: role
   rpc deleteRole(IDsReq) returns (BaseResp);
+  //  Swiper management
+  //  group: swiper
+  rpc createSwiper(SwiperInfo) returns (BaseIDResp);
+  //  group: swiper
+  rpc updateSwiper(SwiperInfo) returns (BaseResp);
+  //  group: swiper
+  rpc getSwiperList(SwiperListReq) returns (SwiperListResp);
+  //  group: swiper
+  rpc getSwiperById(IDReq) returns (SwiperInfo);
+  //  group: swiper
+  rpc deleteSwiper(IDsReq) returns (BaseResp);
   //  Token management
   //  group: token
   rpc createToken(TokenInfo) returns (BaseUUIDResp);

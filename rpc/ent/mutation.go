@@ -25,6 +25,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -50,6 +51,7 @@ const (
 	TypeOauthProvider    = "OauthProvider"
 	TypePosition         = "Position"
 	TypeRole             = "Role"
+	TypeSwiper           = "Swiper"
 	TypeToken            = "Token"
 	TypeUser             = "User"
 )
@@ -785,6 +787,7 @@ type AppointmentMutation struct {
 	status              *int32
 	addstatus           *int32
 	remarks             *string
+	user_id             *string
 	clearedFields       map[string]struct{}
 	done                bool
 	oldValue            func(context.Context) (*Appointment, error)
@@ -1492,6 +1495,55 @@ func (m *AppointmentMutation) ResetRemarks() {
 	delete(m.clearedFields, appointment.FieldRemarks)
 }
 
+// SetUserID sets the "user_id" field.
+func (m *AppointmentMutation) SetUserID(s string) {
+	m.user_id = &s
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *AppointmentMutation) UserID() (r string, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the Appointment entity.
+// If the Appointment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppointmentMutation) OldUserID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (m *AppointmentMutation) ClearUserID() {
+	m.user_id = nil
+	m.clearedFields[appointment.FieldUserID] = struct{}{}
+}
+
+// UserIDCleared returns if the "user_id" field was cleared in this mutation.
+func (m *AppointmentMutation) UserIDCleared() bool {
+	_, ok := m.clearedFields[appointment.FieldUserID]
+	return ok
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *AppointmentMutation) ResetUserID() {
+	m.user_id = nil
+	delete(m.clearedFields, appointment.FieldUserID)
+}
+
 // Where appends a list predicates to the AppointmentMutation builder.
 func (m *AppointmentMutation) Where(ps ...predicate.Appointment) {
 	m.predicates = append(m.predicates, ps...)
@@ -1526,7 +1578,7 @@ func (m *AppointmentMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppointmentMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 12)
 	if m.created_at != nil {
 		fields = append(fields, appointment.FieldCreatedAt)
 	}
@@ -1560,6 +1612,9 @@ func (m *AppointmentMutation) Fields() []string {
 	if m.remarks != nil {
 		fields = append(fields, appointment.FieldRemarks)
 	}
+	if m.user_id != nil {
+		fields = append(fields, appointment.FieldUserID)
+	}
 	return fields
 }
 
@@ -1590,6 +1645,8 @@ func (m *AppointmentMutation) Field(name string) (ent.Value, bool) {
 		return m.Status()
 	case appointment.FieldRemarks:
 		return m.Remarks()
+	case appointment.FieldUserID:
+		return m.UserID()
 	}
 	return nil, false
 }
@@ -1621,6 +1678,8 @@ func (m *AppointmentMutation) OldField(ctx context.Context, name string) (ent.Va
 		return m.OldStatus(ctx)
 	case appointment.FieldRemarks:
 		return m.OldRemarks(ctx)
+	case appointment.FieldUserID:
+		return m.OldUserID(ctx)
 	}
 	return nil, fmt.Errorf("unknown Appointment field %s", name)
 }
@@ -1706,6 +1765,13 @@ func (m *AppointmentMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRemarks(v)
+		return nil
+	case appointment.FieldUserID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Appointment field %s", name)
@@ -1815,6 +1881,9 @@ func (m *AppointmentMutation) ClearedFields() []string {
 	if m.FieldCleared(appointment.FieldRemarks) {
 		fields = append(fields, appointment.FieldRemarks)
 	}
+	if m.FieldCleared(appointment.FieldUserID) {
+		fields = append(fields, appointment.FieldUserID)
+	}
 	return fields
 }
 
@@ -1856,6 +1925,9 @@ func (m *AppointmentMutation) ClearField(name string) error {
 	case appointment.FieldRemarks:
 		m.ClearRemarks()
 		return nil
+	case appointment.FieldUserID:
+		m.ClearUserID()
+		return nil
 	}
 	return fmt.Errorf("unknown Appointment nullable field %s", name)
 }
@@ -1896,6 +1968,9 @@ func (m *AppointmentMutation) ResetField(name string) error {
 		return nil
 	case appointment.FieldRemarks:
 		m.ResetRemarks()
+		return nil
+	case appointment.FieldUserID:
+		m.ResetUserID()
 		return nil
 	}
 	return fmt.Errorf("unknown Appointment field %s", name)
@@ -12996,6 +13071,1541 @@ func (m *RoleMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown Role edge %s", name)
+}
+
+// SwiperMutation represents an operation that mutates the Swiper nodes in the graph.
+type SwiperMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *uint64
+	created_at    *time.Time
+	updated_at    *time.Time
+	status        *uint8
+	addstatus     *int8
+	sort          *uint32
+	addsort       *int32
+	title_zh      *string
+	title_en      *string
+	title_ru      *string
+	title_kk      *string
+	banner_zh     *string
+	banner_en     *string
+	banner_ru     *string
+	banner_kk     *string
+	content_zh    *string
+	content_en    *string
+	content_ru    *string
+	content_kk    *string
+	jump_url      *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*Swiper, error)
+	predicates    []predicate.Swiper
+}
+
+var _ ent.Mutation = (*SwiperMutation)(nil)
+
+// swiperOption allows management of the mutation configuration using functional options.
+type swiperOption func(*SwiperMutation)
+
+// newSwiperMutation creates new mutation for the Swiper entity.
+func newSwiperMutation(c config, op Op, opts ...swiperOption) *SwiperMutation {
+	m := &SwiperMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeSwiper,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withSwiperID sets the ID field of the mutation.
+func withSwiperID(id uint64) swiperOption {
+	return func(m *SwiperMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Swiper
+		)
+		m.oldValue = func(ctx context.Context) (*Swiper, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Swiper.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withSwiper sets the old Swiper of the mutation.
+func withSwiper(node *Swiper) swiperOption {
+	return func(m *SwiperMutation) {
+		m.oldValue = func(context.Context) (*Swiper, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m SwiperMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m SwiperMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of Swiper entities.
+func (m *SwiperMutation) SetID(id uint64) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *SwiperMutation) ID() (id uint64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *SwiperMutation) IDs(ctx context.Context) ([]uint64, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint64{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().Swiper.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *SwiperMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *SwiperMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *SwiperMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *SwiperMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *SwiperMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *SwiperMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetStatus sets the "status" field.
+func (m *SwiperMutation) SetStatus(u uint8) {
+	m.status = &u
+	m.addstatus = nil
+}
+
+// Status returns the value of the "status" field in the mutation.
+func (m *SwiperMutation) Status() (r uint8, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old "status" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldStatus(ctx context.Context) (v uint8, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds u to the "status" field.
+func (m *SwiperMutation) AddStatus(u int8) {
+	if m.addstatus != nil {
+		*m.addstatus += u
+	} else {
+		m.addstatus = &u
+	}
+}
+
+// AddedStatus returns the value that was added to the "status" field in this mutation.
+func (m *SwiperMutation) AddedStatus() (r int8, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearStatus clears the value of the "status" field.
+func (m *SwiperMutation) ClearStatus() {
+	m.status = nil
+	m.addstatus = nil
+	m.clearedFields[swiper.FieldStatus] = struct{}{}
+}
+
+// StatusCleared returns if the "status" field was cleared in this mutation.
+func (m *SwiperMutation) StatusCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldStatus]
+	return ok
+}
+
+// ResetStatus resets all changes to the "status" field.
+func (m *SwiperMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+	delete(m.clearedFields, swiper.FieldStatus)
+}
+
+// SetSort sets the "sort" field.
+func (m *SwiperMutation) SetSort(u uint32) {
+	m.sort = &u
+	m.addsort = nil
+}
+
+// Sort returns the value of the "sort" field in the mutation.
+func (m *SwiperMutation) Sort() (r uint32, exists bool) {
+	v := m.sort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSort returns the old "sort" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldSort(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSort is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSort requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSort: %w", err)
+	}
+	return oldValue.Sort, nil
+}
+
+// AddSort adds u to the "sort" field.
+func (m *SwiperMutation) AddSort(u int32) {
+	if m.addsort != nil {
+		*m.addsort += u
+	} else {
+		m.addsort = &u
+	}
+}
+
+// AddedSort returns the value that was added to the "sort" field in this mutation.
+func (m *SwiperMutation) AddedSort() (r int32, exists bool) {
+	v := m.addsort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetSort resets all changes to the "sort" field.
+func (m *SwiperMutation) ResetSort() {
+	m.sort = nil
+	m.addsort = nil
+}
+
+// SetTitleZh sets the "title_zh" field.
+func (m *SwiperMutation) SetTitleZh(s string) {
+	m.title_zh = &s
+}
+
+// TitleZh returns the value of the "title_zh" field in the mutation.
+func (m *SwiperMutation) TitleZh() (r string, exists bool) {
+	v := m.title_zh
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTitleZh returns the old "title_zh" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldTitleZh(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTitleZh is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTitleZh requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTitleZh: %w", err)
+	}
+	return oldValue.TitleZh, nil
+}
+
+// ClearTitleZh clears the value of the "title_zh" field.
+func (m *SwiperMutation) ClearTitleZh() {
+	m.title_zh = nil
+	m.clearedFields[swiper.FieldTitleZh] = struct{}{}
+}
+
+// TitleZhCleared returns if the "title_zh" field was cleared in this mutation.
+func (m *SwiperMutation) TitleZhCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldTitleZh]
+	return ok
+}
+
+// ResetTitleZh resets all changes to the "title_zh" field.
+func (m *SwiperMutation) ResetTitleZh() {
+	m.title_zh = nil
+	delete(m.clearedFields, swiper.FieldTitleZh)
+}
+
+// SetTitleEn sets the "title_en" field.
+func (m *SwiperMutation) SetTitleEn(s string) {
+	m.title_en = &s
+}
+
+// TitleEn returns the value of the "title_en" field in the mutation.
+func (m *SwiperMutation) TitleEn() (r string, exists bool) {
+	v := m.title_en
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTitleEn returns the old "title_en" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldTitleEn(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTitleEn is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTitleEn requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTitleEn: %w", err)
+	}
+	return oldValue.TitleEn, nil
+}
+
+// ClearTitleEn clears the value of the "title_en" field.
+func (m *SwiperMutation) ClearTitleEn() {
+	m.title_en = nil
+	m.clearedFields[swiper.FieldTitleEn] = struct{}{}
+}
+
+// TitleEnCleared returns if the "title_en" field was cleared in this mutation.
+func (m *SwiperMutation) TitleEnCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldTitleEn]
+	return ok
+}
+
+// ResetTitleEn resets all changes to the "title_en" field.
+func (m *SwiperMutation) ResetTitleEn() {
+	m.title_en = nil
+	delete(m.clearedFields, swiper.FieldTitleEn)
+}
+
+// SetTitleRu sets the "title_ru" field.
+func (m *SwiperMutation) SetTitleRu(s string) {
+	m.title_ru = &s
+}
+
+// TitleRu returns the value of the "title_ru" field in the mutation.
+func (m *SwiperMutation) TitleRu() (r string, exists bool) {
+	v := m.title_ru
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTitleRu returns the old "title_ru" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldTitleRu(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTitleRu is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTitleRu requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTitleRu: %w", err)
+	}
+	return oldValue.TitleRu, nil
+}
+
+// ClearTitleRu clears the value of the "title_ru" field.
+func (m *SwiperMutation) ClearTitleRu() {
+	m.title_ru = nil
+	m.clearedFields[swiper.FieldTitleRu] = struct{}{}
+}
+
+// TitleRuCleared returns if the "title_ru" field was cleared in this mutation.
+func (m *SwiperMutation) TitleRuCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldTitleRu]
+	return ok
+}
+
+// ResetTitleRu resets all changes to the "title_ru" field.
+func (m *SwiperMutation) ResetTitleRu() {
+	m.title_ru = nil
+	delete(m.clearedFields, swiper.FieldTitleRu)
+}
+
+// SetTitleKk sets the "title_kk" field.
+func (m *SwiperMutation) SetTitleKk(s string) {
+	m.title_kk = &s
+}
+
+// TitleKk returns the value of the "title_kk" field in the mutation.
+func (m *SwiperMutation) TitleKk() (r string, exists bool) {
+	v := m.title_kk
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTitleKk returns the old "title_kk" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldTitleKk(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTitleKk is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTitleKk requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTitleKk: %w", err)
+	}
+	return oldValue.TitleKk, nil
+}
+
+// ClearTitleKk clears the value of the "title_kk" field.
+func (m *SwiperMutation) ClearTitleKk() {
+	m.title_kk = nil
+	m.clearedFields[swiper.FieldTitleKk] = struct{}{}
+}
+
+// TitleKkCleared returns if the "title_kk" field was cleared in this mutation.
+func (m *SwiperMutation) TitleKkCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldTitleKk]
+	return ok
+}
+
+// ResetTitleKk resets all changes to the "title_kk" field.
+func (m *SwiperMutation) ResetTitleKk() {
+	m.title_kk = nil
+	delete(m.clearedFields, swiper.FieldTitleKk)
+}
+
+// SetBannerZh sets the "banner_zh" field.
+func (m *SwiperMutation) SetBannerZh(s string) {
+	m.banner_zh = &s
+}
+
+// BannerZh returns the value of the "banner_zh" field in the mutation.
+func (m *SwiperMutation) BannerZh() (r string, exists bool) {
+	v := m.banner_zh
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBannerZh returns the old "banner_zh" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldBannerZh(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBannerZh is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBannerZh requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBannerZh: %w", err)
+	}
+	return oldValue.BannerZh, nil
+}
+
+// ClearBannerZh clears the value of the "banner_zh" field.
+func (m *SwiperMutation) ClearBannerZh() {
+	m.banner_zh = nil
+	m.clearedFields[swiper.FieldBannerZh] = struct{}{}
+}
+
+// BannerZhCleared returns if the "banner_zh" field was cleared in this mutation.
+func (m *SwiperMutation) BannerZhCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldBannerZh]
+	return ok
+}
+
+// ResetBannerZh resets all changes to the "banner_zh" field.
+func (m *SwiperMutation) ResetBannerZh() {
+	m.banner_zh = nil
+	delete(m.clearedFields, swiper.FieldBannerZh)
+}
+
+// SetBannerEn sets the "banner_en" field.
+func (m *SwiperMutation) SetBannerEn(s string) {
+	m.banner_en = &s
+}
+
+// BannerEn returns the value of the "banner_en" field in the mutation.
+func (m *SwiperMutation) BannerEn() (r string, exists bool) {
+	v := m.banner_en
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBannerEn returns the old "banner_en" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldBannerEn(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBannerEn is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBannerEn requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBannerEn: %w", err)
+	}
+	return oldValue.BannerEn, nil
+}
+
+// ClearBannerEn clears the value of the "banner_en" field.
+func (m *SwiperMutation) ClearBannerEn() {
+	m.banner_en = nil
+	m.clearedFields[swiper.FieldBannerEn] = struct{}{}
+}
+
+// BannerEnCleared returns if the "banner_en" field was cleared in this mutation.
+func (m *SwiperMutation) BannerEnCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldBannerEn]
+	return ok
+}
+
+// ResetBannerEn resets all changes to the "banner_en" field.
+func (m *SwiperMutation) ResetBannerEn() {
+	m.banner_en = nil
+	delete(m.clearedFields, swiper.FieldBannerEn)
+}
+
+// SetBannerRu sets the "banner_ru" field.
+func (m *SwiperMutation) SetBannerRu(s string) {
+	m.banner_ru = &s
+}
+
+// BannerRu returns the value of the "banner_ru" field in the mutation.
+func (m *SwiperMutation) BannerRu() (r string, exists bool) {
+	v := m.banner_ru
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBannerRu returns the old "banner_ru" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldBannerRu(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBannerRu is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBannerRu requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBannerRu: %w", err)
+	}
+	return oldValue.BannerRu, nil
+}
+
+// ClearBannerRu clears the value of the "banner_ru" field.
+func (m *SwiperMutation) ClearBannerRu() {
+	m.banner_ru = nil
+	m.clearedFields[swiper.FieldBannerRu] = struct{}{}
+}
+
+// BannerRuCleared returns if the "banner_ru" field was cleared in this mutation.
+func (m *SwiperMutation) BannerRuCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldBannerRu]
+	return ok
+}
+
+// ResetBannerRu resets all changes to the "banner_ru" field.
+func (m *SwiperMutation) ResetBannerRu() {
+	m.banner_ru = nil
+	delete(m.clearedFields, swiper.FieldBannerRu)
+}
+
+// SetBannerKk sets the "banner_kk" field.
+func (m *SwiperMutation) SetBannerKk(s string) {
+	m.banner_kk = &s
+}
+
+// BannerKk returns the value of the "banner_kk" field in the mutation.
+func (m *SwiperMutation) BannerKk() (r string, exists bool) {
+	v := m.banner_kk
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBannerKk returns the old "banner_kk" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldBannerKk(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBannerKk is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBannerKk requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBannerKk: %w", err)
+	}
+	return oldValue.BannerKk, nil
+}
+
+// ClearBannerKk clears the value of the "banner_kk" field.
+func (m *SwiperMutation) ClearBannerKk() {
+	m.banner_kk = nil
+	m.clearedFields[swiper.FieldBannerKk] = struct{}{}
+}
+
+// BannerKkCleared returns if the "banner_kk" field was cleared in this mutation.
+func (m *SwiperMutation) BannerKkCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldBannerKk]
+	return ok
+}
+
+// ResetBannerKk resets all changes to the "banner_kk" field.
+func (m *SwiperMutation) ResetBannerKk() {
+	m.banner_kk = nil
+	delete(m.clearedFields, swiper.FieldBannerKk)
+}
+
+// SetContentZh sets the "content_zh" field.
+func (m *SwiperMutation) SetContentZh(s string) {
+	m.content_zh = &s
+}
+
+// ContentZh returns the value of the "content_zh" field in the mutation.
+func (m *SwiperMutation) ContentZh() (r string, exists bool) {
+	v := m.content_zh
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldContentZh returns the old "content_zh" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldContentZh(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldContentZh is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldContentZh requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldContentZh: %w", err)
+	}
+	return oldValue.ContentZh, nil
+}
+
+// ClearContentZh clears the value of the "content_zh" field.
+func (m *SwiperMutation) ClearContentZh() {
+	m.content_zh = nil
+	m.clearedFields[swiper.FieldContentZh] = struct{}{}
+}
+
+// ContentZhCleared returns if the "content_zh" field was cleared in this mutation.
+func (m *SwiperMutation) ContentZhCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldContentZh]
+	return ok
+}
+
+// ResetContentZh resets all changes to the "content_zh" field.
+func (m *SwiperMutation) ResetContentZh() {
+	m.content_zh = nil
+	delete(m.clearedFields, swiper.FieldContentZh)
+}
+
+// SetContentEn sets the "content_en" field.
+func (m *SwiperMutation) SetContentEn(s string) {
+	m.content_en = &s
+}
+
+// ContentEn returns the value of the "content_en" field in the mutation.
+func (m *SwiperMutation) ContentEn() (r string, exists bool) {
+	v := m.content_en
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldContentEn returns the old "content_en" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldContentEn(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldContentEn is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldContentEn requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldContentEn: %w", err)
+	}
+	return oldValue.ContentEn, nil
+}
+
+// ClearContentEn clears the value of the "content_en" field.
+func (m *SwiperMutation) ClearContentEn() {
+	m.content_en = nil
+	m.clearedFields[swiper.FieldContentEn] = struct{}{}
+}
+
+// ContentEnCleared returns if the "content_en" field was cleared in this mutation.
+func (m *SwiperMutation) ContentEnCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldContentEn]
+	return ok
+}
+
+// ResetContentEn resets all changes to the "content_en" field.
+func (m *SwiperMutation) ResetContentEn() {
+	m.content_en = nil
+	delete(m.clearedFields, swiper.FieldContentEn)
+}
+
+// SetContentRu sets the "content_ru" field.
+func (m *SwiperMutation) SetContentRu(s string) {
+	m.content_ru = &s
+}
+
+// ContentRu returns the value of the "content_ru" field in the mutation.
+func (m *SwiperMutation) ContentRu() (r string, exists bool) {
+	v := m.content_ru
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldContentRu returns the old "content_ru" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldContentRu(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldContentRu is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldContentRu requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldContentRu: %w", err)
+	}
+	return oldValue.ContentRu, nil
+}
+
+// ClearContentRu clears the value of the "content_ru" field.
+func (m *SwiperMutation) ClearContentRu() {
+	m.content_ru = nil
+	m.clearedFields[swiper.FieldContentRu] = struct{}{}
+}
+
+// ContentRuCleared returns if the "content_ru" field was cleared in this mutation.
+func (m *SwiperMutation) ContentRuCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldContentRu]
+	return ok
+}
+
+// ResetContentRu resets all changes to the "content_ru" field.
+func (m *SwiperMutation) ResetContentRu() {
+	m.content_ru = nil
+	delete(m.clearedFields, swiper.FieldContentRu)
+}
+
+// SetContentKk sets the "content_kk" field.
+func (m *SwiperMutation) SetContentKk(s string) {
+	m.content_kk = &s
+}
+
+// ContentKk returns the value of the "content_kk" field in the mutation.
+func (m *SwiperMutation) ContentKk() (r string, exists bool) {
+	v := m.content_kk
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldContentKk returns the old "content_kk" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldContentKk(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldContentKk is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldContentKk requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldContentKk: %w", err)
+	}
+	return oldValue.ContentKk, nil
+}
+
+// ClearContentKk clears the value of the "content_kk" field.
+func (m *SwiperMutation) ClearContentKk() {
+	m.content_kk = nil
+	m.clearedFields[swiper.FieldContentKk] = struct{}{}
+}
+
+// ContentKkCleared returns if the "content_kk" field was cleared in this mutation.
+func (m *SwiperMutation) ContentKkCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldContentKk]
+	return ok
+}
+
+// ResetContentKk resets all changes to the "content_kk" field.
+func (m *SwiperMutation) ResetContentKk() {
+	m.content_kk = nil
+	delete(m.clearedFields, swiper.FieldContentKk)
+}
+
+// SetJumpURL sets the "jump_url" field.
+func (m *SwiperMutation) SetJumpURL(s string) {
+	m.jump_url = &s
+}
+
+// JumpURL returns the value of the "jump_url" field in the mutation.
+func (m *SwiperMutation) JumpURL() (r string, exists bool) {
+	v := m.jump_url
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldJumpURL returns the old "jump_url" field's value of the Swiper entity.
+// If the Swiper object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SwiperMutation) OldJumpURL(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldJumpURL is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldJumpURL requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldJumpURL: %w", err)
+	}
+	return oldValue.JumpURL, nil
+}
+
+// ClearJumpURL clears the value of the "jump_url" field.
+func (m *SwiperMutation) ClearJumpURL() {
+	m.jump_url = nil
+	m.clearedFields[swiper.FieldJumpURL] = struct{}{}
+}
+
+// JumpURLCleared returns if the "jump_url" field was cleared in this mutation.
+func (m *SwiperMutation) JumpURLCleared() bool {
+	_, ok := m.clearedFields[swiper.FieldJumpURL]
+	return ok
+}
+
+// ResetJumpURL resets all changes to the "jump_url" field.
+func (m *SwiperMutation) ResetJumpURL() {
+	m.jump_url = nil
+	delete(m.clearedFields, swiper.FieldJumpURL)
+}
+
+// Where appends a list predicates to the SwiperMutation builder.
+func (m *SwiperMutation) Where(ps ...predicate.Swiper) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the SwiperMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *SwiperMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Swiper, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *SwiperMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *SwiperMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (Swiper).
+func (m *SwiperMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *SwiperMutation) Fields() []string {
+	fields := make([]string, 0, 17)
+	if m.created_at != nil {
+		fields = append(fields, swiper.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, swiper.FieldUpdatedAt)
+	}
+	if m.status != nil {
+		fields = append(fields, swiper.FieldStatus)
+	}
+	if m.sort != nil {
+		fields = append(fields, swiper.FieldSort)
+	}
+	if m.title_zh != nil {
+		fields = append(fields, swiper.FieldTitleZh)
+	}
+	if m.title_en != nil {
+		fields = append(fields, swiper.FieldTitleEn)
+	}
+	if m.title_ru != nil {
+		fields = append(fields, swiper.FieldTitleRu)
+	}
+	if m.title_kk != nil {
+		fields = append(fields, swiper.FieldTitleKk)
+	}
+	if m.banner_zh != nil {
+		fields = append(fields, swiper.FieldBannerZh)
+	}
+	if m.banner_en != nil {
+		fields = append(fields, swiper.FieldBannerEn)
+	}
+	if m.banner_ru != nil {
+		fields = append(fields, swiper.FieldBannerRu)
+	}
+	if m.banner_kk != nil {
+		fields = append(fields, swiper.FieldBannerKk)
+	}
+	if m.content_zh != nil {
+		fields = append(fields, swiper.FieldContentZh)
+	}
+	if m.content_en != nil {
+		fields = append(fields, swiper.FieldContentEn)
+	}
+	if m.content_ru != nil {
+		fields = append(fields, swiper.FieldContentRu)
+	}
+	if m.content_kk != nil {
+		fields = append(fields, swiper.FieldContentKk)
+	}
+	if m.jump_url != nil {
+		fields = append(fields, swiper.FieldJumpURL)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *SwiperMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case swiper.FieldCreatedAt:
+		return m.CreatedAt()
+	case swiper.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case swiper.FieldStatus:
+		return m.Status()
+	case swiper.FieldSort:
+		return m.Sort()
+	case swiper.FieldTitleZh:
+		return m.TitleZh()
+	case swiper.FieldTitleEn:
+		return m.TitleEn()
+	case swiper.FieldTitleRu:
+		return m.TitleRu()
+	case swiper.FieldTitleKk:
+		return m.TitleKk()
+	case swiper.FieldBannerZh:
+		return m.BannerZh()
+	case swiper.FieldBannerEn:
+		return m.BannerEn()
+	case swiper.FieldBannerRu:
+		return m.BannerRu()
+	case swiper.FieldBannerKk:
+		return m.BannerKk()
+	case swiper.FieldContentZh:
+		return m.ContentZh()
+	case swiper.FieldContentEn:
+		return m.ContentEn()
+	case swiper.FieldContentRu:
+		return m.ContentRu()
+	case swiper.FieldContentKk:
+		return m.ContentKk()
+	case swiper.FieldJumpURL:
+		return m.JumpURL()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *SwiperMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case swiper.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case swiper.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case swiper.FieldStatus:
+		return m.OldStatus(ctx)
+	case swiper.FieldSort:
+		return m.OldSort(ctx)
+	case swiper.FieldTitleZh:
+		return m.OldTitleZh(ctx)
+	case swiper.FieldTitleEn:
+		return m.OldTitleEn(ctx)
+	case swiper.FieldTitleRu:
+		return m.OldTitleRu(ctx)
+	case swiper.FieldTitleKk:
+		return m.OldTitleKk(ctx)
+	case swiper.FieldBannerZh:
+		return m.OldBannerZh(ctx)
+	case swiper.FieldBannerEn:
+		return m.OldBannerEn(ctx)
+	case swiper.FieldBannerRu:
+		return m.OldBannerRu(ctx)
+	case swiper.FieldBannerKk:
+		return m.OldBannerKk(ctx)
+	case swiper.FieldContentZh:
+		return m.OldContentZh(ctx)
+	case swiper.FieldContentEn:
+		return m.OldContentEn(ctx)
+	case swiper.FieldContentRu:
+		return m.OldContentRu(ctx)
+	case swiper.FieldContentKk:
+		return m.OldContentKk(ctx)
+	case swiper.FieldJumpURL:
+		return m.OldJumpURL(ctx)
+	}
+	return nil, fmt.Errorf("unknown Swiper field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SwiperMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case swiper.FieldCreatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case swiper.FieldUpdatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case swiper.FieldStatus:
+		v, ok := value.(uint8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case swiper.FieldSort:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSort(v)
+		return nil
+	case swiper.FieldTitleZh:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTitleZh(v)
+		return nil
+	case swiper.FieldTitleEn:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTitleEn(v)
+		return nil
+	case swiper.FieldTitleRu:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTitleRu(v)
+		return nil
+	case swiper.FieldTitleKk:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTitleKk(v)
+		return nil
+	case swiper.FieldBannerZh:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBannerZh(v)
+		return nil
+	case swiper.FieldBannerEn:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBannerEn(v)
+		return nil
+	case swiper.FieldBannerRu:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBannerRu(v)
+		return nil
+	case swiper.FieldBannerKk:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBannerKk(v)
+		return nil
+	case swiper.FieldContentZh:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetContentZh(v)
+		return nil
+	case swiper.FieldContentEn:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetContentEn(v)
+		return nil
+	case swiper.FieldContentRu:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetContentRu(v)
+		return nil
+	case swiper.FieldContentKk:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetContentKk(v)
+		return nil
+	case swiper.FieldJumpURL:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetJumpURL(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Swiper field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *SwiperMutation) AddedFields() []string {
+	var fields []string
+	if m.addstatus != nil {
+		fields = append(fields, swiper.FieldStatus)
+	}
+	if m.addsort != nil {
+		fields = append(fields, swiper.FieldSort)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *SwiperMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case swiper.FieldStatus:
+		return m.AddedStatus()
+	case swiper.FieldSort:
+		return m.AddedSort()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SwiperMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case swiper.FieldStatus:
+		v, ok := value.(int8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	case swiper.FieldSort:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddSort(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Swiper numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *SwiperMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(swiper.FieldStatus) {
+		fields = append(fields, swiper.FieldStatus)
+	}
+	if m.FieldCleared(swiper.FieldTitleZh) {
+		fields = append(fields, swiper.FieldTitleZh)
+	}
+	if m.FieldCleared(swiper.FieldTitleEn) {
+		fields = append(fields, swiper.FieldTitleEn)
+	}
+	if m.FieldCleared(swiper.FieldTitleRu) {
+		fields = append(fields, swiper.FieldTitleRu)
+	}
+	if m.FieldCleared(swiper.FieldTitleKk) {
+		fields = append(fields, swiper.FieldTitleKk)
+	}
+	if m.FieldCleared(swiper.FieldBannerZh) {
+		fields = append(fields, swiper.FieldBannerZh)
+	}
+	if m.FieldCleared(swiper.FieldBannerEn) {
+		fields = append(fields, swiper.FieldBannerEn)
+	}
+	if m.FieldCleared(swiper.FieldBannerRu) {
+		fields = append(fields, swiper.FieldBannerRu)
+	}
+	if m.FieldCleared(swiper.FieldBannerKk) {
+		fields = append(fields, swiper.FieldBannerKk)
+	}
+	if m.FieldCleared(swiper.FieldContentZh) {
+		fields = append(fields, swiper.FieldContentZh)
+	}
+	if m.FieldCleared(swiper.FieldContentEn) {
+		fields = append(fields, swiper.FieldContentEn)
+	}
+	if m.FieldCleared(swiper.FieldContentRu) {
+		fields = append(fields, swiper.FieldContentRu)
+	}
+	if m.FieldCleared(swiper.FieldContentKk) {
+		fields = append(fields, swiper.FieldContentKk)
+	}
+	if m.FieldCleared(swiper.FieldJumpURL) {
+		fields = append(fields, swiper.FieldJumpURL)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *SwiperMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *SwiperMutation) ClearField(name string) error {
+	switch name {
+	case swiper.FieldStatus:
+		m.ClearStatus()
+		return nil
+	case swiper.FieldTitleZh:
+		m.ClearTitleZh()
+		return nil
+	case swiper.FieldTitleEn:
+		m.ClearTitleEn()
+		return nil
+	case swiper.FieldTitleRu:
+		m.ClearTitleRu()
+		return nil
+	case swiper.FieldTitleKk:
+		m.ClearTitleKk()
+		return nil
+	case swiper.FieldBannerZh:
+		m.ClearBannerZh()
+		return nil
+	case swiper.FieldBannerEn:
+		m.ClearBannerEn()
+		return nil
+	case swiper.FieldBannerRu:
+		m.ClearBannerRu()
+		return nil
+	case swiper.FieldBannerKk:
+		m.ClearBannerKk()
+		return nil
+	case swiper.FieldContentZh:
+		m.ClearContentZh()
+		return nil
+	case swiper.FieldContentEn:
+		m.ClearContentEn()
+		return nil
+	case swiper.FieldContentRu:
+		m.ClearContentRu()
+		return nil
+	case swiper.FieldContentKk:
+		m.ClearContentKk()
+		return nil
+	case swiper.FieldJumpURL:
+		m.ClearJumpURL()
+		return nil
+	}
+	return fmt.Errorf("unknown Swiper nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *SwiperMutation) ResetField(name string) error {
+	switch name {
+	case swiper.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case swiper.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case swiper.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case swiper.FieldSort:
+		m.ResetSort()
+		return nil
+	case swiper.FieldTitleZh:
+		m.ResetTitleZh()
+		return nil
+	case swiper.FieldTitleEn:
+		m.ResetTitleEn()
+		return nil
+	case swiper.FieldTitleRu:
+		m.ResetTitleRu()
+		return nil
+	case swiper.FieldTitleKk:
+		m.ResetTitleKk()
+		return nil
+	case swiper.FieldBannerZh:
+		m.ResetBannerZh()
+		return nil
+	case swiper.FieldBannerEn:
+		m.ResetBannerEn()
+		return nil
+	case swiper.FieldBannerRu:
+		m.ResetBannerRu()
+		return nil
+	case swiper.FieldBannerKk:
+		m.ResetBannerKk()
+		return nil
+	case swiper.FieldContentZh:
+		m.ResetContentZh()
+		return nil
+	case swiper.FieldContentEn:
+		m.ResetContentEn()
+		return nil
+	case swiper.FieldContentRu:
+		m.ResetContentRu()
+		return nil
+	case swiper.FieldContentKk:
+		m.ResetContentKk()
+		return nil
+	case swiper.FieldJumpURL:
+		m.ResetJumpURL()
+		return nil
+	}
+	return fmt.Errorf("unknown Swiper field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *SwiperMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *SwiperMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *SwiperMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *SwiperMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *SwiperMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *SwiperMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *SwiperMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Swiper unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *SwiperMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Swiper edge %s", name)
 }
 
 // TokenMutation represents an operation that mutates the Token nodes in the graph.

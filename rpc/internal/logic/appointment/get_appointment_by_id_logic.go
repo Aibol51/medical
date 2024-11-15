@@ -45,5 +45,6 @@ func (l *GetAppointmentByIdLogic) GetAppointmentById(in *core.UUIDReq) (*core.Ap
 		Symptoms:        &result.Symptoms,
 		Status:          &result.Status,
 		Remarks:         &result.Remarks,
+		UserId:          &result.UserID,
 	}, nil
 }

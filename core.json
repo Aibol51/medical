@@ -2628,6 +2628,146 @@
         }
       }
     },
+    "/swiper": {
+      "post": {
+        "description": "Get swiper by ID | 通过ID获取Swiper信息",
+        "tags": [
+          "swiper"
+        ],
+        "summary": "Get swiper by ID | 通过ID获取Swiper信息",
+        "operationId": "GetSwiperById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SwiperInfoResp",
+            "schema": {
+              "$ref": "#/definitions/SwiperInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/swiper/create": {
+      "post": {
+        "description": "Create swiper information | 创建Swiper信息",
+        "tags": [
+          "swiper"
+        ],
+        "summary": "Create swiper information | 创建Swiper信息",
+        "operationId": "CreateSwiper",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SwiperInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/swiper/delete": {
+      "post": {
+        "description": "Delete swiper information | 删除Swiper信息",
+        "tags": [
+          "swiper"
+        ],
+        "summary": "Delete swiper information | 删除Swiper信息",
+        "operationId": "DeleteSwiper",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/swiper/list": {
+      "post": {
+        "description": "Get swiper list | 获取Swiper信息列表",
+        "tags": [
+          "swiper"
+        ],
+        "summary": "Get swiper list | 获取Swiper信息列表",
+        "operationId": "GetSwiperList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SwiperListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SwiperListResp",
+            "schema": {
+              "$ref": "#/definitions/SwiperListResp"
+            }
+          }
+        }
+      }
+    },
+    "/swiper/update": {
+      "post": {
+        "description": "Update swiper information | 更新Swiper信息",
+        "tags": [
+          "swiper"
+        ],
+        "summary": "Update swiper information | 更新Swiper信息",
+        "operationId": "UpdateSwiper",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SwiperInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/task": {
       "post": {
         "description": "Get task by ID | 通过ID获取Task",
@@ -3938,6 +4078,11 @@
           "type": "integer",
           "format": "int64",
           "x-go-name": "UpdatedAt"
+        },
+        "userId": {
+          "description": "User ID | 用户ID",
+          "type": "string",
+          "x-go-name": "UserId"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -7632,6 +7777,217 @@
           "type": "string",
           "x-go-name": "Data",
           "$ref": "#/definitions/SmsProviderListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SwiperInfo": {
+      "description": "The response data of swiper information | Swiper信息",
+      "type": "object",
+      "properties": {
+        "bannerEn": {
+          "description": "English banner image | 英文轮播图",
+          "type": "string",
+          "x-go-name": "BannerEn"
+        },
+        "bannerKk": {
+          "description": "Kazakh banner image | 哈萨克语轮播图",
+          "type": "string",
+          "x-go-name": "BannerKk"
+        },
+        "bannerRu": {
+          "description": "Russian banner image | 俄语轮播图",
+          "type": "string",
+          "x-go-name": "BannerRu"
+        },
+        "bannerZh": {
+          "description": "Chinese banner image | 中文轮播图",
+          "type": "string",
+          "x-go-name": "BannerZh"
+        },
+        "contentEn": {
+          "description": "English content | 英文内容",
+          "type": "string",
+          "x-go-name": "ContentEn"
+        },
+        "contentKk": {
+          "description": "Kazakh content | 哈萨克语内容",
+          "type": "string",
+          "x-go-name": "ContentKk"
+        },
+        "contentRu": {
+          "description": "Russian content | 俄语内容",
+          "type": "string",
+          "x-go-name": "ContentRu"
+        },
+        "contentZh": {
+          "description": "Chinese content | 中文内容",
+          "type": "string",
+          "x-go-name": "ContentZh"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "jumpUrl": {
+          "description": "Jump Url | 跳转地址",
+          "type": "string",
+          "x-go-name": "JumpUrl"
+        },
+        "sort": {
+          "description": "Sort Number | 排序编号",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status 1: normal 2: ban | 状态 1 正常 2 禁用",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Status"
+        },
+        "titleEn": {
+          "description": "English title | 英文标题",
+          "type": "string",
+          "x-go-name": "TitleEn"
+        },
+        "titleKk": {
+          "description": "Kazakh title | 哈萨克语标题",
+          "type": "string",
+          "x-go-name": "TitleKk"
+        },
+        "titleRu": {
+          "description": "Russian title | 俄语标题",
+          "type": "string",
+          "x-go-name": "TitleRu"
+        },
+        "titleZh": {
+          "description": "Chinese title | 中文标题",
+          "type": "string",
+          "x-go-name": "TitleZh"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SwiperInfoResp": {
+      "description": "The swiper information response | Swiper信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SwiperInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SwiperListInfo": {
+      "description": "The swiper list data | Swiper信息列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The swiper list data | Swiper信息列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SwiperInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SwiperListReq": {
+      "description": "Get swiper list request params | Swiper列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "titleEn": {
+          "description": "TitleEn",
+          "type": "string",
+          "x-go-name": "TitleEn"
+        },
+        "titleRu": {
+          "description": "TitleRu",
+          "type": "string",
+          "x-go-name": "TitleRu"
+        },
+        "titleZh": {
+          "description": "TitleZh",
+          "type": "string",
+          "x-go-name": "TitleZh"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SwiperListResp": {
+      "description": "The response data of swiper list | Swiper信息列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SwiperListInfo"
         },
         "msg": {
           "description": "Message | 提示信息",

@@ -36,6 +36,8 @@ const (
 	FieldStatus = "status"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
+	// FieldUserID holds the string denoting the user_id field in the database.
+	FieldUserID = "user_id"
 	// Table holds the table name of the appointment in the database.
 	Table = "appointments"
 )
@@ -54,6 +56,7 @@ var Columns = []string{
 	FieldSymptoms,
 	FieldStatus,
 	FieldRemarks,
+	FieldUserID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -140,4 +143,9 @@ func ByStatus(opts ...sql.OrderTermOption) OrderOption {
 // ByRemarks orders the results by the remarks field.
 func ByRemarks(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRemarks, opts...).ToFunc()
+}
+
+// ByUserID orders the results by the user_id field.
+func ByUserID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserID, opts...).ToFunc()
 }

@@ -64,6 +64,9 @@ type (
 	RoleListResp             = core.RoleListResp
 	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
+	SwiperInfo               = core.SwiperInfo
+	SwiperListReq            = core.SwiperListReq
+	SwiperListResp           = core.SwiperListResp
 	TokenInfo                = core.TokenInfo
 	TokenListReq             = core.TokenListReq
 	TokenListResp            = core.TokenListResp
@@ -152,6 +155,12 @@ type (
 		GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 		DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Swiper management
+		CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetSwiperList(ctx context.Context, in *SwiperListReq, opts ...grpc.CallOption) (*SwiperListResp, error)
+		GetSwiperById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*SwiperInfo, error)
+		DeleteSwiper(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Token management
 		CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 		DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -518,6 +527,32 @@ func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.C
 func (m *defaultCore) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteRole(ctx, in, opts...)
+}
+
+// Swiper management
+func (m *defaultCore) CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateSwiper(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateSwiper(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetSwiperList(ctx context.Context, in *SwiperListReq, opts ...grpc.CallOption) (*SwiperListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetSwiperList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetSwiperById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*SwiperInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetSwiperById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteSwiper(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteSwiper(ctx, in, opts...)
 }
 
 // Token management

@@ -57,6 +57,7 @@ func (l *GetAppointmentListLogic) GetAppointmentList(req *types.AppointmentListR
 				Symptoms:        v.Symptoms,
 				Status:          v.Status,
 				Remarks:         v.Remarks,
+				UserId:          v.UserId,
 			})
 	}
 	return resp, nil

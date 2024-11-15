@@ -36,6 +36,7 @@ func (l *CreateAppointmentLogic) CreateAppointment(req *types.AppointmentInfo) (
 			Symptoms:        req.Symptoms,
 			Status:          req.Status,
 			Remarks:         req.Remarks,
+			UserId:          req.UserId,
 		})
 	if err != nil {
 		return nil, err

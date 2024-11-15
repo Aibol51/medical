@@ -19,6 +19,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -397,6 +398,33 @@ func init() {
 	roleDescSort := roleFields[4].Descriptor()
 	// role.DefaultSort holds the default value on creation for the sort field.
 	role.DefaultSort = roleDescSort.Default.(uint32)
+	swiperMixin := schema.Swiper{}.Mixin()
+	swiperMixinFields0 := swiperMixin[0].Fields()
+	_ = swiperMixinFields0
+	swiperMixinFields1 := swiperMixin[1].Fields()
+	_ = swiperMixinFields1
+	swiperMixinFields2 := swiperMixin[2].Fields()
+	_ = swiperMixinFields2
+	swiperFields := schema.Swiper{}.Fields()
+	_ = swiperFields
+	// swiperDescCreatedAt is the schema descriptor for created_at field.
+	swiperDescCreatedAt := swiperMixinFields0[1].Descriptor()
+	// swiper.DefaultCreatedAt holds the default value on creation for the created_at field.
+	swiper.DefaultCreatedAt = swiperDescCreatedAt.Default.(func() time.Time)
+	// swiperDescUpdatedAt is the schema descriptor for updated_at field.
+	swiperDescUpdatedAt := swiperMixinFields0[2].Descriptor()
+	// swiper.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	swiper.DefaultUpdatedAt = swiperDescUpdatedAt.Default.(func() time.Time)
+	// swiper.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	swiper.UpdateDefaultUpdatedAt = swiperDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// swiperDescStatus is the schema descriptor for status field.
+	swiperDescStatus := swiperMixinFields1[0].Descriptor()
+	// swiper.DefaultStatus holds the default value on creation for the status field.
+	swiper.DefaultStatus = swiperDescStatus.Default.(uint8)
+	// swiperDescSort is the schema descriptor for sort field.
+	swiperDescSort := swiperMixinFields2[0].Descriptor()
+	// swiper.DefaultSort holds the default value on creation for the sort field.
+	swiper.DefaultSort = swiperDescSort.Default.(uint32)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0

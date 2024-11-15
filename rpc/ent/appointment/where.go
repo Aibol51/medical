@@ -110,6 +110,11 @@ func Remarks(v string) predicate.Appointment {
 	return predicate.Appointment(sql.FieldEQ(FieldRemarks, v))
 }
 
+// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
+func UserID(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldEQ(FieldUserID, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.Appointment {
 	return predicate.Appointment(sql.FieldEQ(FieldCreatedAt, v))
@@ -763,6 +768,81 @@ func RemarksEqualFold(v string) predicate.Appointment {
 // RemarksContainsFold applies the ContainsFold predicate on the "remarks" field.
 func RemarksContainsFold(v string) predicate.Appointment {
 	return predicate.Appointment(sql.FieldContainsFold(FieldRemarks, v))
+}
+
+// UserIDEQ applies the EQ predicate on the "user_id" field.
+func UserIDEQ(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldEQ(FieldUserID, v))
+}
+
+// UserIDNEQ applies the NEQ predicate on the "user_id" field.
+func UserIDNEQ(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldNEQ(FieldUserID, v))
+}
+
+// UserIDIn applies the In predicate on the "user_id" field.
+func UserIDIn(vs ...string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldIn(FieldUserID, vs...))
+}
+
+// UserIDNotIn applies the NotIn predicate on the "user_id" field.
+func UserIDNotIn(vs ...string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldNotIn(FieldUserID, vs...))
+}
+
+// UserIDGT applies the GT predicate on the "user_id" field.
+func UserIDGT(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldGT(FieldUserID, v))
+}
+
+// UserIDGTE applies the GTE predicate on the "user_id" field.
+func UserIDGTE(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldGTE(FieldUserID, v))
+}
+
+// UserIDLT applies the LT predicate on the "user_id" field.
+func UserIDLT(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldLT(FieldUserID, v))
+}
+
+// UserIDLTE applies the LTE predicate on the "user_id" field.
+func UserIDLTE(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldLTE(FieldUserID, v))
+}
+
+// UserIDContains applies the Contains predicate on the "user_id" field.
+func UserIDContains(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldContains(FieldUserID, v))
+}
+
+// UserIDHasPrefix applies the HasPrefix predicate on the "user_id" field.
+func UserIDHasPrefix(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldHasPrefix(FieldUserID, v))
+}
+
+// UserIDHasSuffix applies the HasSuffix predicate on the "user_id" field.
+func UserIDHasSuffix(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldHasSuffix(FieldUserID, v))
+}
+
+// UserIDIsNil applies the IsNil predicate on the "user_id" field.
+func UserIDIsNil() predicate.Appointment {
+	return predicate.Appointment(sql.FieldIsNull(FieldUserID))
+}
+
+// UserIDNotNil applies the NotNil predicate on the "user_id" field.
+func UserIDNotNil() predicate.Appointment {
+	return predicate.Appointment(sql.FieldNotNull(FieldUserID))
+}
+
+// UserIDEqualFold applies the EqualFold predicate on the "user_id" field.
+func UserIDEqualFold(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldEqualFold(FieldUserID, v))
+}
+
+// UserIDContainsFold applies the ContainsFold predicate on the "user_id" field.
+func UserIDContainsFold(v string) predicate.Appointment {
+	return predicate.Appointment(sql.FieldContainsFold(FieldUserID, v))
 }
 
 // And groups predicates with the AND operator between them.

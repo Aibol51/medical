@@ -61,6 +61,7 @@ func (l *GetAppointmentListLogic) GetAppointmentList(in *core.AppointmentListReq
 			Symptoms:        &v.Symptoms,
 			Status:          &v.Status,
 			Remarks:         &v.Remarks,
+			UserId:          &v.UserID,
 		})
 	}
 

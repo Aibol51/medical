@@ -38,6 +38,8 @@ type Tx struct {
 	Position *PositionClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// Swiper is the client for interacting with the Swiper builders.
+	Swiper *SwiperClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
@@ -185,6 +187,7 @@ func (tx *Tx) init() {
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
+	tx.Swiper = NewSwiperClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }

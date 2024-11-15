@@ -175,6 +175,20 @@ func (ac *AppointmentCreate) SetNillableRemarks(s *string) *AppointmentCreate {
 	return ac
 }
 
+// SetUserID sets the "user_id" field.
+func (ac *AppointmentCreate) SetUserID(s string) *AppointmentCreate {
+	ac.mutation.SetUserID(s)
+	return ac
+}
+
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (ac *AppointmentCreate) SetNillableUserID(s *string) *AppointmentCreate {
+	if s != nil {
+		ac.SetUserID(*s)
+	}
+	return ac
+}
+
 // SetID sets the "id" field.
 func (ac *AppointmentCreate) SetID(u uuid.UUID) *AppointmentCreate {
 	ac.mutation.SetID(u)
@@ -328,6 +342,10 @@ func (ac *AppointmentCreate) createSpec() (*Appointment, *sqlgraph.CreateSpec) {
 	if value, ok := ac.mutation.Remarks(); ok {
 		_spec.SetField(appointment.FieldRemarks, field.TypeString, value)
 		_node.Remarks = value
+	}
+	if value, ok := ac.mutation.UserID(); ok {
+		_spec.SetField(appointment.FieldUserID, field.TypeString, value)
+		_node.UserID = value
 	}
 	return _node, _spec
 }

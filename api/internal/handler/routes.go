@@ -26,6 +26,7 @@ import (
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
 	smsprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/smsprovider"
+	swiper "github.com/suyuan32/simple-admin-core/api/internal/handler/swiper"
 	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
 	tasklog "github.com/suyuan32/simple-admin-core/api/internal/handler/tasklog"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
@@ -932,6 +933,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/appointment",
 					Handler: appointment.GetAppointmentByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/swiper/create",
+					Handler: swiper.CreateSwiperHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/swiper/update",
+					Handler: swiper.UpdateSwiperHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/swiper/delete",
+					Handler: swiper.DeleteSwiperHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/swiper/list",
+					Handler: swiper.GetSwiperListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/swiper",
+					Handler: swiper.GetSwiperByIdHandler(serverCtx),
 				},
 			}...,
 		),

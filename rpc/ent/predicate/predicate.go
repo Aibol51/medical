@@ -42,6 +42,9 @@ type Position func(*sql.Selector)
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
 
+// Swiper is the predicate function for swiper builders.
+type Swiper func(*sql.Selector)
+
 // Token is the predicate function for token builders.
 type Token func(*sql.Selector)
 

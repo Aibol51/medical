@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -1032,6 +1033,87 @@ func (r *RoleQuery) Page(
 
 	r = r.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := r.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type SwiperPager struct {
+	Order  swiper.OrderOption
+	Filter func(*SwiperQuery) (*SwiperQuery, error)
+}
+
+// SwiperPaginateOption enables pagination customization.
+type SwiperPaginateOption func(*SwiperPager)
+
+// DefaultSwiperOrder is the default ordering of Swiper.
+var DefaultSwiperOrder = Desc(swiper.FieldID)
+
+func newSwiperPager(opts []SwiperPaginateOption) (*SwiperPager, error) {
+	pager := &SwiperPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultSwiperOrder
+	}
+	return pager, nil
+}
+
+func (p *SwiperPager) ApplyFilter(query *SwiperQuery) (*SwiperQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// SwiperPageList is Swiper PageList result.
+type SwiperPageList struct {
+	List        []*Swiper    `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (s *SwiperQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...SwiperPaginateOption,
+) (*SwiperPageList, error) {
+
+	pager, err := newSwiperPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if s, err = pager.ApplyFilter(s); err != nil {
+		return nil, err
+	}
+
+	ret := &SwiperPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := s.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		s = s.Order(pager.Order)
+	} else {
+		s = s.Order(DefaultSwiperOrder)
+	}
+
+	s = s.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := s.All(ctx)
 	if err != nil {
 		return nil, err
 	}

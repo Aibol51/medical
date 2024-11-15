@@ -21,6 +21,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -405,6 +406,33 @@ func (f TraverseRole) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.RoleQuery", q)
 }
 
+// The SwiperFunc type is an adapter to allow the use of ordinary function as a Querier.
+type SwiperFunc func(context.Context, *ent.SwiperQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f SwiperFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.SwiperQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.SwiperQuery", q)
+}
+
+// The TraverseSwiper type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseSwiper func(context.Context, *ent.SwiperQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseSwiper) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseSwiper) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.SwiperQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.SwiperQuery", q)
+}
+
 // The TokenFunc type is an adapter to allow the use of ordinary function as a Querier.
 type TokenFunc func(context.Context, *ent.TokenQuery) (ent.Value, error)
 
@@ -486,6 +514,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.PositionQuery, predicate.Position, position.OrderOption]{typ: ent.TypePosition, tq: q}, nil
 	case *ent.RoleQuery:
 		return &query[*ent.RoleQuery, predicate.Role, role.OrderOption]{typ: ent.TypeRole, tq: q}, nil
+	case *ent.SwiperQuery:
+		return &query[*ent.SwiperQuery, predicate.Swiper, swiper.OrderOption]{typ: ent.TypeSwiper, tq: q}, nil
 	case *ent.TokenQuery:
 		return &query[*ent.TokenQuery, predicate.Token, token.OrderOption]{typ: ent.TypeToken, tq: q}, nil
 	case *ent.UserQuery:

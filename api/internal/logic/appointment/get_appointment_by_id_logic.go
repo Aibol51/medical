@@ -50,6 +50,7 @@ func (l *GetAppointmentByIdLogic) GetAppointmentById(req *types.UUIDReq) (resp *
 			Symptoms:        data.Symptoms,
 			Status:          data.Status,
 			Remarks:         data.Remarks,
+			UserId:          data.UserId,
 		},
 	}, nil
 }

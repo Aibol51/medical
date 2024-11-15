@@ -24,6 +24,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -98,6 +99,7 @@ func checkColumn(table, column string) error {
 			oauthprovider.Table:    oauthprovider.ValidColumn,
 			position.Table:         position.ValidColumn,
 			role.Table:             role.ValidColumn,
+			swiper.Table:           swiper.ValidColumn,
 			token.Table:            token.ValidColumn,
 			user.Table:             user.ValidColumn,
 		})

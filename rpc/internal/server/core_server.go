@@ -20,6 +20,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -376,6 +377,32 @@ func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.Rol
 func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
 	return l.DeleteRole(in)
+}
+
+// Swiper management
+func (s *CoreServer) CreateSwiper(ctx context.Context, in *core.SwiperInfo) (*core.BaseIDResp, error) {
+	l := swiper.NewCreateSwiperLogic(ctx, s.svcCtx)
+	return l.CreateSwiper(in)
+}
+
+func (s *CoreServer) UpdateSwiper(ctx context.Context, in *core.SwiperInfo) (*core.BaseResp, error) {
+	l := swiper.NewUpdateSwiperLogic(ctx, s.svcCtx)
+	return l.UpdateSwiper(in)
+}
+
+func (s *CoreServer) GetSwiperList(ctx context.Context, in *core.SwiperListReq) (*core.SwiperListResp, error) {
+	l := swiper.NewGetSwiperListLogic(ctx, s.svcCtx)
+	return l.GetSwiperList(in)
+}
+
+func (s *CoreServer) GetSwiperById(ctx context.Context, in *core.IDReq) (*core.SwiperInfo, error) {
+	l := swiper.NewGetSwiperByIdLogic(ctx, s.svcCtx)
+	return l.GetSwiperById(in)
+}
+
+func (s *CoreServer) DeleteSwiper(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := swiper.NewDeleteSwiperLogic(ctx, s.svcCtx)
+	return l.DeleteSwiper(in)
 }
 
 // Token management

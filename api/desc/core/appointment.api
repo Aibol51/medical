@@ -31,6 +31,9 @@ type (
 
         // Remarks | 备注信息
         Remarks  *string `json:"remarks,optional"`
+
+        // User ID | 用户ID
+        UserId  *string `json:"userId,optional"`
     }
 
     // The response data of appointment list | Appointment信息列表数据

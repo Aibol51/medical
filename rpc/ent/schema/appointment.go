@@ -41,6 +41,9 @@ func (Appointment) Fields() []ent.Field {
 
 		field.String("remarks").Optional().
 			Comment("Remarks | 备注信息"),
+
+		field.String("user_id").Optional().
+			Comment("User ID | 用户ID"),
 	}
 }
 

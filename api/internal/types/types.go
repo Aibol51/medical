@@ -1806,6 +1806,8 @@ type AppointmentInfo struct {
 	Status *int32 `json:"status,optional"`
 	// Remarks | 备注信息
 	Remarks *string `json:"remarks,optional"`
+	// User ID | 用户ID
+	UserId *string `json:"userId,optional"`
 }
 
 // The response data of appointment list | Appointment信息列表数据
@@ -1842,4 +1844,76 @@ type AppointmentInfoResp struct {
 	BaseDataInfo
 	// The appointment information | Appointment信息数据
 	Data AppointmentInfo `json:"data"`
+}
+
+// The response data of swiper information | Swiper信息
+// swagger:model SwiperInfo
+type SwiperInfo struct {
+	BaseIDInfo
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
+	Status *uint32 `json:"status,optional"`
+	// Sort Number | 排序编号
+	Sort *uint32 `json:"sort,optional"`
+	// Chinese title | 中文标题
+	TitleZh *string `json:"titleZh,optional"`
+	// English title | 英文标题
+	TitleEn *string `json:"titleEn,optional"`
+	// Russian title | 俄语标题
+	TitleRu *string `json:"titleRu,optional"`
+	// Kazakh title | 哈萨克语标题
+	TitleKk *string `json:"titleKk,optional"`
+	// Chinese banner image | 中文轮播图
+	BannerZh *string `json:"bannerZh,optional"`
+	// English banner image | 英文轮播图
+	BannerEn *string `json:"bannerEn,optional"`
+	// Russian banner image | 俄语轮播图
+	BannerRu *string `json:"bannerRu,optional"`
+	// Kazakh banner image | 哈萨克语轮播图
+	BannerKk *string `json:"bannerKk,optional"`
+	// Chinese content | 中文内容
+	ContentZh *string `json:"contentZh,optional"`
+	// English content | 英文内容
+	ContentEn *string `json:"contentEn,optional"`
+	// Russian content | 俄语内容
+	ContentRu *string `json:"contentRu,optional"`
+	// Kazakh content | 哈萨克语内容
+	ContentKk *string `json:"contentKk,optional"`
+	// Jump Url | 跳转地址
+	JumpUrl *string `json:"jumpUrl,optional"`
+}
+
+// The response data of swiper list | Swiper信息列表数据
+// swagger:model SwiperListResp
+type SwiperListResp struct {
+	BaseDataInfo
+	// Swiper list data | Swiper信息列表数据
+	Data SwiperListInfo `json:"data"`
+}
+
+// The swiper list data | Swiper信息列表数据
+// swagger:model SwiperListInfo
+type SwiperListInfo struct {
+	BaseListInfo
+	// The swiper list data | Swiper信息列表数据
+	Data []SwiperInfo `json:"data"`
+}
+
+// Get swiper list request params | Swiper列表请求参数
+// swagger:model SwiperListReq
+type SwiperListReq struct {
+	PageInfo
+	// TitleZh
+	TitleZh *string `json:"titleZh,optional"`
+	// TitleEn
+	TitleEn *string `json:"titleEn,optional"`
+	// TitleRu
+	TitleRu *string `json:"titleRu,optional"`
+}
+
+// The swiper information response | Swiper信息返回体
+// swagger:model SwiperInfoResp
+type SwiperInfoResp struct {
+	BaseDataInfo
+	// The swiper information | Swiper信息数据
+	Data SwiperInfo `json:"data"`
 }

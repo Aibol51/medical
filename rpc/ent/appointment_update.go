@@ -243,6 +243,26 @@ func (au *AppointmentUpdate) ClearRemarks() *AppointmentUpdate {
 	return au
 }
 
+// SetUserID sets the "user_id" field.
+func (au *AppointmentUpdate) SetUserID(s string) *AppointmentUpdate {
+	au.mutation.SetUserID(s)
+	return au
+}
+
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (au *AppointmentUpdate) SetNillableUserID(s *string) *AppointmentUpdate {
+	if s != nil {
+		au.SetUserID(*s)
+	}
+	return au
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (au *AppointmentUpdate) ClearUserID() *AppointmentUpdate {
+	au.mutation.ClearUserID()
+	return au
+}
+
 // Mutation returns the AppointmentMutation object of the builder.
 func (au *AppointmentUpdate) Mutation() *AppointmentMutation {
 	return au.mutation
@@ -367,6 +387,12 @@ func (au *AppointmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if au.mutation.RemarksCleared() {
 		_spec.ClearField(appointment.FieldRemarks, field.TypeString)
+	}
+	if value, ok := au.mutation.UserID(); ok {
+		_spec.SetField(appointment.FieldUserID, field.TypeString, value)
+	}
+	if au.mutation.UserIDCleared() {
+		_spec.ClearField(appointment.FieldUserID, field.TypeString)
 	}
 	_spec.AddModifiers(au.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
@@ -604,6 +630,26 @@ func (auo *AppointmentUpdateOne) ClearRemarks() *AppointmentUpdateOne {
 	return auo
 }
 
+// SetUserID sets the "user_id" field.
+func (auo *AppointmentUpdateOne) SetUserID(s string) *AppointmentUpdateOne {
+	auo.mutation.SetUserID(s)
+	return auo
+}
+
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (auo *AppointmentUpdateOne) SetNillableUserID(s *string) *AppointmentUpdateOne {
+	if s != nil {
+		auo.SetUserID(*s)
+	}
+	return auo
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (auo *AppointmentUpdateOne) ClearUserID() *AppointmentUpdateOne {
+	auo.mutation.ClearUserID()
+	return auo
+}
+
 // Mutation returns the AppointmentMutation object of the builder.
 func (auo *AppointmentUpdateOne) Mutation() *AppointmentMutation {
 	return auo.mutation
@@ -758,6 +804,12 @@ func (auo *AppointmentUpdateOne) sqlSave(ctx context.Context) (_node *Appointmen
 	}
 	if auo.mutation.RemarksCleared() {
 		_spec.ClearField(appointment.FieldRemarks, field.TypeString)
+	}
+	if value, ok := auo.mutation.UserID(); ok {
+		_spec.SetField(appointment.FieldUserID, field.TypeString, value)
+	}
+	if auo.mutation.UserIDCleared() {
+		_spec.ClearField(appointment.FieldUserID, field.TypeString)
 	}
 	_spec.AddModifiers(auo.modifiers...)
 	_node = &Appointment{config: auo.config}

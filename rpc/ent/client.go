@@ -28,6 +28,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
@@ -63,6 +64,8 @@ type Client struct {
 	Position *PositionClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// Swiper is the client for interacting with the Swiper builders.
+	Swiper *SwiperClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
@@ -90,6 +93,7 @@ func (c *Client) init() {
 	c.OauthProvider = NewOauthProviderClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
+	c.Swiper = NewSwiperClient(c.config)
 	c.Token = NewTokenClient(c.config)
 	c.User = NewUserClient(c.config)
 }
@@ -196,6 +200,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
+		Swiper:           NewSwiperClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
 	}, nil
@@ -229,6 +234,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
+		Swiper:           NewSwiperClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
 	}, nil
@@ -262,7 +268,7 @@ func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
 		c.API, c.Appointment, c.Configuration, c.Department, c.Dictionary,
 		c.DictionaryDetail, c.Medicine, c.Menu, c.News, c.OauthProvider, c.Position,
-		c.Role, c.Token, c.User,
+		c.Role, c.Swiper, c.Token, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -274,7 +280,7 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
 		c.API, c.Appointment, c.Configuration, c.Department, c.Dictionary,
 		c.DictionaryDetail, c.Medicine, c.Menu, c.News, c.OauthProvider, c.Position,
-		c.Role, c.Token, c.User,
+		c.Role, c.Swiper, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -307,6 +313,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Position.mutate(ctx, m)
 	case *RoleMutation:
 		return c.Role.mutate(ctx, m)
+	case *SwiperMutation:
+		return c.Swiper.mutate(ctx, m)
 	case *TokenMutation:
 		return c.Token.mutate(ctx, m)
 	case *UserMutation:
@@ -2088,6 +2096,139 @@ func (c *RoleClient) mutate(ctx context.Context, m *RoleMutation) (Value, error)
 	}
 }
 
+// SwiperClient is a client for the Swiper schema.
+type SwiperClient struct {
+	config
+}
+
+// NewSwiperClient returns a client for the Swiper from the given config.
+func NewSwiperClient(c config) *SwiperClient {
+	return &SwiperClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `swiper.Hooks(f(g(h())))`.
+func (c *SwiperClient) Use(hooks ...Hook) {
+	c.hooks.Swiper = append(c.hooks.Swiper, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `swiper.Intercept(f(g(h())))`.
+func (c *SwiperClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Swiper = append(c.inters.Swiper, interceptors...)
+}
+
+// Create returns a builder for creating a Swiper entity.
+func (c *SwiperClient) Create() *SwiperCreate {
+	mutation := newSwiperMutation(c.config, OpCreate)
+	return &SwiperCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Swiper entities.
+func (c *SwiperClient) CreateBulk(builders ...*SwiperCreate) *SwiperCreateBulk {
+	return &SwiperCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SwiperClient) MapCreateBulk(slice any, setFunc func(*SwiperCreate, int)) *SwiperCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SwiperCreateBulk{err: fmt.Errorf("calling to SwiperClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SwiperCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SwiperCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Swiper.
+func (c *SwiperClient) Update() *SwiperUpdate {
+	mutation := newSwiperMutation(c.config, OpUpdate)
+	return &SwiperUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SwiperClient) UpdateOne(s *Swiper) *SwiperUpdateOne {
+	mutation := newSwiperMutation(c.config, OpUpdateOne, withSwiper(s))
+	return &SwiperUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SwiperClient) UpdateOneID(id uint64) *SwiperUpdateOne {
+	mutation := newSwiperMutation(c.config, OpUpdateOne, withSwiperID(id))
+	return &SwiperUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Swiper.
+func (c *SwiperClient) Delete() *SwiperDelete {
+	mutation := newSwiperMutation(c.config, OpDelete)
+	return &SwiperDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SwiperClient) DeleteOne(s *Swiper) *SwiperDeleteOne {
+	return c.DeleteOneID(s.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SwiperClient) DeleteOneID(id uint64) *SwiperDeleteOne {
+	builder := c.Delete().Where(swiper.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SwiperDeleteOne{builder}
+}
+
+// Query returns a query builder for Swiper.
+func (c *SwiperClient) Query() *SwiperQuery {
+	return &SwiperQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSwiper},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Swiper entity by its id.
+func (c *SwiperClient) Get(ctx context.Context, id uint64) (*Swiper, error) {
+	return c.Query().Where(swiper.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SwiperClient) GetX(ctx context.Context, id uint64) *Swiper {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SwiperClient) Hooks() []Hook {
+	return c.hooks.Swiper
+}
+
+// Interceptors returns the client interceptors.
+func (c *SwiperClient) Interceptors() []Interceptor {
+	return c.inters.Swiper
+}
+
+func (c *SwiperClient) mutate(ctx context.Context, m *SwiperMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SwiperCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SwiperUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SwiperUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SwiperDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Swiper mutation op: %q", m.Op())
+	}
+}
+
 // TokenClient is a client for the Token schema.
 type TokenClient struct {
 	config
@@ -2408,11 +2549,12 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 type (
 	hooks struct {
 		API, Appointment, Configuration, Department, Dictionary, DictionaryDetail,
-		Medicine, Menu, News, OauthProvider, Position, Role, Token, User []ent.Hook
+		Medicine, Menu, News, OauthProvider, Position, Role, Swiper, Token,
+		User []ent.Hook
 	}
 	inters struct {
 		API, Appointment, Configuration, Department, Dictionary, DictionaryDetail,
-		Medicine, Menu, News, OauthProvider, Position, Role, Token,
+		Medicine, Menu, News, OauthProvider, Position, Role, Swiper, Token,
 		User []ent.Interceptor
 	}
 )

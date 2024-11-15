@@ -85,6 +85,11 @@ const (
 	Core_GetRoleList_FullMethodName                         = "/core.Core/getRoleList"
 	Core_GetRoleById_FullMethodName                         = "/core.Core/getRoleById"
 	Core_DeleteRole_FullMethodName                          = "/core.Core/deleteRole"
+	Core_CreateSwiper_FullMethodName                        = "/core.Core/createSwiper"
+	Core_UpdateSwiper_FullMethodName                        = "/core.Core/updateSwiper"
+	Core_GetSwiperList_FullMethodName                       = "/core.Core/getSwiperList"
+	Core_GetSwiperById_FullMethodName                       = "/core.Core/getSwiperById"
+	Core_DeleteSwiper_FullMethodName                        = "/core.Core/deleteSwiper"
 	Core_CreateToken_FullMethodName                         = "/core.Core/createToken"
 	Core_DeleteToken_FullMethodName                         = "/core.Core/deleteToken"
 	Core_GetTokenList_FullMethodName                        = "/core.Core/getTokenList"
@@ -246,6 +251,17 @@ type CoreClient interface {
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 	//  group: role
 	DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Swiper management
+	// group: swiper
+	CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: swiper
+	UpdateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: swiper
+	GetSwiperList(ctx context.Context, in *SwiperListReq, opts ...grpc.CallOption) (*SwiperListResp, error)
+	// group: swiper
+	GetSwiperById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*SwiperInfo, error)
+	// group: swiper
+	DeleteSwiper(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	//  Token management
 	//  group: token
 	CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
@@ -942,6 +958,56 @@ func (c *coreClient) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *coreClient) CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateSwiper_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateSwiper_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetSwiperList(ctx context.Context, in *SwiperListReq, opts ...grpc.CallOption) (*SwiperListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SwiperListResp)
+	err := c.cc.Invoke(ctx, Core_GetSwiperList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetSwiperById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*SwiperInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SwiperInfo)
+	err := c.cc.Invoke(ctx, Core_GetSwiperById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteSwiper(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteSwiper_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseUUIDResp)
@@ -1209,6 +1275,17 @@ type CoreServer interface {
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
 	//  group: role
 	DeleteRole(context.Context, *IDsReq) (*BaseResp, error)
+	// Swiper management
+	// group: swiper
+	CreateSwiper(context.Context, *SwiperInfo) (*BaseIDResp, error)
+	// group: swiper
+	UpdateSwiper(context.Context, *SwiperInfo) (*BaseResp, error)
+	// group: swiper
+	GetSwiperList(context.Context, *SwiperListReq) (*SwiperListResp, error)
+	// group: swiper
+	GetSwiperById(context.Context, *IDReq) (*SwiperInfo, error)
+	// group: swiper
+	DeleteSwiper(context.Context, *IDsReq) (*BaseResp, error)
 	//  Token management
 	//  group: token
 	CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error)
@@ -1442,6 +1519,21 @@ func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, 
 }
 func (UnimplementedCoreServer) DeleteRole(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedCoreServer) CreateSwiper(context.Context, *SwiperInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSwiper not implemented")
+}
+func (UnimplementedCoreServer) UpdateSwiper(context.Context, *SwiperInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSwiper not implemented")
+}
+func (UnimplementedCoreServer) GetSwiperList(context.Context, *SwiperListReq) (*SwiperListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSwiperList not implemented")
+}
+func (UnimplementedCoreServer) GetSwiperById(context.Context, *IDReq) (*SwiperInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSwiperById not implemented")
+}
+func (UnimplementedCoreServer) DeleteSwiper(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSwiper not implemented")
 }
 func (UnimplementedCoreServer) CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateToken not implemented")
@@ -2688,6 +2780,96 @@ func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateSwiper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SwiperInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateSwiper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateSwiper_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateSwiper(ctx, req.(*SwiperInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateSwiper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SwiperInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateSwiper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateSwiper_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateSwiper(ctx, req.(*SwiperInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetSwiperList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SwiperListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetSwiperList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetSwiperList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetSwiperList(ctx, req.(*SwiperListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetSwiperById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetSwiperById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetSwiperById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetSwiperById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteSwiper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteSwiper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteSwiper_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteSwiper(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TokenInfo)
 	if err := dec(in); err != nil {
@@ -3174,6 +3356,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteRole",
 			Handler:    _Core_DeleteRole_Handler,
+		},
+		{
+			MethodName: "createSwiper",
+			Handler:    _Core_CreateSwiper_Handler,
+		},
+		{
+			MethodName: "updateSwiper",
+			Handler:    _Core_UpdateSwiper_Handler,
+		},
+		{
+			MethodName: "getSwiperList",
+			Handler:    _Core_GetSwiperList_Handler,
+		},
+		{
+			MethodName: "getSwiperById",
+			Handler:    _Core_GetSwiperById_Handler,
+		},
+		{
+			MethodName: "deleteSwiper",
+			Handler:    _Core_DeleteSwiper_Handler,
 		},
 		{
 			MethodName: "createToken",

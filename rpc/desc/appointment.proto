@@ -24,6 +24,8 @@ message AppointmentInfo {
   optional int32 status = 11;
   // Remarks | 备注信息
   optional string remarks = 12;
+  // User ID | 用户ID
+  optional string user_id = 13;
 }
 
 message AppointmentListResp {

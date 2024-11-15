@@ -37,6 +37,7 @@ func (l *UpdateAppointmentLogic) UpdateAppointment(in *core.AppointmentInfo) (*c
 		SetNotNilSymptoms(in.Symptoms).
 		SetNotNilStatus(in.Status).
 		SetNotNilRemarks(in.Remarks).
+		SetNotNilUserID(in.UserId).
 		Exec(l.ctx)
 
 	if err != nil {

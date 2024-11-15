@@ -40,7 +40,9 @@ type Appointment struct {
 	// Status 1:pending 2:confirmed 3:completed 4:cancelled 5:expired | 状态 1:待确认 2:已确认 3:已完成 4:已取消 5:已过期
 	Status int32 `json:"status,omitempty"`
 	// Remarks | 备注信息
-	Remarks      string `json:"remarks,omitempty"`
+	Remarks string `json:"remarks,omitempty"`
+	// User ID | 用户ID
+	UserID       string `json:"user_id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -51,7 +53,7 @@ func (*Appointment) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appointment.FieldGender, appointment.FieldAge, appointment.FieldAppointmentTime, appointment.FieldStatus:
 			values[i] = new(sql.NullInt64)
-		case appointment.FieldPatientName, appointment.FieldPhoneNumber, appointment.FieldIDCard, appointment.FieldSymptoms, appointment.FieldRemarks:
+		case appointment.FieldPatientName, appointment.FieldPhoneNumber, appointment.FieldIDCard, appointment.FieldSymptoms, appointment.FieldRemarks, appointment.FieldUserID:
 			values[i] = new(sql.NullString)
 		case appointment.FieldCreatedAt, appointment.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -144,6 +146,12 @@ func (a *Appointment) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				a.Remarks = value.String
 			}
+		case appointment.FieldUserID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field user_id", values[i])
+			} else if value.Valid {
+				a.UserID = value.String
+			}
 		default:
 			a.selectValues.Set(columns[i], values[i])
 		}
@@ -212,6 +220,9 @@ func (a *Appointment) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("remarks=")
 	builder.WriteString(a.Remarks)
+	builder.WriteString(", ")
+	builder.WriteString("user_id=")
+	builder.WriteString(a.UserID)
 	builder.WriteByte(')')
 	return builder.String()
 }

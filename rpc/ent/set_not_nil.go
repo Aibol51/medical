@@ -417,6 +417,30 @@ func (a *AppointmentCreate) SetNotNilRemarks(value *string) *AppointmentCreate {
 }
 
 // set field if value's pointer is not nil.
+func (a *AppointmentUpdate) SetNotNilUserID(value *string) *AppointmentUpdate {
+	if value != nil {
+		return a.SetUserID(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentUpdateOne) SetNotNilUserID(value *string) *AppointmentUpdateOne {
+	if value != nil {
+		return a.SetUserID(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AppointmentCreate) SetNotNilUserID(value *string) *AppointmentCreate {
+	if value != nil {
+		return a.SetUserID(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
 func (c *ConfigurationUpdate) SetNotNilUpdatedAt(value *time.Time) *ConfigurationUpdate {
 	if value != nil {
 		return c.SetUpdatedAt(*value)
@@ -2742,6 +2766,390 @@ func (r *RoleCreate) SetNotNilSort(value *uint32) *RoleCreate {
 		return r.SetSort(*value)
 	}
 	return r
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilUpdatedAt(value *time.Time) *SwiperUpdate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilUpdatedAt(value *time.Time) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilUpdatedAt(value *time.Time) *SwiperCreate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilStatus(value *uint8) *SwiperUpdate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilStatus(value *uint8) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilStatus(value *uint8) *SwiperCreate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilSort(value *uint32) *SwiperUpdate {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilSort(value *uint32) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilSort(value *uint32) *SwiperCreate {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilTitleZh(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetTitleZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilTitleZh(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetTitleZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilTitleZh(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetTitleZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilTitleEn(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetTitleEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilTitleEn(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetTitleEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilTitleEn(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetTitleEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilTitleRu(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetTitleRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilTitleRu(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetTitleRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilTitleRu(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetTitleRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilTitleKk(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetTitleKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilTitleKk(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetTitleKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilTitleKk(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetTitleKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilBannerZh(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetBannerZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilBannerZh(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetBannerZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilBannerZh(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetBannerZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilBannerEn(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetBannerEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilBannerEn(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetBannerEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilBannerEn(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetBannerEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilBannerRu(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetBannerRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilBannerRu(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetBannerRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilBannerRu(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetBannerRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilBannerKk(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetBannerKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilBannerKk(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetBannerKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilBannerKk(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetBannerKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilContentZh(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetContentZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilContentZh(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetContentZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilContentZh(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetContentZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilContentEn(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetContentEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilContentEn(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetContentEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilContentEn(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetContentEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilContentRu(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetContentRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilContentRu(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetContentRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilContentRu(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetContentRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilContentKk(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetContentKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilContentKk(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetContentKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilContentKk(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetContentKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdate) SetNotNilJumpURL(value *string) *SwiperUpdate {
+	if value != nil {
+		return s.SetJumpURL(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperUpdateOne) SetNotNilJumpURL(value *string) *SwiperUpdateOne {
+	if value != nil {
+		return s.SetJumpURL(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *SwiperCreate) SetNotNilJumpURL(value *string) *SwiperCreate {
+	if value != nil {
+		return s.SetJumpURL(*value)
+	}
+	return s
 }
 
 // set field if value's pointer is not nil.
