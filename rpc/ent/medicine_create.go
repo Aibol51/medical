@@ -76,9 +76,27 @@ func (mc *MedicineCreate) SetNillableSort(u *uint32) *MedicineCreate {
 	return mc
 }
 
-// SetName sets the "name" field.
-func (mc *MedicineCreate) SetName(s string) *MedicineCreate {
-	mc.mutation.SetName(s)
+// SetNameZh sets the "name_zh" field.
+func (mc *MedicineCreate) SetNameZh(s string) *MedicineCreate {
+	mc.mutation.SetNameZh(s)
+	return mc
+}
+
+// SetNameEn sets the "name_en" field.
+func (mc *MedicineCreate) SetNameEn(s string) *MedicineCreate {
+	mc.mutation.SetNameEn(s)
+	return mc
+}
+
+// SetNameRu sets the "name_ru" field.
+func (mc *MedicineCreate) SetNameRu(s string) *MedicineCreate {
+	mc.mutation.SetNameRu(s)
+	return mc
+}
+
+// SetNameKk sets the "name_kk" field.
+func (mc *MedicineCreate) SetNameKk(s string) *MedicineCreate {
+	mc.mutation.SetNameKk(s)
 	return mc
 }
 
@@ -88,16 +106,58 @@ func (mc *MedicineCreate) SetQuantity(u uint32) *MedicineCreate {
 	return mc
 }
 
-// SetDescription sets the "description" field.
-func (mc *MedicineCreate) SetDescription(s string) *MedicineCreate {
-	mc.mutation.SetDescription(s)
+// SetDescriptionZh sets the "description_zh" field.
+func (mc *MedicineCreate) SetDescriptionZh(s string) *MedicineCreate {
+	mc.mutation.SetDescriptionZh(s)
 	return mc
 }
 
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (mc *MedicineCreate) SetNillableDescription(s *string) *MedicineCreate {
+// SetNillableDescriptionZh sets the "description_zh" field if the given value is not nil.
+func (mc *MedicineCreate) SetNillableDescriptionZh(s *string) *MedicineCreate {
 	if s != nil {
-		mc.SetDescription(*s)
+		mc.SetDescriptionZh(*s)
+	}
+	return mc
+}
+
+// SetDescriptionEn sets the "description_en" field.
+func (mc *MedicineCreate) SetDescriptionEn(s string) *MedicineCreate {
+	mc.mutation.SetDescriptionEn(s)
+	return mc
+}
+
+// SetNillableDescriptionEn sets the "description_en" field if the given value is not nil.
+func (mc *MedicineCreate) SetNillableDescriptionEn(s *string) *MedicineCreate {
+	if s != nil {
+		mc.SetDescriptionEn(*s)
+	}
+	return mc
+}
+
+// SetDescriptionRu sets the "description_ru" field.
+func (mc *MedicineCreate) SetDescriptionRu(s string) *MedicineCreate {
+	mc.mutation.SetDescriptionRu(s)
+	return mc
+}
+
+// SetNillableDescriptionRu sets the "description_ru" field if the given value is not nil.
+func (mc *MedicineCreate) SetNillableDescriptionRu(s *string) *MedicineCreate {
+	if s != nil {
+		mc.SetDescriptionRu(*s)
+	}
+	return mc
+}
+
+// SetDescriptionKk sets the "description_kk" field.
+func (mc *MedicineCreate) SetDescriptionKk(s string) *MedicineCreate {
+	mc.mutation.SetDescriptionKk(s)
+	return mc
+}
+
+// SetNillableDescriptionKk sets the "description_kk" field if the given value is not nil.
+func (mc *MedicineCreate) SetNillableDescriptionKk(s *string) *MedicineCreate {
+	if s != nil {
+		mc.SetDescriptionKk(*s)
 	}
 	return mc
 }
@@ -200,8 +260,17 @@ func (mc *MedicineCreate) check() error {
 	if _, ok := mc.mutation.Sort(); !ok {
 		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Medicine.sort"`)}
 	}
-	if _, ok := mc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Medicine.name"`)}
+	if _, ok := mc.mutation.NameZh(); !ok {
+		return &ValidationError{Name: "name_zh", err: errors.New(`ent: missing required field "Medicine.name_zh"`)}
+	}
+	if _, ok := mc.mutation.NameEn(); !ok {
+		return &ValidationError{Name: "name_en", err: errors.New(`ent: missing required field "Medicine.name_en"`)}
+	}
+	if _, ok := mc.mutation.NameRu(); !ok {
+		return &ValidationError{Name: "name_ru", err: errors.New(`ent: missing required field "Medicine.name_ru"`)}
+	}
+	if _, ok := mc.mutation.NameKk(); !ok {
+		return &ValidationError{Name: "name_kk", err: errors.New(`ent: missing required field "Medicine.name_kk"`)}
 	}
 	if _, ok := mc.mutation.Quantity(); !ok {
 		return &ValidationError{Name: "quantity", err: errors.New(`ent: missing required field "Medicine.quantity"`)}
@@ -254,17 +323,41 @@ func (mc *MedicineCreate) createSpec() (*Medicine, *sqlgraph.CreateSpec) {
 		_spec.SetField(medicine.FieldSort, field.TypeUint32, value)
 		_node.Sort = value
 	}
-	if value, ok := mc.mutation.Name(); ok {
-		_spec.SetField(medicine.FieldName, field.TypeString, value)
-		_node.Name = value
+	if value, ok := mc.mutation.NameZh(); ok {
+		_spec.SetField(medicine.FieldNameZh, field.TypeString, value)
+		_node.NameZh = value
+	}
+	if value, ok := mc.mutation.NameEn(); ok {
+		_spec.SetField(medicine.FieldNameEn, field.TypeString, value)
+		_node.NameEn = value
+	}
+	if value, ok := mc.mutation.NameRu(); ok {
+		_spec.SetField(medicine.FieldNameRu, field.TypeString, value)
+		_node.NameRu = value
+	}
+	if value, ok := mc.mutation.NameKk(); ok {
+		_spec.SetField(medicine.FieldNameKk, field.TypeString, value)
+		_node.NameKk = value
 	}
 	if value, ok := mc.mutation.Quantity(); ok {
 		_spec.SetField(medicine.FieldQuantity, field.TypeUint32, value)
 		_node.Quantity = value
 	}
-	if value, ok := mc.mutation.Description(); ok {
-		_spec.SetField(medicine.FieldDescription, field.TypeString, value)
-		_node.Description = value
+	if value, ok := mc.mutation.DescriptionZh(); ok {
+		_spec.SetField(medicine.FieldDescriptionZh, field.TypeString, value)
+		_node.DescriptionZh = value
+	}
+	if value, ok := mc.mutation.DescriptionEn(); ok {
+		_spec.SetField(medicine.FieldDescriptionEn, field.TypeString, value)
+		_node.DescriptionEn = value
+	}
+	if value, ok := mc.mutation.DescriptionRu(); ok {
+		_spec.SetField(medicine.FieldDescriptionRu, field.TypeString, value)
+		_node.DescriptionRu = value
+	}
+	if value, ok := mc.mutation.DescriptionKk(); ok {
+		_spec.SetField(medicine.FieldDescriptionKk, field.TypeString, value)
+		_node.DescriptionKk = value
 	}
 	if value, ok := mc.mutation.Remarks(); ok {
 		_spec.SetField(medicine.FieldRemarks, field.TypeString, value)

@@ -30,9 +30,15 @@ func NewCreateMedicineLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 func (l *CreateMedicineLogic) CreateMedicine(in *core.MedicineInfo) (*core.BaseIDResp, error) {
     query := l.svcCtx.DB.Medicine.Create().
 			SetNotNilSort(in.Sort).
-			SetNotNilName(in.Name).
+			SetNotNilNameZh(in.NameZh).
+			SetNotNilNameEn(in.NameEn).
+			SetNotNilNameRu(in.NameRu).
+			SetNotNilNameKk(in.NameKk).
 			SetNotNilQuantity(in.Quantity).
-			SetNotNilDescription(in.Description).
+			SetNotNilDescriptionZh(in.DescriptionZh).
+			SetNotNilDescriptionEn(in.DescriptionEn).
+			SetNotNilDescriptionRu(in.DescriptionRu).
+			SetNotNilDescriptionKk(in.DescriptionKk).
 			SetNotNilRemarks(in.Remarks).
 			SetNotNilImages(in.Images)
 

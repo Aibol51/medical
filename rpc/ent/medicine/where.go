@@ -74,9 +74,24 @@ func Sort(v uint32) predicate.Medicine {
 	return predicate.Medicine(sql.FieldEQ(FieldSort, v))
 }
 
-// Name applies equality check predicate on the "name" field. It's identical to NameEQ.
-func Name(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEQ(FieldName, v))
+// NameZh applies equality check predicate on the "name_zh" field. It's identical to NameZhEQ.
+func NameZh(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameZh, v))
+}
+
+// NameEn applies equality check predicate on the "name_en" field. It's identical to NameEnEQ.
+func NameEn(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameEn, v))
+}
+
+// NameRu applies equality check predicate on the "name_ru" field. It's identical to NameRuEQ.
+func NameRu(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameRu, v))
+}
+
+// NameKk applies equality check predicate on the "name_kk" field. It's identical to NameKkEQ.
+func NameKk(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameKk, v))
 }
 
 // Quantity applies equality check predicate on the "quantity" field. It's identical to QuantityEQ.
@@ -84,9 +99,24 @@ func Quantity(v uint32) predicate.Medicine {
 	return predicate.Medicine(sql.FieldEQ(FieldQuantity, v))
 }
 
-// Description applies equality check predicate on the "description" field. It's identical to DescriptionEQ.
-func Description(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEQ(FieldDescription, v))
+// DescriptionZh applies equality check predicate on the "description_zh" field. It's identical to DescriptionZhEQ.
+func DescriptionZh(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionZh, v))
+}
+
+// DescriptionEn applies equality check predicate on the "description_en" field. It's identical to DescriptionEnEQ.
+func DescriptionEn(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionEn, v))
+}
+
+// DescriptionRu applies equality check predicate on the "description_ru" field. It's identical to DescriptionRuEQ.
+func DescriptionRu(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionRu, v))
+}
+
+// DescriptionKk applies equality check predicate on the "description_kk" field. It's identical to DescriptionKkEQ.
+func DescriptionKk(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionKk, v))
 }
 
 // Remarks applies equality check predicate on the "remarks" field. It's identical to RemarksEQ.
@@ -269,69 +299,264 @@ func SortLTE(v uint32) predicate.Medicine {
 	return predicate.Medicine(sql.FieldLTE(FieldSort, v))
 }
 
-// NameEQ applies the EQ predicate on the "name" field.
-func NameEQ(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEQ(FieldName, v))
+// NameZhEQ applies the EQ predicate on the "name_zh" field.
+func NameZhEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameZh, v))
 }
 
-// NameNEQ applies the NEQ predicate on the "name" field.
-func NameNEQ(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldNEQ(FieldName, v))
+// NameZhNEQ applies the NEQ predicate on the "name_zh" field.
+func NameZhNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldNameZh, v))
 }
 
-// NameIn applies the In predicate on the "name" field.
-func NameIn(vs ...string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldIn(FieldName, vs...))
+// NameZhIn applies the In predicate on the "name_zh" field.
+func NameZhIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldNameZh, vs...))
 }
 
-// NameNotIn applies the NotIn predicate on the "name" field.
-func NameNotIn(vs ...string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldNotIn(FieldName, vs...))
+// NameZhNotIn applies the NotIn predicate on the "name_zh" field.
+func NameZhNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldNameZh, vs...))
 }
 
-// NameGT applies the GT predicate on the "name" field.
-func NameGT(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldGT(FieldName, v))
+// NameZhGT applies the GT predicate on the "name_zh" field.
+func NameZhGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldNameZh, v))
 }
 
-// NameGTE applies the GTE predicate on the "name" field.
-func NameGTE(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldGTE(FieldName, v))
+// NameZhGTE applies the GTE predicate on the "name_zh" field.
+func NameZhGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldNameZh, v))
 }
 
-// NameLT applies the LT predicate on the "name" field.
-func NameLT(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldLT(FieldName, v))
+// NameZhLT applies the LT predicate on the "name_zh" field.
+func NameZhLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldNameZh, v))
 }
 
-// NameLTE applies the LTE predicate on the "name" field.
-func NameLTE(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldLTE(FieldName, v))
+// NameZhLTE applies the LTE predicate on the "name_zh" field.
+func NameZhLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldNameZh, v))
 }
 
-// NameContains applies the Contains predicate on the "name" field.
-func NameContains(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldContains(FieldName, v))
+// NameZhContains applies the Contains predicate on the "name_zh" field.
+func NameZhContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldNameZh, v))
 }
 
-// NameHasPrefix applies the HasPrefix predicate on the "name" field.
-func NameHasPrefix(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldHasPrefix(FieldName, v))
+// NameZhHasPrefix applies the HasPrefix predicate on the "name_zh" field.
+func NameZhHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldNameZh, v))
 }
 
-// NameHasSuffix applies the HasSuffix predicate on the "name" field.
-func NameHasSuffix(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldHasSuffix(FieldName, v))
+// NameZhHasSuffix applies the HasSuffix predicate on the "name_zh" field.
+func NameZhHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldNameZh, v))
 }
 
-// NameEqualFold applies the EqualFold predicate on the "name" field.
-func NameEqualFold(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEqualFold(FieldName, v))
+// NameZhEqualFold applies the EqualFold predicate on the "name_zh" field.
+func NameZhEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldNameZh, v))
 }
 
-// NameContainsFold applies the ContainsFold predicate on the "name" field.
-func NameContainsFold(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldContainsFold(FieldName, v))
+// NameZhContainsFold applies the ContainsFold predicate on the "name_zh" field.
+func NameZhContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldNameZh, v))
+}
+
+// NameEnEQ applies the EQ predicate on the "name_en" field.
+func NameEnEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameEn, v))
+}
+
+// NameEnNEQ applies the NEQ predicate on the "name_en" field.
+func NameEnNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldNameEn, v))
+}
+
+// NameEnIn applies the In predicate on the "name_en" field.
+func NameEnIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldNameEn, vs...))
+}
+
+// NameEnNotIn applies the NotIn predicate on the "name_en" field.
+func NameEnNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldNameEn, vs...))
+}
+
+// NameEnGT applies the GT predicate on the "name_en" field.
+func NameEnGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldNameEn, v))
+}
+
+// NameEnGTE applies the GTE predicate on the "name_en" field.
+func NameEnGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldNameEn, v))
+}
+
+// NameEnLT applies the LT predicate on the "name_en" field.
+func NameEnLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldNameEn, v))
+}
+
+// NameEnLTE applies the LTE predicate on the "name_en" field.
+func NameEnLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldNameEn, v))
+}
+
+// NameEnContains applies the Contains predicate on the "name_en" field.
+func NameEnContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldNameEn, v))
+}
+
+// NameEnHasPrefix applies the HasPrefix predicate on the "name_en" field.
+func NameEnHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldNameEn, v))
+}
+
+// NameEnHasSuffix applies the HasSuffix predicate on the "name_en" field.
+func NameEnHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldNameEn, v))
+}
+
+// NameEnEqualFold applies the EqualFold predicate on the "name_en" field.
+func NameEnEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldNameEn, v))
+}
+
+// NameEnContainsFold applies the ContainsFold predicate on the "name_en" field.
+func NameEnContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldNameEn, v))
+}
+
+// NameRuEQ applies the EQ predicate on the "name_ru" field.
+func NameRuEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameRu, v))
+}
+
+// NameRuNEQ applies the NEQ predicate on the "name_ru" field.
+func NameRuNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldNameRu, v))
+}
+
+// NameRuIn applies the In predicate on the "name_ru" field.
+func NameRuIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldNameRu, vs...))
+}
+
+// NameRuNotIn applies the NotIn predicate on the "name_ru" field.
+func NameRuNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldNameRu, vs...))
+}
+
+// NameRuGT applies the GT predicate on the "name_ru" field.
+func NameRuGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldNameRu, v))
+}
+
+// NameRuGTE applies the GTE predicate on the "name_ru" field.
+func NameRuGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldNameRu, v))
+}
+
+// NameRuLT applies the LT predicate on the "name_ru" field.
+func NameRuLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldNameRu, v))
+}
+
+// NameRuLTE applies the LTE predicate on the "name_ru" field.
+func NameRuLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldNameRu, v))
+}
+
+// NameRuContains applies the Contains predicate on the "name_ru" field.
+func NameRuContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldNameRu, v))
+}
+
+// NameRuHasPrefix applies the HasPrefix predicate on the "name_ru" field.
+func NameRuHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldNameRu, v))
+}
+
+// NameRuHasSuffix applies the HasSuffix predicate on the "name_ru" field.
+func NameRuHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldNameRu, v))
+}
+
+// NameRuEqualFold applies the EqualFold predicate on the "name_ru" field.
+func NameRuEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldNameRu, v))
+}
+
+// NameRuContainsFold applies the ContainsFold predicate on the "name_ru" field.
+func NameRuContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldNameRu, v))
+}
+
+// NameKkEQ applies the EQ predicate on the "name_kk" field.
+func NameKkEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldNameKk, v))
+}
+
+// NameKkNEQ applies the NEQ predicate on the "name_kk" field.
+func NameKkNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldNameKk, v))
+}
+
+// NameKkIn applies the In predicate on the "name_kk" field.
+func NameKkIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldNameKk, vs...))
+}
+
+// NameKkNotIn applies the NotIn predicate on the "name_kk" field.
+func NameKkNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldNameKk, vs...))
+}
+
+// NameKkGT applies the GT predicate on the "name_kk" field.
+func NameKkGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldNameKk, v))
+}
+
+// NameKkGTE applies the GTE predicate on the "name_kk" field.
+func NameKkGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldNameKk, v))
+}
+
+// NameKkLT applies the LT predicate on the "name_kk" field.
+func NameKkLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldNameKk, v))
+}
+
+// NameKkLTE applies the LTE predicate on the "name_kk" field.
+func NameKkLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldNameKk, v))
+}
+
+// NameKkContains applies the Contains predicate on the "name_kk" field.
+func NameKkContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldNameKk, v))
+}
+
+// NameKkHasPrefix applies the HasPrefix predicate on the "name_kk" field.
+func NameKkHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldNameKk, v))
+}
+
+// NameKkHasSuffix applies the HasSuffix predicate on the "name_kk" field.
+func NameKkHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldNameKk, v))
+}
+
+// NameKkEqualFold applies the EqualFold predicate on the "name_kk" field.
+func NameKkEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldNameKk, v))
+}
+
+// NameKkContainsFold applies the ContainsFold predicate on the "name_kk" field.
+func NameKkContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldNameKk, v))
 }
 
 // QuantityEQ applies the EQ predicate on the "quantity" field.
@@ -374,79 +599,304 @@ func QuantityLTE(v uint32) predicate.Medicine {
 	return predicate.Medicine(sql.FieldLTE(FieldQuantity, v))
 }
 
-// DescriptionEQ applies the EQ predicate on the "description" field.
-func DescriptionEQ(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEQ(FieldDescription, v))
+// DescriptionZhEQ applies the EQ predicate on the "description_zh" field.
+func DescriptionZhEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionZh, v))
 }
 
-// DescriptionNEQ applies the NEQ predicate on the "description" field.
-func DescriptionNEQ(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldNEQ(FieldDescription, v))
+// DescriptionZhNEQ applies the NEQ predicate on the "description_zh" field.
+func DescriptionZhNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldDescriptionZh, v))
 }
 
-// DescriptionIn applies the In predicate on the "description" field.
-func DescriptionIn(vs ...string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldIn(FieldDescription, vs...))
+// DescriptionZhIn applies the In predicate on the "description_zh" field.
+func DescriptionZhIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldDescriptionZh, vs...))
 }
 
-// DescriptionNotIn applies the NotIn predicate on the "description" field.
-func DescriptionNotIn(vs ...string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldNotIn(FieldDescription, vs...))
+// DescriptionZhNotIn applies the NotIn predicate on the "description_zh" field.
+func DescriptionZhNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldDescriptionZh, vs...))
 }
 
-// DescriptionGT applies the GT predicate on the "description" field.
-func DescriptionGT(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldGT(FieldDescription, v))
+// DescriptionZhGT applies the GT predicate on the "description_zh" field.
+func DescriptionZhGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldDescriptionZh, v))
 }
 
-// DescriptionGTE applies the GTE predicate on the "description" field.
-func DescriptionGTE(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldGTE(FieldDescription, v))
+// DescriptionZhGTE applies the GTE predicate on the "description_zh" field.
+func DescriptionZhGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldDescriptionZh, v))
 }
 
-// DescriptionLT applies the LT predicate on the "description" field.
-func DescriptionLT(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldLT(FieldDescription, v))
+// DescriptionZhLT applies the LT predicate on the "description_zh" field.
+func DescriptionZhLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldDescriptionZh, v))
 }
 
-// DescriptionLTE applies the LTE predicate on the "description" field.
-func DescriptionLTE(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldLTE(FieldDescription, v))
+// DescriptionZhLTE applies the LTE predicate on the "description_zh" field.
+func DescriptionZhLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldDescriptionZh, v))
 }
 
-// DescriptionContains applies the Contains predicate on the "description" field.
-func DescriptionContains(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldContains(FieldDescription, v))
+// DescriptionZhContains applies the Contains predicate on the "description_zh" field.
+func DescriptionZhContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldDescriptionZh, v))
 }
 
-// DescriptionHasPrefix applies the HasPrefix predicate on the "description" field.
-func DescriptionHasPrefix(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldHasPrefix(FieldDescription, v))
+// DescriptionZhHasPrefix applies the HasPrefix predicate on the "description_zh" field.
+func DescriptionZhHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldDescriptionZh, v))
 }
 
-// DescriptionHasSuffix applies the HasSuffix predicate on the "description" field.
-func DescriptionHasSuffix(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldHasSuffix(FieldDescription, v))
+// DescriptionZhHasSuffix applies the HasSuffix predicate on the "description_zh" field.
+func DescriptionZhHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldDescriptionZh, v))
 }
 
-// DescriptionIsNil applies the IsNil predicate on the "description" field.
-func DescriptionIsNil() predicate.Medicine {
-	return predicate.Medicine(sql.FieldIsNull(FieldDescription))
+// DescriptionZhIsNil applies the IsNil predicate on the "description_zh" field.
+func DescriptionZhIsNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldIsNull(FieldDescriptionZh))
 }
 
-// DescriptionNotNil applies the NotNil predicate on the "description" field.
-func DescriptionNotNil() predicate.Medicine {
-	return predicate.Medicine(sql.FieldNotNull(FieldDescription))
+// DescriptionZhNotNil applies the NotNil predicate on the "description_zh" field.
+func DescriptionZhNotNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotNull(FieldDescriptionZh))
 }
 
-// DescriptionEqualFold applies the EqualFold predicate on the "description" field.
-func DescriptionEqualFold(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldEqualFold(FieldDescription, v))
+// DescriptionZhEqualFold applies the EqualFold predicate on the "description_zh" field.
+func DescriptionZhEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldDescriptionZh, v))
 }
 
-// DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
-func DescriptionContainsFold(v string) predicate.Medicine {
-	return predicate.Medicine(sql.FieldContainsFold(FieldDescription, v))
+// DescriptionZhContainsFold applies the ContainsFold predicate on the "description_zh" field.
+func DescriptionZhContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldDescriptionZh, v))
+}
+
+// DescriptionEnEQ applies the EQ predicate on the "description_en" field.
+func DescriptionEnEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionEn, v))
+}
+
+// DescriptionEnNEQ applies the NEQ predicate on the "description_en" field.
+func DescriptionEnNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldDescriptionEn, v))
+}
+
+// DescriptionEnIn applies the In predicate on the "description_en" field.
+func DescriptionEnIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldDescriptionEn, vs...))
+}
+
+// DescriptionEnNotIn applies the NotIn predicate on the "description_en" field.
+func DescriptionEnNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldDescriptionEn, vs...))
+}
+
+// DescriptionEnGT applies the GT predicate on the "description_en" field.
+func DescriptionEnGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldDescriptionEn, v))
+}
+
+// DescriptionEnGTE applies the GTE predicate on the "description_en" field.
+func DescriptionEnGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldDescriptionEn, v))
+}
+
+// DescriptionEnLT applies the LT predicate on the "description_en" field.
+func DescriptionEnLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldDescriptionEn, v))
+}
+
+// DescriptionEnLTE applies the LTE predicate on the "description_en" field.
+func DescriptionEnLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldDescriptionEn, v))
+}
+
+// DescriptionEnContains applies the Contains predicate on the "description_en" field.
+func DescriptionEnContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldDescriptionEn, v))
+}
+
+// DescriptionEnHasPrefix applies the HasPrefix predicate on the "description_en" field.
+func DescriptionEnHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldDescriptionEn, v))
+}
+
+// DescriptionEnHasSuffix applies the HasSuffix predicate on the "description_en" field.
+func DescriptionEnHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldDescriptionEn, v))
+}
+
+// DescriptionEnIsNil applies the IsNil predicate on the "description_en" field.
+func DescriptionEnIsNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldIsNull(FieldDescriptionEn))
+}
+
+// DescriptionEnNotNil applies the NotNil predicate on the "description_en" field.
+func DescriptionEnNotNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotNull(FieldDescriptionEn))
+}
+
+// DescriptionEnEqualFold applies the EqualFold predicate on the "description_en" field.
+func DescriptionEnEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldDescriptionEn, v))
+}
+
+// DescriptionEnContainsFold applies the ContainsFold predicate on the "description_en" field.
+func DescriptionEnContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldDescriptionEn, v))
+}
+
+// DescriptionRuEQ applies the EQ predicate on the "description_ru" field.
+func DescriptionRuEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionRu, v))
+}
+
+// DescriptionRuNEQ applies the NEQ predicate on the "description_ru" field.
+func DescriptionRuNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldDescriptionRu, v))
+}
+
+// DescriptionRuIn applies the In predicate on the "description_ru" field.
+func DescriptionRuIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldDescriptionRu, vs...))
+}
+
+// DescriptionRuNotIn applies the NotIn predicate on the "description_ru" field.
+func DescriptionRuNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldDescriptionRu, vs...))
+}
+
+// DescriptionRuGT applies the GT predicate on the "description_ru" field.
+func DescriptionRuGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldDescriptionRu, v))
+}
+
+// DescriptionRuGTE applies the GTE predicate on the "description_ru" field.
+func DescriptionRuGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldDescriptionRu, v))
+}
+
+// DescriptionRuLT applies the LT predicate on the "description_ru" field.
+func DescriptionRuLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldDescriptionRu, v))
+}
+
+// DescriptionRuLTE applies the LTE predicate on the "description_ru" field.
+func DescriptionRuLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldDescriptionRu, v))
+}
+
+// DescriptionRuContains applies the Contains predicate on the "description_ru" field.
+func DescriptionRuContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldDescriptionRu, v))
+}
+
+// DescriptionRuHasPrefix applies the HasPrefix predicate on the "description_ru" field.
+func DescriptionRuHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldDescriptionRu, v))
+}
+
+// DescriptionRuHasSuffix applies the HasSuffix predicate on the "description_ru" field.
+func DescriptionRuHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldDescriptionRu, v))
+}
+
+// DescriptionRuIsNil applies the IsNil predicate on the "description_ru" field.
+func DescriptionRuIsNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldIsNull(FieldDescriptionRu))
+}
+
+// DescriptionRuNotNil applies the NotNil predicate on the "description_ru" field.
+func DescriptionRuNotNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotNull(FieldDescriptionRu))
+}
+
+// DescriptionRuEqualFold applies the EqualFold predicate on the "description_ru" field.
+func DescriptionRuEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldDescriptionRu, v))
+}
+
+// DescriptionRuContainsFold applies the ContainsFold predicate on the "description_ru" field.
+func DescriptionRuContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldDescriptionRu, v))
+}
+
+// DescriptionKkEQ applies the EQ predicate on the "description_kk" field.
+func DescriptionKkEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEQ(FieldDescriptionKk, v))
+}
+
+// DescriptionKkNEQ applies the NEQ predicate on the "description_kk" field.
+func DescriptionKkNEQ(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNEQ(FieldDescriptionKk, v))
+}
+
+// DescriptionKkIn applies the In predicate on the "description_kk" field.
+func DescriptionKkIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldIn(FieldDescriptionKk, vs...))
+}
+
+// DescriptionKkNotIn applies the NotIn predicate on the "description_kk" field.
+func DescriptionKkNotIn(vs ...string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotIn(FieldDescriptionKk, vs...))
+}
+
+// DescriptionKkGT applies the GT predicate on the "description_kk" field.
+func DescriptionKkGT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGT(FieldDescriptionKk, v))
+}
+
+// DescriptionKkGTE applies the GTE predicate on the "description_kk" field.
+func DescriptionKkGTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldGTE(FieldDescriptionKk, v))
+}
+
+// DescriptionKkLT applies the LT predicate on the "description_kk" field.
+func DescriptionKkLT(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLT(FieldDescriptionKk, v))
+}
+
+// DescriptionKkLTE applies the LTE predicate on the "description_kk" field.
+func DescriptionKkLTE(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldLTE(FieldDescriptionKk, v))
+}
+
+// DescriptionKkContains applies the Contains predicate on the "description_kk" field.
+func DescriptionKkContains(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContains(FieldDescriptionKk, v))
+}
+
+// DescriptionKkHasPrefix applies the HasPrefix predicate on the "description_kk" field.
+func DescriptionKkHasPrefix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasPrefix(FieldDescriptionKk, v))
+}
+
+// DescriptionKkHasSuffix applies the HasSuffix predicate on the "description_kk" field.
+func DescriptionKkHasSuffix(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldHasSuffix(FieldDescriptionKk, v))
+}
+
+// DescriptionKkIsNil applies the IsNil predicate on the "description_kk" field.
+func DescriptionKkIsNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldIsNull(FieldDescriptionKk))
+}
+
+// DescriptionKkNotNil applies the NotNil predicate on the "description_kk" field.
+func DescriptionKkNotNil() predicate.Medicine {
+	return predicate.Medicine(sql.FieldNotNull(FieldDescriptionKk))
+}
+
+// DescriptionKkEqualFold applies the EqualFold predicate on the "description_kk" field.
+func DescriptionKkEqualFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldEqualFold(FieldDescriptionKk, v))
+}
+
+// DescriptionKkContainsFold applies the ContainsFold predicate on the "description_kk" field.
+func DescriptionKkContainsFold(v string) predicate.Medicine {
+	return predicate.Medicine(sql.FieldContainsFold(FieldDescriptionKk, v))
 }
 
 // RemarksEQ applies the EQ predicate on the "remarks" field.

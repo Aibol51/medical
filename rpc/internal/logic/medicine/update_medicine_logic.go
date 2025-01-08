@@ -30,9 +30,15 @@ func NewUpdateMedicineLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 func (l *UpdateMedicineLogic) UpdateMedicine(in *core.MedicineInfo) (*core.BaseResp, error) {
 	query:= l.svcCtx.DB.Medicine.UpdateOneID(*in.Id).
 			SetNotNilSort(in.Sort).
-			SetNotNilName(in.Name).
+			SetNotNilNameZh(in.NameZh).
+			SetNotNilNameEn(in.NameEn).
+			SetNotNilNameRu(in.NameRu).
+			SetNotNilNameKk(in.NameKk).
 			SetNotNilQuantity(in.Quantity).
-			SetNotNilDescription(in.Description).
+			SetNotNilDescriptionZh(in.DescriptionZh).
+			SetNotNilDescriptionEn(in.DescriptionEn).
+			SetNotNilDescriptionRu(in.DescriptionRu).
+			SetNotNilDescriptionKk(in.DescriptionKk).
 			SetNotNilRemarks(in.Remarks).
 			SetNotNilImages(in.Images)
 

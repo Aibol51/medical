@@ -29,14 +29,14 @@ func NewGetMedicineListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetMedicineListLogic) GetMedicineList(in *core.MedicineListReq) (*core.MedicineListResp, error) {
 	var predicates []predicate.Medicine
-	if in.Name != nil {
-		predicates = append(predicates, medicine.NameContains(*in.Name))
+	if in.NameZh != nil {
+		predicates = append(predicates, medicine.NameZhContains(*in.NameZh))
 	}
-	if in.Description != nil {
-		predicates = append(predicates, medicine.DescriptionContains(*in.Description))
+	if in.NameEn != nil {
+		predicates = append(predicates, medicine.NameEnContains(*in.NameEn))
 	}
-	if in.Remarks != nil {
-		predicates = append(predicates, medicine.RemarksContains(*in.Remarks))
+	if in.NameRu != nil {
+		predicates = append(predicates, medicine.NameRuContains(*in.NameRu))
 	}
 	result, err := l.svcCtx.DB.Medicine.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
@@ -54,9 +54,15 @@ func (l *GetMedicineListLogic) GetMedicineList(in *core.MedicineListReq) (*core.
 			UpdatedAt:   pointy.GetPointer(v.UpdatedAt.UnixMilli()),
 			Status:	pointy.GetPointer(uint32(v.Status)),
 			Sort:	&v.Sort,
-			Name:	&v.Name,
+			NameZh:	&v.NameZh,
+			NameEn:	&v.NameEn,
+			NameRu:	&v.NameRu,
+			NameKk:	&v.NameKk,
 			Quantity:	&v.Quantity,
-			Description:	&v.Description,
+			DescriptionZh:	&v.DescriptionZh,
+			DescriptionEn:	&v.DescriptionEn,
+			DescriptionRu:	&v.DescriptionRu,
+			DescriptionKk:	&v.DescriptionKk,
 			Remarks:	&v.Remarks,
 			Images:	&v.Images,
 		})

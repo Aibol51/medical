@@ -83,16 +83,58 @@ func (mu *MedicineUpdate) AddSort(u int32) *MedicineUpdate {
 	return mu
 }
 
-// SetName sets the "name" field.
-func (mu *MedicineUpdate) SetName(s string) *MedicineUpdate {
-	mu.mutation.SetName(s)
+// SetNameZh sets the "name_zh" field.
+func (mu *MedicineUpdate) SetNameZh(s string) *MedicineUpdate {
+	mu.mutation.SetNameZh(s)
 	return mu
 }
 
-// SetNillableName sets the "name" field if the given value is not nil.
-func (mu *MedicineUpdate) SetNillableName(s *string) *MedicineUpdate {
+// SetNillableNameZh sets the "name_zh" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableNameZh(s *string) *MedicineUpdate {
 	if s != nil {
-		mu.SetName(*s)
+		mu.SetNameZh(*s)
+	}
+	return mu
+}
+
+// SetNameEn sets the "name_en" field.
+func (mu *MedicineUpdate) SetNameEn(s string) *MedicineUpdate {
+	mu.mutation.SetNameEn(s)
+	return mu
+}
+
+// SetNillableNameEn sets the "name_en" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableNameEn(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetNameEn(*s)
+	}
+	return mu
+}
+
+// SetNameRu sets the "name_ru" field.
+func (mu *MedicineUpdate) SetNameRu(s string) *MedicineUpdate {
+	mu.mutation.SetNameRu(s)
+	return mu
+}
+
+// SetNillableNameRu sets the "name_ru" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableNameRu(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetNameRu(*s)
+	}
+	return mu
+}
+
+// SetNameKk sets the "name_kk" field.
+func (mu *MedicineUpdate) SetNameKk(s string) *MedicineUpdate {
+	mu.mutation.SetNameKk(s)
+	return mu
+}
+
+// SetNillableNameKk sets the "name_kk" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableNameKk(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetNameKk(*s)
 	}
 	return mu
 }
@@ -118,23 +160,83 @@ func (mu *MedicineUpdate) AddQuantity(u int32) *MedicineUpdate {
 	return mu
 }
 
-// SetDescription sets the "description" field.
-func (mu *MedicineUpdate) SetDescription(s string) *MedicineUpdate {
-	mu.mutation.SetDescription(s)
+// SetDescriptionZh sets the "description_zh" field.
+func (mu *MedicineUpdate) SetDescriptionZh(s string) *MedicineUpdate {
+	mu.mutation.SetDescriptionZh(s)
 	return mu
 }
 
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (mu *MedicineUpdate) SetNillableDescription(s *string) *MedicineUpdate {
+// SetNillableDescriptionZh sets the "description_zh" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableDescriptionZh(s *string) *MedicineUpdate {
 	if s != nil {
-		mu.SetDescription(*s)
+		mu.SetDescriptionZh(*s)
 	}
 	return mu
 }
 
-// ClearDescription clears the value of the "description" field.
-func (mu *MedicineUpdate) ClearDescription() *MedicineUpdate {
-	mu.mutation.ClearDescription()
+// ClearDescriptionZh clears the value of the "description_zh" field.
+func (mu *MedicineUpdate) ClearDescriptionZh() *MedicineUpdate {
+	mu.mutation.ClearDescriptionZh()
+	return mu
+}
+
+// SetDescriptionEn sets the "description_en" field.
+func (mu *MedicineUpdate) SetDescriptionEn(s string) *MedicineUpdate {
+	mu.mutation.SetDescriptionEn(s)
+	return mu
+}
+
+// SetNillableDescriptionEn sets the "description_en" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableDescriptionEn(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetDescriptionEn(*s)
+	}
+	return mu
+}
+
+// ClearDescriptionEn clears the value of the "description_en" field.
+func (mu *MedicineUpdate) ClearDescriptionEn() *MedicineUpdate {
+	mu.mutation.ClearDescriptionEn()
+	return mu
+}
+
+// SetDescriptionRu sets the "description_ru" field.
+func (mu *MedicineUpdate) SetDescriptionRu(s string) *MedicineUpdate {
+	mu.mutation.SetDescriptionRu(s)
+	return mu
+}
+
+// SetNillableDescriptionRu sets the "description_ru" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableDescriptionRu(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetDescriptionRu(*s)
+	}
+	return mu
+}
+
+// ClearDescriptionRu clears the value of the "description_ru" field.
+func (mu *MedicineUpdate) ClearDescriptionRu() *MedicineUpdate {
+	mu.mutation.ClearDescriptionRu()
+	return mu
+}
+
+// SetDescriptionKk sets the "description_kk" field.
+func (mu *MedicineUpdate) SetDescriptionKk(s string) *MedicineUpdate {
+	mu.mutation.SetDescriptionKk(s)
+	return mu
+}
+
+// SetNillableDescriptionKk sets the "description_kk" field if the given value is not nil.
+func (mu *MedicineUpdate) SetNillableDescriptionKk(s *string) *MedicineUpdate {
+	if s != nil {
+		mu.SetDescriptionKk(*s)
+	}
+	return mu
+}
+
+// ClearDescriptionKk clears the value of the "description_kk" field.
+func (mu *MedicineUpdate) ClearDescriptionKk() *MedicineUpdate {
+	mu.mutation.ClearDescriptionKk()
 	return mu
 }
 
@@ -252,8 +354,17 @@ func (mu *MedicineUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.AddedSort(); ok {
 		_spec.AddField(medicine.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := mu.mutation.Name(); ok {
-		_spec.SetField(medicine.FieldName, field.TypeString, value)
+	if value, ok := mu.mutation.NameZh(); ok {
+		_spec.SetField(medicine.FieldNameZh, field.TypeString, value)
+	}
+	if value, ok := mu.mutation.NameEn(); ok {
+		_spec.SetField(medicine.FieldNameEn, field.TypeString, value)
+	}
+	if value, ok := mu.mutation.NameRu(); ok {
+		_spec.SetField(medicine.FieldNameRu, field.TypeString, value)
+	}
+	if value, ok := mu.mutation.NameKk(); ok {
+		_spec.SetField(medicine.FieldNameKk, field.TypeString, value)
 	}
 	if value, ok := mu.mutation.Quantity(); ok {
 		_spec.SetField(medicine.FieldQuantity, field.TypeUint32, value)
@@ -261,11 +372,29 @@ func (mu *MedicineUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.AddedQuantity(); ok {
 		_spec.AddField(medicine.FieldQuantity, field.TypeUint32, value)
 	}
-	if value, ok := mu.mutation.Description(); ok {
-		_spec.SetField(medicine.FieldDescription, field.TypeString, value)
+	if value, ok := mu.mutation.DescriptionZh(); ok {
+		_spec.SetField(medicine.FieldDescriptionZh, field.TypeString, value)
 	}
-	if mu.mutation.DescriptionCleared() {
-		_spec.ClearField(medicine.FieldDescription, field.TypeString)
+	if mu.mutation.DescriptionZhCleared() {
+		_spec.ClearField(medicine.FieldDescriptionZh, field.TypeString)
+	}
+	if value, ok := mu.mutation.DescriptionEn(); ok {
+		_spec.SetField(medicine.FieldDescriptionEn, field.TypeString, value)
+	}
+	if mu.mutation.DescriptionEnCleared() {
+		_spec.ClearField(medicine.FieldDescriptionEn, field.TypeString)
+	}
+	if value, ok := mu.mutation.DescriptionRu(); ok {
+		_spec.SetField(medicine.FieldDescriptionRu, field.TypeString, value)
+	}
+	if mu.mutation.DescriptionRuCleared() {
+		_spec.ClearField(medicine.FieldDescriptionRu, field.TypeString)
+	}
+	if value, ok := mu.mutation.DescriptionKk(); ok {
+		_spec.SetField(medicine.FieldDescriptionKk, field.TypeString, value)
+	}
+	if mu.mutation.DescriptionKkCleared() {
+		_spec.ClearField(medicine.FieldDescriptionKk, field.TypeString)
 	}
 	if value, ok := mu.mutation.Remarks(); ok {
 		_spec.SetField(medicine.FieldRemarks, field.TypeString, value)
@@ -355,16 +484,58 @@ func (muo *MedicineUpdateOne) AddSort(u int32) *MedicineUpdateOne {
 	return muo
 }
 
-// SetName sets the "name" field.
-func (muo *MedicineUpdateOne) SetName(s string) *MedicineUpdateOne {
-	muo.mutation.SetName(s)
+// SetNameZh sets the "name_zh" field.
+func (muo *MedicineUpdateOne) SetNameZh(s string) *MedicineUpdateOne {
+	muo.mutation.SetNameZh(s)
 	return muo
 }
 
-// SetNillableName sets the "name" field if the given value is not nil.
-func (muo *MedicineUpdateOne) SetNillableName(s *string) *MedicineUpdateOne {
+// SetNillableNameZh sets the "name_zh" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableNameZh(s *string) *MedicineUpdateOne {
 	if s != nil {
-		muo.SetName(*s)
+		muo.SetNameZh(*s)
+	}
+	return muo
+}
+
+// SetNameEn sets the "name_en" field.
+func (muo *MedicineUpdateOne) SetNameEn(s string) *MedicineUpdateOne {
+	muo.mutation.SetNameEn(s)
+	return muo
+}
+
+// SetNillableNameEn sets the "name_en" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableNameEn(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetNameEn(*s)
+	}
+	return muo
+}
+
+// SetNameRu sets the "name_ru" field.
+func (muo *MedicineUpdateOne) SetNameRu(s string) *MedicineUpdateOne {
+	muo.mutation.SetNameRu(s)
+	return muo
+}
+
+// SetNillableNameRu sets the "name_ru" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableNameRu(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetNameRu(*s)
+	}
+	return muo
+}
+
+// SetNameKk sets the "name_kk" field.
+func (muo *MedicineUpdateOne) SetNameKk(s string) *MedicineUpdateOne {
+	muo.mutation.SetNameKk(s)
+	return muo
+}
+
+// SetNillableNameKk sets the "name_kk" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableNameKk(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetNameKk(*s)
 	}
 	return muo
 }
@@ -390,23 +561,83 @@ func (muo *MedicineUpdateOne) AddQuantity(u int32) *MedicineUpdateOne {
 	return muo
 }
 
-// SetDescription sets the "description" field.
-func (muo *MedicineUpdateOne) SetDescription(s string) *MedicineUpdateOne {
-	muo.mutation.SetDescription(s)
+// SetDescriptionZh sets the "description_zh" field.
+func (muo *MedicineUpdateOne) SetDescriptionZh(s string) *MedicineUpdateOne {
+	muo.mutation.SetDescriptionZh(s)
 	return muo
 }
 
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (muo *MedicineUpdateOne) SetNillableDescription(s *string) *MedicineUpdateOne {
+// SetNillableDescriptionZh sets the "description_zh" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableDescriptionZh(s *string) *MedicineUpdateOne {
 	if s != nil {
-		muo.SetDescription(*s)
+		muo.SetDescriptionZh(*s)
 	}
 	return muo
 }
 
-// ClearDescription clears the value of the "description" field.
-func (muo *MedicineUpdateOne) ClearDescription() *MedicineUpdateOne {
-	muo.mutation.ClearDescription()
+// ClearDescriptionZh clears the value of the "description_zh" field.
+func (muo *MedicineUpdateOne) ClearDescriptionZh() *MedicineUpdateOne {
+	muo.mutation.ClearDescriptionZh()
+	return muo
+}
+
+// SetDescriptionEn sets the "description_en" field.
+func (muo *MedicineUpdateOne) SetDescriptionEn(s string) *MedicineUpdateOne {
+	muo.mutation.SetDescriptionEn(s)
+	return muo
+}
+
+// SetNillableDescriptionEn sets the "description_en" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableDescriptionEn(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetDescriptionEn(*s)
+	}
+	return muo
+}
+
+// ClearDescriptionEn clears the value of the "description_en" field.
+func (muo *MedicineUpdateOne) ClearDescriptionEn() *MedicineUpdateOne {
+	muo.mutation.ClearDescriptionEn()
+	return muo
+}
+
+// SetDescriptionRu sets the "description_ru" field.
+func (muo *MedicineUpdateOne) SetDescriptionRu(s string) *MedicineUpdateOne {
+	muo.mutation.SetDescriptionRu(s)
+	return muo
+}
+
+// SetNillableDescriptionRu sets the "description_ru" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableDescriptionRu(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetDescriptionRu(*s)
+	}
+	return muo
+}
+
+// ClearDescriptionRu clears the value of the "description_ru" field.
+func (muo *MedicineUpdateOne) ClearDescriptionRu() *MedicineUpdateOne {
+	muo.mutation.ClearDescriptionRu()
+	return muo
+}
+
+// SetDescriptionKk sets the "description_kk" field.
+func (muo *MedicineUpdateOne) SetDescriptionKk(s string) *MedicineUpdateOne {
+	muo.mutation.SetDescriptionKk(s)
+	return muo
+}
+
+// SetNillableDescriptionKk sets the "description_kk" field if the given value is not nil.
+func (muo *MedicineUpdateOne) SetNillableDescriptionKk(s *string) *MedicineUpdateOne {
+	if s != nil {
+		muo.SetDescriptionKk(*s)
+	}
+	return muo
+}
+
+// ClearDescriptionKk clears the value of the "description_kk" field.
+func (muo *MedicineUpdateOne) ClearDescriptionKk() *MedicineUpdateOne {
+	muo.mutation.ClearDescriptionKk()
 	return muo
 }
 
@@ -554,8 +785,17 @@ func (muo *MedicineUpdateOne) sqlSave(ctx context.Context) (_node *Medicine, err
 	if value, ok := muo.mutation.AddedSort(); ok {
 		_spec.AddField(medicine.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := muo.mutation.Name(); ok {
-		_spec.SetField(medicine.FieldName, field.TypeString, value)
+	if value, ok := muo.mutation.NameZh(); ok {
+		_spec.SetField(medicine.FieldNameZh, field.TypeString, value)
+	}
+	if value, ok := muo.mutation.NameEn(); ok {
+		_spec.SetField(medicine.FieldNameEn, field.TypeString, value)
+	}
+	if value, ok := muo.mutation.NameRu(); ok {
+		_spec.SetField(medicine.FieldNameRu, field.TypeString, value)
+	}
+	if value, ok := muo.mutation.NameKk(); ok {
+		_spec.SetField(medicine.FieldNameKk, field.TypeString, value)
 	}
 	if value, ok := muo.mutation.Quantity(); ok {
 		_spec.SetField(medicine.FieldQuantity, field.TypeUint32, value)
@@ -563,11 +803,29 @@ func (muo *MedicineUpdateOne) sqlSave(ctx context.Context) (_node *Medicine, err
 	if value, ok := muo.mutation.AddedQuantity(); ok {
 		_spec.AddField(medicine.FieldQuantity, field.TypeUint32, value)
 	}
-	if value, ok := muo.mutation.Description(); ok {
-		_spec.SetField(medicine.FieldDescription, field.TypeString, value)
+	if value, ok := muo.mutation.DescriptionZh(); ok {
+		_spec.SetField(medicine.FieldDescriptionZh, field.TypeString, value)
 	}
-	if muo.mutation.DescriptionCleared() {
-		_spec.ClearField(medicine.FieldDescription, field.TypeString)
+	if muo.mutation.DescriptionZhCleared() {
+		_spec.ClearField(medicine.FieldDescriptionZh, field.TypeString)
+	}
+	if value, ok := muo.mutation.DescriptionEn(); ok {
+		_spec.SetField(medicine.FieldDescriptionEn, field.TypeString, value)
+	}
+	if muo.mutation.DescriptionEnCleared() {
+		_spec.ClearField(medicine.FieldDescriptionEn, field.TypeString)
+	}
+	if value, ok := muo.mutation.DescriptionRu(); ok {
+		_spec.SetField(medicine.FieldDescriptionRu, field.TypeString, value)
+	}
+	if muo.mutation.DescriptionRuCleared() {
+		_spec.ClearField(medicine.FieldDescriptionRu, field.TypeString)
+	}
+	if value, ok := muo.mutation.DescriptionKk(); ok {
+		_spec.SetField(medicine.FieldDescriptionKk, field.TypeString, value)
+	}
+	if muo.mutation.DescriptionKkCleared() {
+		_spec.ClearField(medicine.FieldDescriptionKk, field.TypeString)
 	}
 	if value, ok := muo.mutation.Remarks(); ok {
 		_spec.SetField(medicine.FieldRemarks, field.TypeString, value)

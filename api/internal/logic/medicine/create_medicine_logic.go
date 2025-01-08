@@ -27,13 +27,19 @@ func NewCreateMedicineLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 func (l *CreateMedicineLogic) CreateMedicine(req *types.MedicineInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateMedicine(l.ctx,
 		&core.MedicineInfo{
-			Status:      req.Status,
-			Sort:        req.Sort,
-			Name:        req.Name,
-			Quantity:    req.Quantity,
-			Description: req.Description,
-			Remarks:     req.Remarks,
-			Images:      req.Images,
+			Status:        req.Status,
+			Sort:          req.Sort,
+			NameZh:        req.NameZh,
+			NameEn:        req.NameEn,
+			NameRu:        req.NameRu,
+			NameKk:        req.NameKk,
+			Quantity:      req.Quantity,
+			DescriptionZh: req.DescriptionZh,
+			DescriptionEn: req.DescriptionEn,
+			DescriptionRu: req.DescriptionRu,
+			DescriptionKk: req.DescriptionKk,
+			Remarks:       req.Remarks,
+			Images:        req.Images,
 		})
 	if err != nil {
 		return nil, err

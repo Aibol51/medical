@@ -1233,25 +1233,97 @@ func (m *MedicineCreate) SetNotNilSort(value *uint32) *MedicineCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineUpdate) SetNotNilName(value *string) *MedicineUpdate {
+func (m *MedicineUpdate) SetNotNilNameZh(value *string) *MedicineUpdate {
 	if value != nil {
-		return m.SetName(*value)
+		return m.SetNameZh(*value)
 	}
 	return m
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineUpdateOne) SetNotNilName(value *string) *MedicineUpdateOne {
+func (m *MedicineUpdateOne) SetNotNilNameZh(value *string) *MedicineUpdateOne {
 	if value != nil {
-		return m.SetName(*value)
+		return m.SetNameZh(*value)
 	}
 	return m
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineCreate) SetNotNilName(value *string) *MedicineCreate {
+func (m *MedicineCreate) SetNotNilNameZh(value *string) *MedicineCreate {
 	if value != nil {
-		return m.SetName(*value)
+		return m.SetNameZh(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilNameEn(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetNameEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilNameEn(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetNameEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilNameEn(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetNameEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilNameRu(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetNameRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilNameRu(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetNameRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilNameRu(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetNameRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilNameKk(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetNameKk(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilNameKk(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetNameKk(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilNameKk(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetNameKk(*value)
 	}
 	return m
 }
@@ -1281,25 +1353,97 @@ func (m *MedicineCreate) SetNotNilQuantity(value *uint32) *MedicineCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineUpdate) SetNotNilDescription(value *string) *MedicineUpdate {
+func (m *MedicineUpdate) SetNotNilDescriptionZh(value *string) *MedicineUpdate {
 	if value != nil {
-		return m.SetDescription(*value)
+		return m.SetDescriptionZh(*value)
 	}
 	return m
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineUpdateOne) SetNotNilDescription(value *string) *MedicineUpdateOne {
+func (m *MedicineUpdateOne) SetNotNilDescriptionZh(value *string) *MedicineUpdateOne {
 	if value != nil {
-		return m.SetDescription(*value)
+		return m.SetDescriptionZh(*value)
 	}
 	return m
 }
 
 // set field if value's pointer is not nil.
-func (m *MedicineCreate) SetNotNilDescription(value *string) *MedicineCreate {
+func (m *MedicineCreate) SetNotNilDescriptionZh(value *string) *MedicineCreate {
 	if value != nil {
-		return m.SetDescription(*value)
+		return m.SetDescriptionZh(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilDescriptionEn(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetDescriptionEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilDescriptionEn(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetDescriptionEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilDescriptionEn(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetDescriptionEn(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilDescriptionRu(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetDescriptionRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilDescriptionRu(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetDescriptionRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilDescriptionRu(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetDescriptionRu(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdate) SetNotNilDescriptionKk(value *string) *MedicineUpdate {
+	if value != nil {
+		return m.SetDescriptionKk(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineUpdateOne) SetNotNilDescriptionKk(value *string) *MedicineUpdateOne {
+	if value != nil {
+		return m.SetDescriptionKk(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MedicineCreate) SetNotNilDescriptionKk(value *string) *MedicineCreate {
+	if value != nil {
+		return m.SetDescriptionKk(*value)
 	}
 	return m
 }

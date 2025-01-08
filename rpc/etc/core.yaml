@@ -5,9 +5,9 @@ DatabaseConf:
   Type: mysql
   Host: 127.0.0.1
   Port: 3306
-  DBName: simple_admin
-  Username: root
-  Password: '123456'
+  DBName: medical
+  Username: medical
+  Password: 'cHRPW3Yww4JzArwH'
   MaxOpenConn: 100
   SSLMode: disable # disable or require
   CacheTime: 5

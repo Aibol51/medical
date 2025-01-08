@@ -25,12 +25,24 @@ type Medicine struct {
 	Status uint8 `json:"status,omitempty"`
 	// Sort Number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
-	// Medicine name | 药品名称
-	Name string `json:"name,omitempty"`
+	// Medicine chinese name | 药品中文名称
+	NameZh string `json:"name_zh,omitempty"`
+	// Medicine english name | 药品英文名称
+	NameEn string `json:"name_en,omitempty"`
+	// Medicine russian name | 药品俄语名称
+	NameRu string `json:"name_ru,omitempty"`
+	// Medicine kazakh name | 药品哈萨克语名称
+	NameKk string `json:"name_kk,omitempty"`
 	// Quantity in stock | 库存数量
 	Quantity uint32 `json:"quantity,omitempty"`
-	// Description | 药品描述
-	Description string `json:"description,omitempty"`
+	// Description chinese | 药品中文描述
+	DescriptionZh string `json:"description_zh,omitempty"`
+	// Description english | 药品英文描述
+	DescriptionEn string `json:"description_en,omitempty"`
+	// Description russian | 药品俄语描述
+	DescriptionRu string `json:"description_ru,omitempty"`
+	// Description kazakh | 药品哈萨克语描述
+	DescriptionKk string `json:"description_kk,omitempty"`
 	// Remarks | 备注信息
 	Remarks string `json:"remarks,omitempty"`
 	// Images | 图片路径
@@ -45,7 +57,7 @@ func (*Medicine) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case medicine.FieldID, medicine.FieldStatus, medicine.FieldSort, medicine.FieldQuantity:
 			values[i] = new(sql.NullInt64)
-		case medicine.FieldName, medicine.FieldDescription, medicine.FieldRemarks, medicine.FieldImages:
+		case medicine.FieldNameZh, medicine.FieldNameEn, medicine.FieldNameRu, medicine.FieldNameKk, medicine.FieldDescriptionZh, medicine.FieldDescriptionEn, medicine.FieldDescriptionRu, medicine.FieldDescriptionKk, medicine.FieldRemarks, medicine.FieldImages:
 			values[i] = new(sql.NullString)
 		case medicine.FieldCreatedAt, medicine.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -94,11 +106,29 @@ func (m *Medicine) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				m.Sort = uint32(value.Int64)
 			}
-		case medicine.FieldName:
+		case medicine.FieldNameZh:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field name", values[i])
+				return fmt.Errorf("unexpected type %T for field name_zh", values[i])
 			} else if value.Valid {
-				m.Name = value.String
+				m.NameZh = value.String
+			}
+		case medicine.FieldNameEn:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name_en", values[i])
+			} else if value.Valid {
+				m.NameEn = value.String
+			}
+		case medicine.FieldNameRu:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name_ru", values[i])
+			} else if value.Valid {
+				m.NameRu = value.String
+			}
+		case medicine.FieldNameKk:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name_kk", values[i])
+			} else if value.Valid {
+				m.NameKk = value.String
 			}
 		case medicine.FieldQuantity:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -106,11 +136,29 @@ func (m *Medicine) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				m.Quantity = uint32(value.Int64)
 			}
-		case medicine.FieldDescription:
+		case medicine.FieldDescriptionZh:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field description", values[i])
+				return fmt.Errorf("unexpected type %T for field description_zh", values[i])
 			} else if value.Valid {
-				m.Description = value.String
+				m.DescriptionZh = value.String
+			}
+		case medicine.FieldDescriptionEn:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description_en", values[i])
+			} else if value.Valid {
+				m.DescriptionEn = value.String
+			}
+		case medicine.FieldDescriptionRu:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description_ru", values[i])
+			} else if value.Valid {
+				m.DescriptionRu = value.String
+			}
+		case medicine.FieldDescriptionKk:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description_kk", values[i])
+			} else if value.Valid {
+				m.DescriptionKk = value.String
 			}
 		case medicine.FieldRemarks:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -172,14 +220,32 @@ func (m *Medicine) String() string {
 	builder.WriteString("sort=")
 	builder.WriteString(fmt.Sprintf("%v", m.Sort))
 	builder.WriteString(", ")
-	builder.WriteString("name=")
-	builder.WriteString(m.Name)
+	builder.WriteString("name_zh=")
+	builder.WriteString(m.NameZh)
+	builder.WriteString(", ")
+	builder.WriteString("name_en=")
+	builder.WriteString(m.NameEn)
+	builder.WriteString(", ")
+	builder.WriteString("name_ru=")
+	builder.WriteString(m.NameRu)
+	builder.WriteString(", ")
+	builder.WriteString("name_kk=")
+	builder.WriteString(m.NameKk)
 	builder.WriteString(", ")
 	builder.WriteString("quantity=")
 	builder.WriteString(fmt.Sprintf("%v", m.Quantity))
 	builder.WriteString(", ")
-	builder.WriteString("description=")
-	builder.WriteString(m.Description)
+	builder.WriteString("description_zh=")
+	builder.WriteString(m.DescriptionZh)
+	builder.WriteString(", ")
+	builder.WriteString("description_en=")
+	builder.WriteString(m.DescriptionEn)
+	builder.WriteString(", ")
+	builder.WriteString("description_ru=")
+	builder.WriteString(m.DescriptionRu)
+	builder.WriteString(", ")
+	builder.WriteString("description_kk=")
+	builder.WriteString(m.DescriptionKk)
 	builder.WriteString(", ")
 	builder.WriteString("remarks=")
 	builder.WriteString(m.Remarks)

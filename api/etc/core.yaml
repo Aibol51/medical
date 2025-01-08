@@ -26,9 +26,9 @@ DatabaseConf:
   Type: mysql
   Host: 127.0.0.1
   Port: 3306
-  DBName: simple_admin
-  Username: root
-  Password: '123456'
+  DBName: medical
+  Username: medical
+  Password: 'cHRPW3Yww4JzArwH'
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
@@ -38,9 +38,9 @@ ProjectConf:
   DefaultDepartmentId: 1  # default department id when register
   DefaultPositionId: 1 # default position id when register
   EmailCaptchaExpiredTime: 600 # the expired time for email captcha
-  SmsTemplateId: xxx  # The template id for sms
+  SmsTemplateId: SMS_476670420  # The template id for sms
   SmsAppId: xxx  # the app id for sms
-  SmsSignName: xxx  # the signature name of sms
+  SmsSignName: 康医通  # the signature name of sms
   SmsParamsType: json # the type of sms param, support json and array
   RegisterVerify: captcha # register captcha type, support captcha, email, sms, sms_or_email
   LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
@@ -87,7 +87,7 @@ JobRpc:
 
 McmsRpc:
   Target: 127.0.0.1:9106
-  Enabled: false
+  Enabled: true
   Timeout: 5000
 
 # Tracing Analysis

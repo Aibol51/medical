@@ -10,16 +10,28 @@ message MedicineInfo {
   optional uint32 status = 4;
   // Sort Number | 排序编号
   optional uint32 sort = 5;
-  // Medicine name | 药品名称
-  optional string name = 6;
+  // Medicine chinese name | 药品中文名称
+  optional string name_zh = 6;
+  // Medicine english name | 药品英文名称
+  optional string name_en = 7;
+  // Medicine russian name | 药品俄语名称
+  optional string name_ru = 8;
+  // Medicine kazakh name | 药品哈萨克语名称
+  optional string name_kk = 9;
   // Quantity in stock | 库存数量
-  optional uint32 quantity = 7;
-  // Description | 药品描述
-  optional string description = 8;
+  optional uint32 quantity = 10;
+  // Description chinese | 药品中文描述
+  optional string description_zh = 11;
+  // Description english | 药品英文描述
+  optional string description_en = 12;
+  // Description russian | 药品俄语描述
+  optional string description_ru = 13;
+  // Description kazakh | 药品哈萨克语描述
+  optional string description_kk = 14;
   // Remarks | 备注信息
-  optional string remarks = 9;
+  optional string remarks = 15;
   // Images | 图片路径
-  optional string images = 10;
+  optional string images = 16;
 }
 
 message MedicineListResp {
@@ -30,9 +42,9 @@ message MedicineListResp {
 message MedicineListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  optional string name = 3;
-  optional string description = 4;
-  optional string remarks = 5;
+  optional string name_zh = 3;
+  optional string name_en = 4;
+  optional string name_ru = 5;
 }
 
 

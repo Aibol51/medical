@@ -17,12 +17,24 @@ type Medicine struct {
 // Fields defines the fields for the Medicine schema
 func (Medicine) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").
-			Comment("Medicine name | 药品名称"),
+		field.String("name_zh").
+			Comment("Medicine chinese name | 药品中文名称"),
+		field.String("name_en").
+			Comment("Medicine english name | 药品英文名称"),
+		field.String("name_ru").
+			Comment("Medicine russian name | 药品俄语名称"),
+		field.String("name_kk").
+			Comment("Medicine kazakh name | 药品哈萨克语名称"),
 		field.Uint32("quantity").
 			Comment("Quantity in stock | 库存数量"),
-		field.String("description").Optional().
-			Comment("Description | 药品描述"),
+		field.String("description_zh").Optional().
+			Comment("Description chinese | 药品中文描述"),
+		field.String("description_en").Optional().
+			Comment("Description english | 药品英文描述"),
+		field.String("description_ru").Optional().
+			Comment("Description russian | 药品俄语描述"),
+		field.String("description_kk").Optional().
+			Comment("Description kazakh | 药品哈萨克语描述"),
 		field.String("remarks").Optional().
 			Comment("Remarks | 备注信息"),
 		field.String("images").

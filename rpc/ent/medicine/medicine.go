@@ -21,12 +21,24 @@ const (
 	FieldStatus = "status"
 	// FieldSort holds the string denoting the sort field in the database.
 	FieldSort = "sort"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
+	// FieldNameZh holds the string denoting the name_zh field in the database.
+	FieldNameZh = "name_zh"
+	// FieldNameEn holds the string denoting the name_en field in the database.
+	FieldNameEn = "name_en"
+	// FieldNameRu holds the string denoting the name_ru field in the database.
+	FieldNameRu = "name_ru"
+	// FieldNameKk holds the string denoting the name_kk field in the database.
+	FieldNameKk = "name_kk"
 	// FieldQuantity holds the string denoting the quantity field in the database.
 	FieldQuantity = "quantity"
-	// FieldDescription holds the string denoting the description field in the database.
-	FieldDescription = "description"
+	// FieldDescriptionZh holds the string denoting the description_zh field in the database.
+	FieldDescriptionZh = "description_zh"
+	// FieldDescriptionEn holds the string denoting the description_en field in the database.
+	FieldDescriptionEn = "description_en"
+	// FieldDescriptionRu holds the string denoting the description_ru field in the database.
+	FieldDescriptionRu = "description_ru"
+	// FieldDescriptionKk holds the string denoting the description_kk field in the database.
+	FieldDescriptionKk = "description_kk"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldImages holds the string denoting the images field in the database.
@@ -42,9 +54,15 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldStatus,
 	FieldSort,
-	FieldName,
+	FieldNameZh,
+	FieldNameEn,
+	FieldNameRu,
+	FieldNameKk,
 	FieldQuantity,
-	FieldDescription,
+	FieldDescriptionZh,
+	FieldDescriptionEn,
+	FieldDescriptionRu,
+	FieldDescriptionKk,
 	FieldRemarks,
 	FieldImages,
 }
@@ -100,9 +118,24 @@ func BySort(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldSort, opts...).ToFunc()
 }
 
-// ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldName, opts...).ToFunc()
+// ByNameZh orders the results by the name_zh field.
+func ByNameZh(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldNameZh, opts...).ToFunc()
+}
+
+// ByNameEn orders the results by the name_en field.
+func ByNameEn(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldNameEn, opts...).ToFunc()
+}
+
+// ByNameRu orders the results by the name_ru field.
+func ByNameRu(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldNameRu, opts...).ToFunc()
+}
+
+// ByNameKk orders the results by the name_kk field.
+func ByNameKk(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldNameKk, opts...).ToFunc()
 }
 
 // ByQuantity orders the results by the quantity field.
@@ -110,9 +143,24 @@ func ByQuantity(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldQuantity, opts...).ToFunc()
 }
 
-// ByDescription orders the results by the description field.
-func ByDescription(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDescription, opts...).ToFunc()
+// ByDescriptionZh orders the results by the description_zh field.
+func ByDescriptionZh(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescriptionZh, opts...).ToFunc()
+}
+
+// ByDescriptionEn orders the results by the description_en field.
+func ByDescriptionEn(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescriptionEn, opts...).ToFunc()
+}
+
+// ByDescriptionRu orders the results by the description_ru field.
+func ByDescriptionRu(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescriptionRu, opts...).ToFunc()
+}
+
+// ByDescriptionKk orders the results by the description_kk field.
+func ByDescriptionKk(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescriptionKk, opts...).ToFunc()
 }
 
 // ByRemarks orders the results by the remarks field.
