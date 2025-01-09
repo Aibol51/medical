@@ -32,6 +32,7 @@ func (l *GetAppointmentListLogic) GetAppointmentList(req *types.AppointmentListR
 			PatientName: req.PatientName,
 			PhoneNumber: req.PhoneNumber,
 			IdCard:      req.IdCard,
+			UserId:      req.UserId,
 		})
 	if err != nil {
 		return nil, err
