@@ -64,6 +64,9 @@ type (
 
         // IdCard
         IdCard  *string `json:"idCard,optional"`
+
+         // UserId
+        UserId  *string `json:"userId,optional"`
     }
 
     // The appointment information response | Appointment信息返回体

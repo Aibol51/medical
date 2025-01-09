@@ -1848,6 +1848,8 @@ type AppointmentListReq struct {
 	PhoneNumber *string `json:"phoneNumber,optional"`
 	// IdCard
 	IdCard *string `json:"idCard,optional"`
+	// UserId
+	UserId *string `json:"userId,optional"`
 }
 
 // The appointment information response | Appointment信息返回体
