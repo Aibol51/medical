@@ -38,6 +38,9 @@ func (l *GetAppointmentListLogic) GetAppointmentList(in *core.AppointmentListReq
 	if in.IdCard != nil {
 		predicates = append(predicates, appointment.IDCardContains(*in.IdCard))
 	}
+	if in.UserId != nil {
+		predicates = append(predicates, appointment.UserIDContains(*in.UserId))
+	}
 	result, err := l.svcCtx.DB.Appointment.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
 	if err != nil {
