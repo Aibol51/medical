@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicalRecord"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/news"
@@ -212,6 +213,32 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in *core.BaseMsg) (*core.DictionaryDetailListResp, error) {
 	l := dictionarydetail.NewGetDictionaryDetailByDictionaryNameLogic(ctx, s.svcCtx)
 	return l.GetDictionaryDetailByDictionaryName(in)
+}
+
+// MedicalRecord management
+func (s *CoreServer) CreateMedicalRecord(ctx context.Context, in *core.MedicalRecordInfo) (*core.BaseUUIDResp, error) {
+	l := medicalRecord.NewCreateMedicalRecordLogic(ctx, s.svcCtx)
+	return l.CreateMedicalRecord(in)
+}
+
+func (s *CoreServer) UpdateMedicalRecord(ctx context.Context, in *core.MedicalRecordInfo) (*core.BaseResp, error) {
+	l := medicalRecord.NewUpdateMedicalRecordLogic(ctx, s.svcCtx)
+	return l.UpdateMedicalRecord(in)
+}
+
+func (s *CoreServer) GetMedicalRecordList(ctx context.Context, in *core.MedicalRecordListReq) (*core.MedicalRecordListResp, error) {
+	l := medicalRecord.NewGetMedicalRecordListLogic(ctx, s.svcCtx)
+	return l.GetMedicalRecordList(in)
+}
+
+func (s *CoreServer) GetMedicalRecordById(ctx context.Context, in *core.UUIDReq) (*core.MedicalRecordInfo, error) {
+	l := medicalRecord.NewGetMedicalRecordByIdLogic(ctx, s.svcCtx)
+	return l.GetMedicalRecordById(in)
+}
+
+func (s *CoreServer) DeleteMedicalRecord(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := medicalRecord.NewDeleteMedicalRecordLogic(ctx, s.svcCtx)
+	return l.DeleteMedicalRecord(in)
 }
 
 // Medicine management

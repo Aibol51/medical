@@ -12,6 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicalrecord"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
@@ -547,6 +548,87 @@ func (dd *DictionaryDetailQuery) Page(
 
 	dd = dd.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := dd.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type MedicalRecordPager struct {
+	Order  medicalrecord.OrderOption
+	Filter func(*MedicalRecordQuery) (*MedicalRecordQuery, error)
+}
+
+// MedicalRecordPaginateOption enables pagination customization.
+type MedicalRecordPaginateOption func(*MedicalRecordPager)
+
+// DefaultMedicalRecordOrder is the default ordering of MedicalRecord.
+var DefaultMedicalRecordOrder = Desc(medicalrecord.FieldID)
+
+func newMedicalRecordPager(opts []MedicalRecordPaginateOption) (*MedicalRecordPager, error) {
+	pager := &MedicalRecordPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultMedicalRecordOrder
+	}
+	return pager, nil
+}
+
+func (p *MedicalRecordPager) ApplyFilter(query *MedicalRecordQuery) (*MedicalRecordQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// MedicalRecordPageList is MedicalRecord PageList result.
+type MedicalRecordPageList struct {
+	List        []*MedicalRecord `json:"list"`
+	PageDetails *PageDetails     `json:"pageDetails"`
+}
+
+func (mr *MedicalRecordQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MedicalRecordPaginateOption,
+) (*MedicalRecordPageList, error) {
+
+	pager, err := newMedicalRecordPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if mr, err = pager.ApplyFilter(mr); err != nil {
+		return nil, err
+	}
+
+	ret := &MedicalRecordPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := mr.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		mr = mr.Order(pager.Order)
+	} else {
+		mr = mr.Order(DefaultMedicalRecordOrder)
+	}
+
+	mr = mr.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := mr.All(ctx)
 	if err != nil {
 		return nil, err
 	}

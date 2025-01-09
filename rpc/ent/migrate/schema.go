@@ -153,6 +153,33 @@ var (
 			},
 		},
 	}
+	// MedicalRecordsColumns holds the columns for the "medical_records" table.
+	MedicalRecordsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "patient_name", Type: field.TypeString, Nullable: true, Comment: "Patient name | 患者姓名"},
+		{Name: "phone_number", Type: field.TypeString, Nullable: true, Comment: "Phone number | 联系电话"},
+		{Name: "gender", Type: field.TypeInt32, Nullable: true, Comment: "Gender 1:male 2:female | 性别 1:男 2:女"},
+		{Name: "age", Type: field.TypeInt32, Nullable: true, Comment: "Age | 年龄"},
+		{Name: "visit_time", Type: field.TypeInt64, Nullable: true, Comment: "Visit time | 就诊时间"},
+		{Name: "diagnosis", Type: field.TypeString, Nullable: true, Comment: "Diagnosis | 诊断"},
+		{Name: "treatment_plan", Type: field.TypeString, Nullable: true, Comment: "Treatment plan | 治疗方案"},
+		{Name: "prescription", Type: field.TypeString, Nullable: true, Comment: "Prescription | 处方"},
+		{Name: "examination_results", Type: field.TypeString, Nullable: true, Comment: "Examination results | 检查结果"},
+		{Name: "doctor_advice", Type: field.TypeString, Nullable: true, Comment: "Doctor's advice | 医嘱"},
+		{Name: "doctor_id", Type: field.TypeString, Nullable: true, Comment: "Doctor ID | 医生ID"},
+		{Name: "department", Type: field.TypeString, Nullable: true, Comment: "Department | 科室"},
+		{Name: "appointment_id", Type: field.TypeString, Nullable: true, Comment: "Related appointment ID | 关联预约ID"},
+		{Name: "remarks", Type: field.TypeString, Nullable: true, Comment: "Remarks | 备注信息"},
+		{Name: "user_id", Type: field.TypeString, Nullable: true, Comment: "User ID | 用户ID"},
+	}
+	// MedicalRecordsTable holds the schema information for the "medical_records" table.
+	MedicalRecordsTable = &schema.Table{
+		Name:       "medical_records",
+		Columns:    MedicalRecordsColumns,
+		PrimaryKey: []*schema.Column{MedicalRecordsColumns[0]},
+	}
 	// MedicinesColumns holds the columns for the "medicines" table.
 	MedicinesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -504,6 +531,7 @@ var (
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		MedicalRecordsTable,
 		MedicinesTable,
 		SysMenusTable,
 		NewsTable,
@@ -539,6 +567,9 @@ func init() {
 	SysDictionaryDetailsTable.ForeignKeys[0].RefTable = SysDictionariesTable
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
+	}
+	MedicalRecordsTable.Annotation = &entsql.Annotation{
+		Table: "medical_records",
 	}
 	MedicinesTable.Annotation = &entsql.Annotation{
 		Table: "medicines",

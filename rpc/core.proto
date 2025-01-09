@@ -210,6 +210,56 @@ message IDsReq {
   repeated uint64 ids = 1;
 }
 
+message MedicalRecordInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Patient name | 患者姓名
+  optional string patient_name = 4;
+  //  Phone number | 联系电话
+  optional string phone_number = 5;
+  //  Gender 1:male 2:female | 性别 1:男 2:女
+  optional int32 gender = 6;
+  //  Age | 年龄
+  optional int32 age = 7;
+  //  Visit time | 就诊时间
+  optional int64 visit_time = 8;
+  //  Diagnosis | 诊断
+  optional string diagnosis = 9;
+  //  Treatment plan | 治疗方案
+  optional string treatment_plan = 10;
+  //  Prescription | 处方
+  optional string prescription = 11;
+  //  Examination results | 检查结果
+  optional string examination_results = 12;
+  //  Doctor's advice | 医嘱
+  optional string doctor_advice = 13;
+  //  Doctor ID | 医生ID
+  optional string doctor_id = 14;
+  //  Department | 科室
+  optional string department = 15;
+  //  Related appointment ID | 关联预约ID
+  optional string appointment_id = 16;
+  //  Remarks | 备注信息
+  optional string remarks = 17;
+  //  User ID | 用户ID
+  optional string user_id = 18;
+}
+
+message MedicalRecordListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string patient_name = 3;
+  optional string phone_number = 4;
+  optional string user_id = 5;
+  optional string appointment_id = 6;
+}
+
+message MedicalRecordListResp {
+  uint64 total = 1;
+  repeated MedicalRecordInfo data = 2;
+}
+
 message MedicineInfo {
   optional uint64 id = 1;
   optional int64 created_at = 2;
@@ -645,6 +695,17 @@ service Core {
   rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
   //  group: dictionarydetail
   rpc getDictionaryDetailByDictionaryName(BaseMsg) returns (DictionaryDetailListResp);
+  //  MedicalRecord management
+  //  group: medicalRecord
+  rpc createMedicalRecord(MedicalRecordInfo) returns (BaseUUIDResp);
+  //  group: medicalRecord
+  rpc updateMedicalRecord(MedicalRecordInfo) returns (BaseResp);
+  //  group: medicalRecord
+  rpc getMedicalRecordList(MedicalRecordListReq) returns (MedicalRecordListResp);
+  //  group: medicalRecord
+  rpc getMedicalRecordById(UUIDReq) returns (MedicalRecordInfo);
+  //  group: medicalRecord
+  rpc deleteMedicalRecord(UUIDsReq) returns (BaseResp);
   //  Medicine management
   //  group: medicine
   rpc createMedicine(MedicineInfo) returns (BaseIDResp);

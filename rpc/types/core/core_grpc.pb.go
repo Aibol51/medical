@@ -53,6 +53,11 @@ const (
 	Core_GetDictionaryDetailById_FullMethodName             = "/core.Core/getDictionaryDetailById"
 	Core_DeleteDictionaryDetail_FullMethodName              = "/core.Core/deleteDictionaryDetail"
 	Core_GetDictionaryDetailByDictionaryName_FullMethodName = "/core.Core/getDictionaryDetailByDictionaryName"
+	Core_CreateMedicalRecord_FullMethodName                 = "/core.Core/createMedicalRecord"
+	Core_UpdateMedicalRecord_FullMethodName                 = "/core.Core/updateMedicalRecord"
+	Core_GetMedicalRecordList_FullMethodName                = "/core.Core/getMedicalRecordList"
+	Core_GetMedicalRecordById_FullMethodName                = "/core.Core/getMedicalRecordById"
+	Core_DeleteMedicalRecord_FullMethodName                 = "/core.Core/deleteMedicalRecord"
 	Core_CreateMedicine_FullMethodName                      = "/core.Core/createMedicine"
 	Core_UpdateMedicine_FullMethodName                      = "/core.Core/updateMedicine"
 	Core_GetMedicineList_FullMethodName                     = "/core.Core/getMedicineList"
@@ -182,6 +187,17 @@ type CoreClient interface {
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+	// MedicalRecord management
+	// group: medicalRecord
+	CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: medicalRecord
+	UpdateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: medicalRecord
+	GetMedicalRecordList(ctx context.Context, in *MedicalRecordListReq, opts ...grpc.CallOption) (*MedicalRecordListResp, error)
+	// group: medicalRecord
+	GetMedicalRecordById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MedicalRecordInfo, error)
+	// group: medicalRecord
+	DeleteMedicalRecord(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Medicine management
 	// group: medicine
 	CreateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -632,6 +648,56 @@ func (c *coreClient) GetDictionaryDetailByDictionaryName(ctx context.Context, in
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DictionaryDetailListResp)
 	err := c.cc.Invoke(ctx, Core_GetDictionaryDetailByDictionaryName_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateMedicalRecord_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateMedicalRecord_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMedicalRecordList(ctx context.Context, in *MedicalRecordListReq, opts ...grpc.CallOption) (*MedicalRecordListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MedicalRecordListResp)
+	err := c.cc.Invoke(ctx, Core_GetMedicalRecordList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMedicalRecordById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MedicalRecordInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MedicalRecordInfo)
+	err := c.cc.Invoke(ctx, Core_GetMedicalRecordById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMedicalRecord(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteMedicalRecord_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1206,6 +1272,17 @@ type CoreServer interface {
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
 	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
+	// MedicalRecord management
+	// group: medicalRecord
+	CreateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseUUIDResp, error)
+	// group: medicalRecord
+	UpdateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseResp, error)
+	// group: medicalRecord
+	GetMedicalRecordList(context.Context, *MedicalRecordListReq) (*MedicalRecordListResp, error)
+	// group: medicalRecord
+	GetMedicalRecordById(context.Context, *UUIDReq) (*MedicalRecordInfo, error)
+	// group: medicalRecord
+	DeleteMedicalRecord(context.Context, *UUIDsReq) (*BaseResp, error)
 	// Medicine management
 	// group: medicine
 	CreateMedicine(context.Context, *MedicineInfo) (*BaseIDResp, error)
@@ -1423,6 +1500,21 @@ func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) 
 }
 func (UnimplementedCoreServer) GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryDetailByDictionaryName not implemented")
+}
+func (UnimplementedCoreServer) CreateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMedicalRecord not implemented")
+}
+func (UnimplementedCoreServer) UpdateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMedicalRecord not implemented")
+}
+func (UnimplementedCoreServer) GetMedicalRecordList(context.Context, *MedicalRecordListReq) (*MedicalRecordListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMedicalRecordList not implemented")
+}
+func (UnimplementedCoreServer) GetMedicalRecordById(context.Context, *UUIDReq) (*MedicalRecordInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMedicalRecordById not implemented")
+}
+func (UnimplementedCoreServer) DeleteMedicalRecord(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMedicalRecord not implemented")
 }
 func (UnimplementedCoreServer) CreateMedicine(context.Context, *MedicineInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMedicine not implemented")
@@ -2200,6 +2292,96 @@ func _Core_GetDictionaryDetailByDictionaryName_Handler(srv interface{}, ctx cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, req.(*BaseMsg))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateMedicalRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MedicalRecordInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateMedicalRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateMedicalRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateMedicalRecord(ctx, req.(*MedicalRecordInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateMedicalRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MedicalRecordInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateMedicalRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateMedicalRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateMedicalRecord(ctx, req.(*MedicalRecordInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMedicalRecordList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MedicalRecordListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMedicalRecordList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetMedicalRecordList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMedicalRecordList(ctx, req.(*MedicalRecordListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMedicalRecordById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMedicalRecordById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetMedicalRecordById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMedicalRecordById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteMedicalRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteMedicalRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteMedicalRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteMedicalRecord(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3228,6 +3410,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getDictionaryDetailByDictionaryName",
 			Handler:    _Core_GetDictionaryDetailByDictionaryName_Handler,
+		},
+		{
+			MethodName: "createMedicalRecord",
+			Handler:    _Core_CreateMedicalRecord_Handler,
+		},
+		{
+			MethodName: "updateMedicalRecord",
+			Handler:    _Core_UpdateMedicalRecord_Handler,
+		},
+		{
+			MethodName: "getMedicalRecordList",
+			Handler:    _Core_GetMedicalRecordList_Handler,
+		},
+		{
+			MethodName: "getMedicalRecordById",
+			Handler:    _Core_GetMedicalRecordById_Handler,
+		},
+		{
+			MethodName: "deleteMedicalRecord",
+			Handler:    _Core_DeleteMedicalRecord_Handler,
 		},
 		{
 			MethodName: "createMedicine",

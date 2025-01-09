@@ -15,6 +15,7 @@ import (
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
 	emaillog "github.com/suyuan32/simple-admin-core/api/internal/handler/emaillog"
 	emailprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/emailprovider"
+	medicalrecord "github.com/suyuan32/simple-admin-core/api/internal/handler/medicalrecord"
 	medicine "github.com/suyuan32/simple-admin-core/api/internal/handler/medicine"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
@@ -967,6 +968,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/swiper",
 					Handler: swiper.GetSwiperByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/medical_record/create",
+					Handler: medicalrecord.CreateMedicalRecordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medical_record/update",
+					Handler: medicalrecord.UpdateMedicalRecordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medical_record/delete",
+					Handler: medicalrecord.DeleteMedicalRecordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medical_record/list",
+					Handler: medicalrecord.GetMedicalRecordListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/medical_record",
+					Handler: medicalrecord.GetMedicalRecordByIdHandler(serverCtx),
 				},
 			}...,
 		),

@@ -26,6 +26,8 @@ type Tx struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// MedicalRecord is the client for interacting with the MedicalRecord builders.
+	MedicalRecord *MedicalRecordClient
 	// Medicine is the client for interacting with the Medicine builders.
 	Medicine *MedicineClient
 	// Menu is the client for interacting with the Menu builders.
@@ -181,6 +183,7 @@ func (tx *Tx) init() {
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
+	tx.MedicalRecord = NewMedicalRecordClient(tx.config)
 	tx.Medicine = NewMedicineClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
 	tx.News = NewNewsClient(tx.config)

@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/medicalrecord"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/news"
@@ -45,6 +46,7 @@ const (
 	TypeDepartment       = "Department"
 	TypeDictionary       = "Dictionary"
 	TypeDictionaryDetail = "DictionaryDetail"
+	TypeMedicalRecord    = "MedicalRecord"
 	TypeMedicine         = "Medicine"
 	TypeMenu             = "Menu"
 	TypeNews             = "News"
@@ -5824,6 +5826,1595 @@ func (m *DictionaryDetailMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown DictionaryDetail edge %s", name)
+}
+
+// MedicalRecordMutation represents an operation that mutates the MedicalRecord nodes in the graph.
+type MedicalRecordMutation struct {
+	config
+	op                  Op
+	typ                 string
+	id                  *uuid.UUID
+	created_at          *time.Time
+	updated_at          *time.Time
+	patient_name        *string
+	phone_number        *string
+	gender              *int32
+	addgender           *int32
+	age                 *int32
+	addage              *int32
+	visit_time          *int64
+	addvisit_time       *int64
+	diagnosis           *string
+	treatment_plan      *string
+	prescription        *string
+	examination_results *string
+	doctor_advice       *string
+	doctor_id           *string
+	department          *string
+	appointment_id      *string
+	remarks             *string
+	user_id             *string
+	clearedFields       map[string]struct{}
+	done                bool
+	oldValue            func(context.Context) (*MedicalRecord, error)
+	predicates          []predicate.MedicalRecord
+}
+
+var _ ent.Mutation = (*MedicalRecordMutation)(nil)
+
+// medicalrecordOption allows management of the mutation configuration using functional options.
+type medicalrecordOption func(*MedicalRecordMutation)
+
+// newMedicalRecordMutation creates new mutation for the MedicalRecord entity.
+func newMedicalRecordMutation(c config, op Op, opts ...medicalrecordOption) *MedicalRecordMutation {
+	m := &MedicalRecordMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeMedicalRecord,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withMedicalRecordID sets the ID field of the mutation.
+func withMedicalRecordID(id uuid.UUID) medicalrecordOption {
+	return func(m *MedicalRecordMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *MedicalRecord
+		)
+		m.oldValue = func(ctx context.Context) (*MedicalRecord, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().MedicalRecord.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withMedicalRecord sets the old MedicalRecord of the mutation.
+func withMedicalRecord(node *MedicalRecord) medicalrecordOption {
+	return func(m *MedicalRecordMutation) {
+		m.oldValue = func(context.Context) (*MedicalRecord, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m MedicalRecordMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m MedicalRecordMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of MedicalRecord entities.
+func (m *MedicalRecordMutation) SetID(id uuid.UUID) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *MedicalRecordMutation) ID() (id uuid.UUID, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *MedicalRecordMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uuid.UUID{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().MedicalRecord.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *MedicalRecordMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *MedicalRecordMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *MedicalRecordMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *MedicalRecordMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *MedicalRecordMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *MedicalRecordMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetPatientName sets the "patient_name" field.
+func (m *MedicalRecordMutation) SetPatientName(s string) {
+	m.patient_name = &s
+}
+
+// PatientName returns the value of the "patient_name" field in the mutation.
+func (m *MedicalRecordMutation) PatientName() (r string, exists bool) {
+	v := m.patient_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPatientName returns the old "patient_name" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldPatientName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPatientName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPatientName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPatientName: %w", err)
+	}
+	return oldValue.PatientName, nil
+}
+
+// ClearPatientName clears the value of the "patient_name" field.
+func (m *MedicalRecordMutation) ClearPatientName() {
+	m.patient_name = nil
+	m.clearedFields[medicalrecord.FieldPatientName] = struct{}{}
+}
+
+// PatientNameCleared returns if the "patient_name" field was cleared in this mutation.
+func (m *MedicalRecordMutation) PatientNameCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldPatientName]
+	return ok
+}
+
+// ResetPatientName resets all changes to the "patient_name" field.
+func (m *MedicalRecordMutation) ResetPatientName() {
+	m.patient_name = nil
+	delete(m.clearedFields, medicalrecord.FieldPatientName)
+}
+
+// SetPhoneNumber sets the "phone_number" field.
+func (m *MedicalRecordMutation) SetPhoneNumber(s string) {
+	m.phone_number = &s
+}
+
+// PhoneNumber returns the value of the "phone_number" field in the mutation.
+func (m *MedicalRecordMutation) PhoneNumber() (r string, exists bool) {
+	v := m.phone_number
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPhoneNumber returns the old "phone_number" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldPhoneNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPhoneNumber is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPhoneNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPhoneNumber: %w", err)
+	}
+	return oldValue.PhoneNumber, nil
+}
+
+// ClearPhoneNumber clears the value of the "phone_number" field.
+func (m *MedicalRecordMutation) ClearPhoneNumber() {
+	m.phone_number = nil
+	m.clearedFields[medicalrecord.FieldPhoneNumber] = struct{}{}
+}
+
+// PhoneNumberCleared returns if the "phone_number" field was cleared in this mutation.
+func (m *MedicalRecordMutation) PhoneNumberCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldPhoneNumber]
+	return ok
+}
+
+// ResetPhoneNumber resets all changes to the "phone_number" field.
+func (m *MedicalRecordMutation) ResetPhoneNumber() {
+	m.phone_number = nil
+	delete(m.clearedFields, medicalrecord.FieldPhoneNumber)
+}
+
+// SetGender sets the "gender" field.
+func (m *MedicalRecordMutation) SetGender(i int32) {
+	m.gender = &i
+	m.addgender = nil
+}
+
+// Gender returns the value of the "gender" field in the mutation.
+func (m *MedicalRecordMutation) Gender() (r int32, exists bool) {
+	v := m.gender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGender returns the old "gender" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldGender(ctx context.Context) (v int32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGender is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGender requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGender: %w", err)
+	}
+	return oldValue.Gender, nil
+}
+
+// AddGender adds i to the "gender" field.
+func (m *MedicalRecordMutation) AddGender(i int32) {
+	if m.addgender != nil {
+		*m.addgender += i
+	} else {
+		m.addgender = &i
+	}
+}
+
+// AddedGender returns the value that was added to the "gender" field in this mutation.
+func (m *MedicalRecordMutation) AddedGender() (r int32, exists bool) {
+	v := m.addgender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearGender clears the value of the "gender" field.
+func (m *MedicalRecordMutation) ClearGender() {
+	m.gender = nil
+	m.addgender = nil
+	m.clearedFields[medicalrecord.FieldGender] = struct{}{}
+}
+
+// GenderCleared returns if the "gender" field was cleared in this mutation.
+func (m *MedicalRecordMutation) GenderCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldGender]
+	return ok
+}
+
+// ResetGender resets all changes to the "gender" field.
+func (m *MedicalRecordMutation) ResetGender() {
+	m.gender = nil
+	m.addgender = nil
+	delete(m.clearedFields, medicalrecord.FieldGender)
+}
+
+// SetAge sets the "age" field.
+func (m *MedicalRecordMutation) SetAge(i int32) {
+	m.age = &i
+	m.addage = nil
+}
+
+// Age returns the value of the "age" field in the mutation.
+func (m *MedicalRecordMutation) Age() (r int32, exists bool) {
+	v := m.age
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAge returns the old "age" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldAge(ctx context.Context) (v int32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAge is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAge requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAge: %w", err)
+	}
+	return oldValue.Age, nil
+}
+
+// AddAge adds i to the "age" field.
+func (m *MedicalRecordMutation) AddAge(i int32) {
+	if m.addage != nil {
+		*m.addage += i
+	} else {
+		m.addage = &i
+	}
+}
+
+// AddedAge returns the value that was added to the "age" field in this mutation.
+func (m *MedicalRecordMutation) AddedAge() (r int32, exists bool) {
+	v := m.addage
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearAge clears the value of the "age" field.
+func (m *MedicalRecordMutation) ClearAge() {
+	m.age = nil
+	m.addage = nil
+	m.clearedFields[medicalrecord.FieldAge] = struct{}{}
+}
+
+// AgeCleared returns if the "age" field was cleared in this mutation.
+func (m *MedicalRecordMutation) AgeCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldAge]
+	return ok
+}
+
+// ResetAge resets all changes to the "age" field.
+func (m *MedicalRecordMutation) ResetAge() {
+	m.age = nil
+	m.addage = nil
+	delete(m.clearedFields, medicalrecord.FieldAge)
+}
+
+// SetVisitTime sets the "visit_time" field.
+func (m *MedicalRecordMutation) SetVisitTime(i int64) {
+	m.visit_time = &i
+	m.addvisit_time = nil
+}
+
+// VisitTime returns the value of the "visit_time" field in the mutation.
+func (m *MedicalRecordMutation) VisitTime() (r int64, exists bool) {
+	v := m.visit_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldVisitTime returns the old "visit_time" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldVisitTime(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldVisitTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldVisitTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldVisitTime: %w", err)
+	}
+	return oldValue.VisitTime, nil
+}
+
+// AddVisitTime adds i to the "visit_time" field.
+func (m *MedicalRecordMutation) AddVisitTime(i int64) {
+	if m.addvisit_time != nil {
+		*m.addvisit_time += i
+	} else {
+		m.addvisit_time = &i
+	}
+}
+
+// AddedVisitTime returns the value that was added to the "visit_time" field in this mutation.
+func (m *MedicalRecordMutation) AddedVisitTime() (r int64, exists bool) {
+	v := m.addvisit_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearVisitTime clears the value of the "visit_time" field.
+func (m *MedicalRecordMutation) ClearVisitTime() {
+	m.visit_time = nil
+	m.addvisit_time = nil
+	m.clearedFields[medicalrecord.FieldVisitTime] = struct{}{}
+}
+
+// VisitTimeCleared returns if the "visit_time" field was cleared in this mutation.
+func (m *MedicalRecordMutation) VisitTimeCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldVisitTime]
+	return ok
+}
+
+// ResetVisitTime resets all changes to the "visit_time" field.
+func (m *MedicalRecordMutation) ResetVisitTime() {
+	m.visit_time = nil
+	m.addvisit_time = nil
+	delete(m.clearedFields, medicalrecord.FieldVisitTime)
+}
+
+// SetDiagnosis sets the "diagnosis" field.
+func (m *MedicalRecordMutation) SetDiagnosis(s string) {
+	m.diagnosis = &s
+}
+
+// Diagnosis returns the value of the "diagnosis" field in the mutation.
+func (m *MedicalRecordMutation) Diagnosis() (r string, exists bool) {
+	v := m.diagnosis
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDiagnosis returns the old "diagnosis" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldDiagnosis(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDiagnosis is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDiagnosis requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDiagnosis: %w", err)
+	}
+	return oldValue.Diagnosis, nil
+}
+
+// ClearDiagnosis clears the value of the "diagnosis" field.
+func (m *MedicalRecordMutation) ClearDiagnosis() {
+	m.diagnosis = nil
+	m.clearedFields[medicalrecord.FieldDiagnosis] = struct{}{}
+}
+
+// DiagnosisCleared returns if the "diagnosis" field was cleared in this mutation.
+func (m *MedicalRecordMutation) DiagnosisCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldDiagnosis]
+	return ok
+}
+
+// ResetDiagnosis resets all changes to the "diagnosis" field.
+func (m *MedicalRecordMutation) ResetDiagnosis() {
+	m.diagnosis = nil
+	delete(m.clearedFields, medicalrecord.FieldDiagnosis)
+}
+
+// SetTreatmentPlan sets the "treatment_plan" field.
+func (m *MedicalRecordMutation) SetTreatmentPlan(s string) {
+	m.treatment_plan = &s
+}
+
+// TreatmentPlan returns the value of the "treatment_plan" field in the mutation.
+func (m *MedicalRecordMutation) TreatmentPlan() (r string, exists bool) {
+	v := m.treatment_plan
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTreatmentPlan returns the old "treatment_plan" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldTreatmentPlan(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTreatmentPlan is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTreatmentPlan requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTreatmentPlan: %w", err)
+	}
+	return oldValue.TreatmentPlan, nil
+}
+
+// ClearTreatmentPlan clears the value of the "treatment_plan" field.
+func (m *MedicalRecordMutation) ClearTreatmentPlan() {
+	m.treatment_plan = nil
+	m.clearedFields[medicalrecord.FieldTreatmentPlan] = struct{}{}
+}
+
+// TreatmentPlanCleared returns if the "treatment_plan" field was cleared in this mutation.
+func (m *MedicalRecordMutation) TreatmentPlanCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldTreatmentPlan]
+	return ok
+}
+
+// ResetTreatmentPlan resets all changes to the "treatment_plan" field.
+func (m *MedicalRecordMutation) ResetTreatmentPlan() {
+	m.treatment_plan = nil
+	delete(m.clearedFields, medicalrecord.FieldTreatmentPlan)
+}
+
+// SetPrescription sets the "prescription" field.
+func (m *MedicalRecordMutation) SetPrescription(s string) {
+	m.prescription = &s
+}
+
+// Prescription returns the value of the "prescription" field in the mutation.
+func (m *MedicalRecordMutation) Prescription() (r string, exists bool) {
+	v := m.prescription
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPrescription returns the old "prescription" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldPrescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPrescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPrescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPrescription: %w", err)
+	}
+	return oldValue.Prescription, nil
+}
+
+// ClearPrescription clears the value of the "prescription" field.
+func (m *MedicalRecordMutation) ClearPrescription() {
+	m.prescription = nil
+	m.clearedFields[medicalrecord.FieldPrescription] = struct{}{}
+}
+
+// PrescriptionCleared returns if the "prescription" field was cleared in this mutation.
+func (m *MedicalRecordMutation) PrescriptionCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldPrescription]
+	return ok
+}
+
+// ResetPrescription resets all changes to the "prescription" field.
+func (m *MedicalRecordMutation) ResetPrescription() {
+	m.prescription = nil
+	delete(m.clearedFields, medicalrecord.FieldPrescription)
+}
+
+// SetExaminationResults sets the "examination_results" field.
+func (m *MedicalRecordMutation) SetExaminationResults(s string) {
+	m.examination_results = &s
+}
+
+// ExaminationResults returns the value of the "examination_results" field in the mutation.
+func (m *MedicalRecordMutation) ExaminationResults() (r string, exists bool) {
+	v := m.examination_results
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExaminationResults returns the old "examination_results" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldExaminationResults(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExaminationResults is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExaminationResults requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExaminationResults: %w", err)
+	}
+	return oldValue.ExaminationResults, nil
+}
+
+// ClearExaminationResults clears the value of the "examination_results" field.
+func (m *MedicalRecordMutation) ClearExaminationResults() {
+	m.examination_results = nil
+	m.clearedFields[medicalrecord.FieldExaminationResults] = struct{}{}
+}
+
+// ExaminationResultsCleared returns if the "examination_results" field was cleared in this mutation.
+func (m *MedicalRecordMutation) ExaminationResultsCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldExaminationResults]
+	return ok
+}
+
+// ResetExaminationResults resets all changes to the "examination_results" field.
+func (m *MedicalRecordMutation) ResetExaminationResults() {
+	m.examination_results = nil
+	delete(m.clearedFields, medicalrecord.FieldExaminationResults)
+}
+
+// SetDoctorAdvice sets the "doctor_advice" field.
+func (m *MedicalRecordMutation) SetDoctorAdvice(s string) {
+	m.doctor_advice = &s
+}
+
+// DoctorAdvice returns the value of the "doctor_advice" field in the mutation.
+func (m *MedicalRecordMutation) DoctorAdvice() (r string, exists bool) {
+	v := m.doctor_advice
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDoctorAdvice returns the old "doctor_advice" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldDoctorAdvice(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDoctorAdvice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDoctorAdvice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDoctorAdvice: %w", err)
+	}
+	return oldValue.DoctorAdvice, nil
+}
+
+// ClearDoctorAdvice clears the value of the "doctor_advice" field.
+func (m *MedicalRecordMutation) ClearDoctorAdvice() {
+	m.doctor_advice = nil
+	m.clearedFields[medicalrecord.FieldDoctorAdvice] = struct{}{}
+}
+
+// DoctorAdviceCleared returns if the "doctor_advice" field was cleared in this mutation.
+func (m *MedicalRecordMutation) DoctorAdviceCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldDoctorAdvice]
+	return ok
+}
+
+// ResetDoctorAdvice resets all changes to the "doctor_advice" field.
+func (m *MedicalRecordMutation) ResetDoctorAdvice() {
+	m.doctor_advice = nil
+	delete(m.clearedFields, medicalrecord.FieldDoctorAdvice)
+}
+
+// SetDoctorID sets the "doctor_id" field.
+func (m *MedicalRecordMutation) SetDoctorID(s string) {
+	m.doctor_id = &s
+}
+
+// DoctorID returns the value of the "doctor_id" field in the mutation.
+func (m *MedicalRecordMutation) DoctorID() (r string, exists bool) {
+	v := m.doctor_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDoctorID returns the old "doctor_id" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldDoctorID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDoctorID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDoctorID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDoctorID: %w", err)
+	}
+	return oldValue.DoctorID, nil
+}
+
+// ClearDoctorID clears the value of the "doctor_id" field.
+func (m *MedicalRecordMutation) ClearDoctorID() {
+	m.doctor_id = nil
+	m.clearedFields[medicalrecord.FieldDoctorID] = struct{}{}
+}
+
+// DoctorIDCleared returns if the "doctor_id" field was cleared in this mutation.
+func (m *MedicalRecordMutation) DoctorIDCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldDoctorID]
+	return ok
+}
+
+// ResetDoctorID resets all changes to the "doctor_id" field.
+func (m *MedicalRecordMutation) ResetDoctorID() {
+	m.doctor_id = nil
+	delete(m.clearedFields, medicalrecord.FieldDoctorID)
+}
+
+// SetDepartment sets the "department" field.
+func (m *MedicalRecordMutation) SetDepartment(s string) {
+	m.department = &s
+}
+
+// Department returns the value of the "department" field in the mutation.
+func (m *MedicalRecordMutation) Department() (r string, exists bool) {
+	v := m.department
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDepartment returns the old "department" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldDepartment(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDepartment is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDepartment requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDepartment: %w", err)
+	}
+	return oldValue.Department, nil
+}
+
+// ClearDepartment clears the value of the "department" field.
+func (m *MedicalRecordMutation) ClearDepartment() {
+	m.department = nil
+	m.clearedFields[medicalrecord.FieldDepartment] = struct{}{}
+}
+
+// DepartmentCleared returns if the "department" field was cleared in this mutation.
+func (m *MedicalRecordMutation) DepartmentCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldDepartment]
+	return ok
+}
+
+// ResetDepartment resets all changes to the "department" field.
+func (m *MedicalRecordMutation) ResetDepartment() {
+	m.department = nil
+	delete(m.clearedFields, medicalrecord.FieldDepartment)
+}
+
+// SetAppointmentID sets the "appointment_id" field.
+func (m *MedicalRecordMutation) SetAppointmentID(s string) {
+	m.appointment_id = &s
+}
+
+// AppointmentID returns the value of the "appointment_id" field in the mutation.
+func (m *MedicalRecordMutation) AppointmentID() (r string, exists bool) {
+	v := m.appointment_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppointmentID returns the old "appointment_id" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldAppointmentID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppointmentID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppointmentID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppointmentID: %w", err)
+	}
+	return oldValue.AppointmentID, nil
+}
+
+// ClearAppointmentID clears the value of the "appointment_id" field.
+func (m *MedicalRecordMutation) ClearAppointmentID() {
+	m.appointment_id = nil
+	m.clearedFields[medicalrecord.FieldAppointmentID] = struct{}{}
+}
+
+// AppointmentIDCleared returns if the "appointment_id" field was cleared in this mutation.
+func (m *MedicalRecordMutation) AppointmentIDCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldAppointmentID]
+	return ok
+}
+
+// ResetAppointmentID resets all changes to the "appointment_id" field.
+func (m *MedicalRecordMutation) ResetAppointmentID() {
+	m.appointment_id = nil
+	delete(m.clearedFields, medicalrecord.FieldAppointmentID)
+}
+
+// SetRemarks sets the "remarks" field.
+func (m *MedicalRecordMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the value of the "remarks" field in the mutation.
+func (m *MedicalRecordMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old "remarks" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemarks is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ClearRemarks clears the value of the "remarks" field.
+func (m *MedicalRecordMutation) ClearRemarks() {
+	m.remarks = nil
+	m.clearedFields[medicalrecord.FieldRemarks] = struct{}{}
+}
+
+// RemarksCleared returns if the "remarks" field was cleared in this mutation.
+func (m *MedicalRecordMutation) RemarksCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldRemarks]
+	return ok
+}
+
+// ResetRemarks resets all changes to the "remarks" field.
+func (m *MedicalRecordMutation) ResetRemarks() {
+	m.remarks = nil
+	delete(m.clearedFields, medicalrecord.FieldRemarks)
+}
+
+// SetUserID sets the "user_id" field.
+func (m *MedicalRecordMutation) SetUserID(s string) {
+	m.user_id = &s
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *MedicalRecordMutation) UserID() (r string, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the MedicalRecord entity.
+// If the MedicalRecord object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MedicalRecordMutation) OldUserID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (m *MedicalRecordMutation) ClearUserID() {
+	m.user_id = nil
+	m.clearedFields[medicalrecord.FieldUserID] = struct{}{}
+}
+
+// UserIDCleared returns if the "user_id" field was cleared in this mutation.
+func (m *MedicalRecordMutation) UserIDCleared() bool {
+	_, ok := m.clearedFields[medicalrecord.FieldUserID]
+	return ok
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *MedicalRecordMutation) ResetUserID() {
+	m.user_id = nil
+	delete(m.clearedFields, medicalrecord.FieldUserID)
+}
+
+// Where appends a list predicates to the MedicalRecordMutation builder.
+func (m *MedicalRecordMutation) Where(ps ...predicate.MedicalRecord) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the MedicalRecordMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *MedicalRecordMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.MedicalRecord, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *MedicalRecordMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *MedicalRecordMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (MedicalRecord).
+func (m *MedicalRecordMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *MedicalRecordMutation) Fields() []string {
+	fields := make([]string, 0, 17)
+	if m.created_at != nil {
+		fields = append(fields, medicalrecord.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, medicalrecord.FieldUpdatedAt)
+	}
+	if m.patient_name != nil {
+		fields = append(fields, medicalrecord.FieldPatientName)
+	}
+	if m.phone_number != nil {
+		fields = append(fields, medicalrecord.FieldPhoneNumber)
+	}
+	if m.gender != nil {
+		fields = append(fields, medicalrecord.FieldGender)
+	}
+	if m.age != nil {
+		fields = append(fields, medicalrecord.FieldAge)
+	}
+	if m.visit_time != nil {
+		fields = append(fields, medicalrecord.FieldVisitTime)
+	}
+	if m.diagnosis != nil {
+		fields = append(fields, medicalrecord.FieldDiagnosis)
+	}
+	if m.treatment_plan != nil {
+		fields = append(fields, medicalrecord.FieldTreatmentPlan)
+	}
+	if m.prescription != nil {
+		fields = append(fields, medicalrecord.FieldPrescription)
+	}
+	if m.examination_results != nil {
+		fields = append(fields, medicalrecord.FieldExaminationResults)
+	}
+	if m.doctor_advice != nil {
+		fields = append(fields, medicalrecord.FieldDoctorAdvice)
+	}
+	if m.doctor_id != nil {
+		fields = append(fields, medicalrecord.FieldDoctorID)
+	}
+	if m.department != nil {
+		fields = append(fields, medicalrecord.FieldDepartment)
+	}
+	if m.appointment_id != nil {
+		fields = append(fields, medicalrecord.FieldAppointmentID)
+	}
+	if m.remarks != nil {
+		fields = append(fields, medicalrecord.FieldRemarks)
+	}
+	if m.user_id != nil {
+		fields = append(fields, medicalrecord.FieldUserID)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *MedicalRecordMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case medicalrecord.FieldCreatedAt:
+		return m.CreatedAt()
+	case medicalrecord.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case medicalrecord.FieldPatientName:
+		return m.PatientName()
+	case medicalrecord.FieldPhoneNumber:
+		return m.PhoneNumber()
+	case medicalrecord.FieldGender:
+		return m.Gender()
+	case medicalrecord.FieldAge:
+		return m.Age()
+	case medicalrecord.FieldVisitTime:
+		return m.VisitTime()
+	case medicalrecord.FieldDiagnosis:
+		return m.Diagnosis()
+	case medicalrecord.FieldTreatmentPlan:
+		return m.TreatmentPlan()
+	case medicalrecord.FieldPrescription:
+		return m.Prescription()
+	case medicalrecord.FieldExaminationResults:
+		return m.ExaminationResults()
+	case medicalrecord.FieldDoctorAdvice:
+		return m.DoctorAdvice()
+	case medicalrecord.FieldDoctorID:
+		return m.DoctorID()
+	case medicalrecord.FieldDepartment:
+		return m.Department()
+	case medicalrecord.FieldAppointmentID:
+		return m.AppointmentID()
+	case medicalrecord.FieldRemarks:
+		return m.Remarks()
+	case medicalrecord.FieldUserID:
+		return m.UserID()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *MedicalRecordMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case medicalrecord.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case medicalrecord.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case medicalrecord.FieldPatientName:
+		return m.OldPatientName(ctx)
+	case medicalrecord.FieldPhoneNumber:
+		return m.OldPhoneNumber(ctx)
+	case medicalrecord.FieldGender:
+		return m.OldGender(ctx)
+	case medicalrecord.FieldAge:
+		return m.OldAge(ctx)
+	case medicalrecord.FieldVisitTime:
+		return m.OldVisitTime(ctx)
+	case medicalrecord.FieldDiagnosis:
+		return m.OldDiagnosis(ctx)
+	case medicalrecord.FieldTreatmentPlan:
+		return m.OldTreatmentPlan(ctx)
+	case medicalrecord.FieldPrescription:
+		return m.OldPrescription(ctx)
+	case medicalrecord.FieldExaminationResults:
+		return m.OldExaminationResults(ctx)
+	case medicalrecord.FieldDoctorAdvice:
+		return m.OldDoctorAdvice(ctx)
+	case medicalrecord.FieldDoctorID:
+		return m.OldDoctorID(ctx)
+	case medicalrecord.FieldDepartment:
+		return m.OldDepartment(ctx)
+	case medicalrecord.FieldAppointmentID:
+		return m.OldAppointmentID(ctx)
+	case medicalrecord.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case medicalrecord.FieldUserID:
+		return m.OldUserID(ctx)
+	}
+	return nil, fmt.Errorf("unknown MedicalRecord field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *MedicalRecordMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case medicalrecord.FieldCreatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case medicalrecord.FieldUpdatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case medicalrecord.FieldPatientName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPatientName(v)
+		return nil
+	case medicalrecord.FieldPhoneNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPhoneNumber(v)
+		return nil
+	case medicalrecord.FieldGender:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGender(v)
+		return nil
+	case medicalrecord.FieldAge:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAge(v)
+		return nil
+	case medicalrecord.FieldVisitTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetVisitTime(v)
+		return nil
+	case medicalrecord.FieldDiagnosis:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDiagnosis(v)
+		return nil
+	case medicalrecord.FieldTreatmentPlan:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTreatmentPlan(v)
+		return nil
+	case medicalrecord.FieldPrescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPrescription(v)
+		return nil
+	case medicalrecord.FieldExaminationResults:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExaminationResults(v)
+		return nil
+	case medicalrecord.FieldDoctorAdvice:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDoctorAdvice(v)
+		return nil
+	case medicalrecord.FieldDoctorID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDoctorID(v)
+		return nil
+	case medicalrecord.FieldDepartment:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDepartment(v)
+		return nil
+	case medicalrecord.FieldAppointmentID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppointmentID(v)
+		return nil
+	case medicalrecord.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case medicalrecord.FieldUserID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
+		return nil
+	}
+	return fmt.Errorf("unknown MedicalRecord field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *MedicalRecordMutation) AddedFields() []string {
+	var fields []string
+	if m.addgender != nil {
+		fields = append(fields, medicalrecord.FieldGender)
+	}
+	if m.addage != nil {
+		fields = append(fields, medicalrecord.FieldAge)
+	}
+	if m.addvisit_time != nil {
+		fields = append(fields, medicalrecord.FieldVisitTime)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *MedicalRecordMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case medicalrecord.FieldGender:
+		return m.AddedGender()
+	case medicalrecord.FieldAge:
+		return m.AddedAge()
+	case medicalrecord.FieldVisitTime:
+		return m.AddedVisitTime()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *MedicalRecordMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case medicalrecord.FieldGender:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddGender(v)
+		return nil
+	case medicalrecord.FieldAge:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAge(v)
+		return nil
+	case medicalrecord.FieldVisitTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddVisitTime(v)
+		return nil
+	}
+	return fmt.Errorf("unknown MedicalRecord numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *MedicalRecordMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(medicalrecord.FieldPatientName) {
+		fields = append(fields, medicalrecord.FieldPatientName)
+	}
+	if m.FieldCleared(medicalrecord.FieldPhoneNumber) {
+		fields = append(fields, medicalrecord.FieldPhoneNumber)
+	}
+	if m.FieldCleared(medicalrecord.FieldGender) {
+		fields = append(fields, medicalrecord.FieldGender)
+	}
+	if m.FieldCleared(medicalrecord.FieldAge) {
+		fields = append(fields, medicalrecord.FieldAge)
+	}
+	if m.FieldCleared(medicalrecord.FieldVisitTime) {
+		fields = append(fields, medicalrecord.FieldVisitTime)
+	}
+	if m.FieldCleared(medicalrecord.FieldDiagnosis) {
+		fields = append(fields, medicalrecord.FieldDiagnosis)
+	}
+	if m.FieldCleared(medicalrecord.FieldTreatmentPlan) {
+		fields = append(fields, medicalrecord.FieldTreatmentPlan)
+	}
+	if m.FieldCleared(medicalrecord.FieldPrescription) {
+		fields = append(fields, medicalrecord.FieldPrescription)
+	}
+	if m.FieldCleared(medicalrecord.FieldExaminationResults) {
+		fields = append(fields, medicalrecord.FieldExaminationResults)
+	}
+	if m.FieldCleared(medicalrecord.FieldDoctorAdvice) {
+		fields = append(fields, medicalrecord.FieldDoctorAdvice)
+	}
+	if m.FieldCleared(medicalrecord.FieldDoctorID) {
+		fields = append(fields, medicalrecord.FieldDoctorID)
+	}
+	if m.FieldCleared(medicalrecord.FieldDepartment) {
+		fields = append(fields, medicalrecord.FieldDepartment)
+	}
+	if m.FieldCleared(medicalrecord.FieldAppointmentID) {
+		fields = append(fields, medicalrecord.FieldAppointmentID)
+	}
+	if m.FieldCleared(medicalrecord.FieldRemarks) {
+		fields = append(fields, medicalrecord.FieldRemarks)
+	}
+	if m.FieldCleared(medicalrecord.FieldUserID) {
+		fields = append(fields, medicalrecord.FieldUserID)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *MedicalRecordMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *MedicalRecordMutation) ClearField(name string) error {
+	switch name {
+	case medicalrecord.FieldPatientName:
+		m.ClearPatientName()
+		return nil
+	case medicalrecord.FieldPhoneNumber:
+		m.ClearPhoneNumber()
+		return nil
+	case medicalrecord.FieldGender:
+		m.ClearGender()
+		return nil
+	case medicalrecord.FieldAge:
+		m.ClearAge()
+		return nil
+	case medicalrecord.FieldVisitTime:
+		m.ClearVisitTime()
+		return nil
+	case medicalrecord.FieldDiagnosis:
+		m.ClearDiagnosis()
+		return nil
+	case medicalrecord.FieldTreatmentPlan:
+		m.ClearTreatmentPlan()
+		return nil
+	case medicalrecord.FieldPrescription:
+		m.ClearPrescription()
+		return nil
+	case medicalrecord.FieldExaminationResults:
+		m.ClearExaminationResults()
+		return nil
+	case medicalrecord.FieldDoctorAdvice:
+		m.ClearDoctorAdvice()
+		return nil
+	case medicalrecord.FieldDoctorID:
+		m.ClearDoctorID()
+		return nil
+	case medicalrecord.FieldDepartment:
+		m.ClearDepartment()
+		return nil
+	case medicalrecord.FieldAppointmentID:
+		m.ClearAppointmentID()
+		return nil
+	case medicalrecord.FieldRemarks:
+		m.ClearRemarks()
+		return nil
+	case medicalrecord.FieldUserID:
+		m.ClearUserID()
+		return nil
+	}
+	return fmt.Errorf("unknown MedicalRecord nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *MedicalRecordMutation) ResetField(name string) error {
+	switch name {
+	case medicalrecord.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case medicalrecord.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case medicalrecord.FieldPatientName:
+		m.ResetPatientName()
+		return nil
+	case medicalrecord.FieldPhoneNumber:
+		m.ResetPhoneNumber()
+		return nil
+	case medicalrecord.FieldGender:
+		m.ResetGender()
+		return nil
+	case medicalrecord.FieldAge:
+		m.ResetAge()
+		return nil
+	case medicalrecord.FieldVisitTime:
+		m.ResetVisitTime()
+		return nil
+	case medicalrecord.FieldDiagnosis:
+		m.ResetDiagnosis()
+		return nil
+	case medicalrecord.FieldTreatmentPlan:
+		m.ResetTreatmentPlan()
+		return nil
+	case medicalrecord.FieldPrescription:
+		m.ResetPrescription()
+		return nil
+	case medicalrecord.FieldExaminationResults:
+		m.ResetExaminationResults()
+		return nil
+	case medicalrecord.FieldDoctorAdvice:
+		m.ResetDoctorAdvice()
+		return nil
+	case medicalrecord.FieldDoctorID:
+		m.ResetDoctorID()
+		return nil
+	case medicalrecord.FieldDepartment:
+		m.ResetDepartment()
+		return nil
+	case medicalrecord.FieldAppointmentID:
+		m.ResetAppointmentID()
+		return nil
+	case medicalrecord.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case medicalrecord.FieldUserID:
+		m.ResetUserID()
+		return nil
+	}
+	return fmt.Errorf("unknown MedicalRecord field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *MedicalRecordMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *MedicalRecordMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *MedicalRecordMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *MedicalRecordMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *MedicalRecordMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *MedicalRecordMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *MedicalRecordMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown MedicalRecord unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *MedicalRecordMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown MedicalRecord edge %s", name)
 }
 
 // MedicineMutation represents an operation that mutates the Medicine nodes in the graph.

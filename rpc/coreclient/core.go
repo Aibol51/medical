@@ -39,6 +39,9 @@ type (
 	Empty                    = core.Empty
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
+	MedicalRecordInfo        = core.MedicalRecordInfo
+	MedicalRecordListReq     = core.MedicalRecordListReq
+	MedicalRecordListResp    = core.MedicalRecordListResp
 	MedicineInfo             = core.MedicineInfo
 	MedicineListReq          = core.MedicineListReq
 	MedicineListResp         = core.MedicineListResp
@@ -118,6 +121,12 @@ type (
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		// MedicalRecord management
+		CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMedicalRecordList(ctx context.Context, in *MedicalRecordListReq, opts ...grpc.CallOption) (*MedicalRecordListResp, error)
+		GetMedicalRecordById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MedicalRecordInfo, error)
+		DeleteMedicalRecord(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Medicine management
 		CreateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMedicine(ctx context.Context, in *MedicineInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -362,6 +371,32 @@ func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, op
 func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
+}
+
+// MedicalRecord management
+func (m *defaultCore) CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateMedicalRecord(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateMedicalRecord(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMedicalRecordList(ctx context.Context, in *MedicalRecordListReq, opts ...grpc.CallOption) (*MedicalRecordListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMedicalRecordList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMedicalRecordById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MedicalRecordInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMedicalRecordById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteMedicalRecord(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteMedicalRecord(ctx, in, opts...)
 }
 
 // Medicine management
