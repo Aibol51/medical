@@ -27,13 +27,13 @@ func (Medicine) Fields() []ent.Field {
 			Comment("Medicine kazakh name | 药品哈萨克语名称"),
 		field.Uint32("quantity").
 			Comment("Quantity in stock | 库存数量"),
-		field.String("description_zh").Optional().
+		field.Text("description_zh").Optional().
 			Comment("Description chinese | 药品中文描述"),
-		field.String("description_en").Optional().
+		field.Text("description_en").Optional().
 			Comment("Description english | 药品英文描述"),
-		field.String("description_ru").Optional().
+		field.Text("description_ru").Optional().
 			Comment("Description russian | 药品俄语描述"),
-		field.String("description_kk").Optional().
+		field.Text("description_kk").Optional().
 			Comment("Description kazakh | 药品哈萨克语描述"),
 		field.String("remarks").Optional().
 			Comment("Remarks | 备注信息"),
