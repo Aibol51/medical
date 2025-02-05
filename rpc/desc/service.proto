@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+// Service message
+
+message ServiceInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // Sort Number | 排序编号
+  optional uint32 sort = 5;
+  // Service chinese name | 服务中文名称
+  optional string name_zh = 6;
+  // Service english name | 服务英文名称
+  optional string name_en = 7;
+  // Service russian name | 服务俄语名称
+  optional string name_ru = 8;
+  // Service kazakh name | 服务哈萨克语名称
+  optional string name_kk = 9;
+  // Description chinese | 服务中文描述
+  optional string description_zh = 10;
+  // Description english | 服务英文描述
+  optional string description_en = 11;
+  // Description russian | 服务俄语描述
+  optional string description_ru = 12;
+  // Description kazakh | 服务哈萨克语描述
+  optional string description_kk = 13;
+  // Cover image URL | 封面图片URL
+  optional string cover_url = 14;
+}
+
+message ServiceListResp {
+  uint64 total = 1;
+  repeated ServiceInfo data = 2;
+}
+
+message ServiceListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name_zh = 3;
+  optional string name_en = 4;
+  optional string name_ru = 5;
+}
+
+
+service Core {
+
+  // Service management
+  // group: service
+  rpc createService (ServiceInfo) returns (BaseIDResp);
+  // group: service
+  rpc updateService (ServiceInfo) returns (BaseResp);
+  // group: service
+  rpc getServiceList (ServiceListReq) returns (ServiceListResp);
+  // group: service
+  rpc getServiceById (IDReq) returns (ServiceInfo);
+  // group: service
+  rpc deleteService (IDsReq) returns (BaseResp);
+
+
+}

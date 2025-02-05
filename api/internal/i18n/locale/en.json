@@ -236,10 +236,12 @@
 		"cloudFileManagement": "Cloud File",
 		"cloudFileTagManagement": "Cloud File's Tag",
 		"configurationManagement": "System Config",
-		"medicine":"Medicine",
-		"news":"News",
-		"swiper":"Swiper",
-		"appointment":"Appointment"
+		"medicine": "Medicine",
+		"news": "News",
+		"swiper": "Swiper",
+		"appointment": "Appointment",
+		"expert": "Expert",
+		"service": "Service"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",

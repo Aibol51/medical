@@ -153,6 +153,29 @@ var (
 			},
 		},
 	}
+	// ExpertColumns holds the columns for the "expert" table.
+	ExpertColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
+		{Name: "name_zh", Type: field.TypeString, Nullable: true, Comment: "Chinese name | 中文名称"},
+		{Name: "name_en", Type: field.TypeString, Nullable: true, Comment: "English name | 英文名称"},
+		{Name: "name_ru", Type: field.TypeString, Nullable: true, Comment: "Russian name | 俄语名称"},
+		{Name: "name_kk", Type: field.TypeString, Nullable: true, Comment: "Kazakh name | 哈萨克语名称"},
+		{Name: "content_zh", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Chinese content | 中文内容"},
+		{Name: "content_en", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "English content | 英文内容"},
+		{Name: "content_ru", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Russian content | 俄语内容"},
+		{Name: "content_kk", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Kazakh content | 哈萨克语内容"},
+		{Name: "cover_url", Type: field.TypeString, Nullable: true, Comment: "Cover image URL | 封面图片URL"},
+	}
+	// ExpertTable holds the schema information for the "expert" table.
+	ExpertTable = &schema.Table{
+		Name:       "expert",
+		Columns:    ExpertColumns,
+		PrimaryKey: []*schema.Column{ExpertColumns[0]},
+	}
 	// MedicalRecordsColumns holds the columns for the "medical_records" table.
 	MedicalRecordsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
@@ -353,6 +376,29 @@ var (
 			},
 		},
 	}
+	// ServicesColumns holds the columns for the "services" table.
+	ServicesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
+		{Name: "name_zh", Type: field.TypeString, Comment: "Service chinese name | 服务中文名称"},
+		{Name: "name_en", Type: field.TypeString, Comment: "Service english name | 服务英文名称"},
+		{Name: "name_ru", Type: field.TypeString, Comment: "Service russian name | 服务俄语名称"},
+		{Name: "name_kk", Type: field.TypeString, Comment: "Service kazakh name | 服务哈萨克语名称"},
+		{Name: "description_zh", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Description chinese | 服务中文描述"},
+		{Name: "description_en", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Description english | 服务英文描述"},
+		{Name: "description_ru", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Description russian | 服务俄语描述"},
+		{Name: "description_kk", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Description kazakh | 服务哈萨克语描述"},
+		{Name: "cover_url", Type: field.TypeString, Nullable: true, Comment: "Cover image URL | 封面图片URL"},
+	}
+	// ServicesTable holds the schema information for the "services" table.
+	ServicesTable = &schema.Table{
+		Name:       "services",
+		Columns:    ServicesColumns,
+		PrimaryKey: []*schema.Column{ServicesColumns[0]},
+	}
 	// SwiperColumns holds the columns for the "Swiper" table.
 	SwiperColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -531,6 +577,7 @@ var (
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		ExpertTable,
 		MedicalRecordsTable,
 		MedicinesTable,
 		SysMenusTable,
@@ -538,6 +585,7 @@ var (
 		SysOauthProvidersTable,
 		SysPositionsTable,
 		SysRolesTable,
+		ServicesTable,
 		SwiperTable,
 		SysTokensTable,
 		SysUsersTable,
@@ -568,6 +616,9 @@ func init() {
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
 	}
+	ExpertTable.Annotation = &entsql.Annotation{
+		Table: "expert",
+	}
 	MedicalRecordsTable.Annotation = &entsql.Annotation{
 		Table: "medical_records",
 	}
@@ -589,6 +640,9 @@ func init() {
 	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
+	}
+	ServicesTable.Annotation = &entsql.Annotation{
+		Table: "services",
 	}
 	SwiperTable.Annotation = &entsql.Annotation{
 		Table: "Swiper",

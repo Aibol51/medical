@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/expert"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicalrecord"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
@@ -25,6 +26,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/service"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
@@ -94,6 +96,7 @@ func checkColumn(table, column string) error {
 			department.Table:       department.ValidColumn,
 			dictionary.Table:       dictionary.ValidColumn,
 			dictionarydetail.Table: dictionarydetail.ValidColumn,
+			expert.Table:           expert.ValidColumn,
 			medicalrecord.Table:    medicalrecord.ValidColumn,
 			medicine.Table:         medicine.ValidColumn,
 			menu.Table:             menu.ValidColumn,
@@ -101,6 +104,7 @@ func checkColumn(table, column string) error {
 			oauthprovider.Table:    oauthprovider.ValidColumn,
 			position.Table:         position.ValidColumn,
 			role.Table:             role.ValidColumn,
+			service.Table:          service.ValidColumn,
 			swiper.Table:           swiper.ValidColumn,
 			token.Table:            token.ValidColumn,
 			user.Table:             user.ValidColumn,

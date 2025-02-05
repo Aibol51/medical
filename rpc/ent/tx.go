@@ -26,6 +26,8 @@ type Tx struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// Expert is the client for interacting with the Expert builders.
+	Expert *ExpertClient
 	// MedicalRecord is the client for interacting with the MedicalRecord builders.
 	MedicalRecord *MedicalRecordClient
 	// Medicine is the client for interacting with the Medicine builders.
@@ -40,6 +42,8 @@ type Tx struct {
 	Position *PositionClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// Service is the client for interacting with the Service builders.
+	Service *ServiceClient
 	// Swiper is the client for interacting with the Swiper builders.
 	Swiper *SwiperClient
 	// Token is the client for interacting with the Token builders.
@@ -183,6 +187,7 @@ func (tx *Tx) init() {
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
+	tx.Expert = NewExpertClient(tx.config)
 	tx.MedicalRecord = NewMedicalRecordClient(tx.config)
 	tx.Medicine = NewMedicineClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
@@ -190,6 +195,7 @@ func (tx *Tx) init() {
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
+	tx.Service = NewServiceClient(tx.config)
 	tx.Swiper = NewSwiperClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)

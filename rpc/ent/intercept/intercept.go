@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/expert"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicalrecord"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
@@ -22,6 +23,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/service"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
@@ -245,6 +247,33 @@ func (f TraverseDictionaryDetail) Traverse(ctx context.Context, q ent.Query) err
 	return fmt.Errorf("unexpected query type %T. expect *ent.DictionaryDetailQuery", q)
 }
 
+// The ExpertFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ExpertFunc func(context.Context, *ent.ExpertQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ExpertFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ExpertQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ExpertQuery", q)
+}
+
+// The TraverseExpert type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseExpert func(context.Context, *ent.ExpertQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseExpert) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseExpert) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ExpertQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ExpertQuery", q)
+}
+
 // The MedicalRecordFunc type is an adapter to allow the use of ordinary function as a Querier.
 type MedicalRecordFunc func(context.Context, *ent.MedicalRecordQuery) (ent.Value, error)
 
@@ -434,6 +463,33 @@ func (f TraverseRole) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.RoleQuery", q)
 }
 
+// The ServiceFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ServiceFunc func(context.Context, *ent.ServiceQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ServiceFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ServiceQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ServiceQuery", q)
+}
+
+// The TraverseService type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseService func(context.Context, *ent.ServiceQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseService) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseService) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ServiceQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ServiceQuery", q)
+}
+
 // The SwiperFunc type is an adapter to allow the use of ordinary function as a Querier.
 type SwiperFunc func(context.Context, *ent.SwiperQuery) (ent.Value, error)
 
@@ -530,6 +586,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.DictionaryQuery, predicate.Dictionary, dictionary.OrderOption]{typ: ent.TypeDictionary, tq: q}, nil
 	case *ent.DictionaryDetailQuery:
 		return &query[*ent.DictionaryDetailQuery, predicate.DictionaryDetail, dictionarydetail.OrderOption]{typ: ent.TypeDictionaryDetail, tq: q}, nil
+	case *ent.ExpertQuery:
+		return &query[*ent.ExpertQuery, predicate.Expert, expert.OrderOption]{typ: ent.TypeExpert, tq: q}, nil
 	case *ent.MedicalRecordQuery:
 		return &query[*ent.MedicalRecordQuery, predicate.MedicalRecord, medicalrecord.OrderOption]{typ: ent.TypeMedicalRecord, tq: q}, nil
 	case *ent.MedicineQuery:
@@ -544,6 +602,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.PositionQuery, predicate.Position, position.OrderOption]{typ: ent.TypePosition, tq: q}, nil
 	case *ent.RoleQuery:
 		return &query[*ent.RoleQuery, predicate.Role, role.OrderOption]{typ: ent.TypeRole, tq: q}, nil
+	case *ent.ServiceQuery:
+		return &query[*ent.ServiceQuery, predicate.Service, service.OrderOption]{typ: ent.TypeService, tq: q}, nil
 	case *ent.SwiperQuery:
 		return &query[*ent.SwiperQuery, predicate.Swiper, swiper.OrderOption]{typ: ent.TypeSwiper, tq: q}, nil
 	case *ent.TokenQuery:

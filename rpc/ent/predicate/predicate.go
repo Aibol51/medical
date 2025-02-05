@@ -24,6 +24,9 @@ type Dictionary func(*sql.Selector)
 // DictionaryDetail is the predicate function for dictionarydetail builders.
 type DictionaryDetail func(*sql.Selector)
 
+// Expert is the predicate function for expert builders.
+type Expert func(*sql.Selector)
+
 // MedicalRecord is the predicate function for medicalrecord builders.
 type MedicalRecord func(*sql.Selector)
 
@@ -44,6 +47,9 @@ type Position func(*sql.Selector)
 
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
+
+// Service is the predicate function for service builders.
+type Service func(*sql.Selector)
 
 // Swiper is the predicate function for swiper builders.
 type Swiper func(*sql.Selector)

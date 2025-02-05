@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/expert"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicalRecord"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
@@ -21,6 +22,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/service"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
@@ -215,6 +217,32 @@ func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in
 	return l.GetDictionaryDetailByDictionaryName(in)
 }
 
+// Expert management
+func (s *CoreServer) CreateExpert(ctx context.Context, in *core.ExpertInfo) (*core.BaseIDResp, error) {
+	l := expert.NewCreateExpertLogic(ctx, s.svcCtx)
+	return l.CreateExpert(in)
+}
+
+func (s *CoreServer) UpdateExpert(ctx context.Context, in *core.ExpertInfo) (*core.BaseResp, error) {
+	l := expert.NewUpdateExpertLogic(ctx, s.svcCtx)
+	return l.UpdateExpert(in)
+}
+
+func (s *CoreServer) GetExpertList(ctx context.Context, in *core.ExpertListReq) (*core.ExpertListResp, error) {
+	l := expert.NewGetExpertListLogic(ctx, s.svcCtx)
+	return l.GetExpertList(in)
+}
+
+func (s *CoreServer) GetExpertById(ctx context.Context, in *core.IDReq) (*core.ExpertInfo, error) {
+	l := expert.NewGetExpertByIdLogic(ctx, s.svcCtx)
+	return l.GetExpertById(in)
+}
+
+func (s *CoreServer) DeleteExpert(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := expert.NewDeleteExpertLogic(ctx, s.svcCtx)
+	return l.DeleteExpert(in)
+}
+
 // MedicalRecord management
 func (s *CoreServer) CreateMedicalRecord(ctx context.Context, in *core.MedicalRecordInfo) (*core.BaseUUIDResp, error) {
 	l := medicalRecord.NewCreateMedicalRecordLogic(ctx, s.svcCtx)
@@ -404,6 +432,32 @@ func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.Rol
 func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
 	return l.DeleteRole(in)
+}
+
+// Service management
+func (s *CoreServer) CreateService(ctx context.Context, in *core.ServiceInfo) (*core.BaseIDResp, error) {
+	l := service.NewCreateServiceLogic(ctx, s.svcCtx)
+	return l.CreateService(in)
+}
+
+func (s *CoreServer) UpdateService(ctx context.Context, in *core.ServiceInfo) (*core.BaseResp, error) {
+	l := service.NewUpdateServiceLogic(ctx, s.svcCtx)
+	return l.UpdateService(in)
+}
+
+func (s *CoreServer) GetServiceList(ctx context.Context, in *core.ServiceListReq) (*core.ServiceListResp, error) {
+	l := service.NewGetServiceListLogic(ctx, s.svcCtx)
+	return l.GetServiceList(in)
+}
+
+func (s *CoreServer) GetServiceById(ctx context.Context, in *core.IDReq) (*core.ServiceInfo, error) {
+	l := service.NewGetServiceByIdLogic(ctx, s.svcCtx)
+	return l.GetServiceById(in)
+}
+
+func (s *CoreServer) DeleteService(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := service.NewDeleteServiceLogic(ctx, s.svcCtx)
+	return l.DeleteService(in)
 }
 
 // Swiper management

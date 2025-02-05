@@ -37,6 +37,9 @@ type (
 	DictionaryListReq        = core.DictionaryListReq
 	DictionaryListResp       = core.DictionaryListResp
 	Empty                    = core.Empty
+	ExpertInfo               = core.ExpertInfo
+	ExpertListReq            = core.ExpertListReq
+	ExpertListResp           = core.ExpertListResp
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
 	MedicalRecordInfo        = core.MedicalRecordInfo
@@ -67,6 +70,9 @@ type (
 	RoleListResp             = core.RoleListResp
 	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
+	ServiceInfo              = core.ServiceInfo
+	ServiceListReq           = core.ServiceListReq
+	ServiceListResp          = core.ServiceListResp
 	SwiperInfo               = core.SwiperInfo
 	SwiperListReq            = core.SwiperListReq
 	SwiperListResp           = core.SwiperListResp
@@ -121,6 +127,12 @@ type (
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		// Expert management
+		CreateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetExpertList(ctx context.Context, in *ExpertListReq, opts ...grpc.CallOption) (*ExpertListResp, error)
+		GetExpertById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ExpertInfo, error)
+		DeleteExpert(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// MedicalRecord management
 		CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 		UpdateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -164,6 +176,12 @@ type (
 		GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 		DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Service management
+		CreateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetServiceList(ctx context.Context, in *ServiceListReq, opts ...grpc.CallOption) (*ServiceListResp, error)
+		GetServiceById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ServiceInfo, error)
+		DeleteService(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Swiper management
 		CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -373,6 +391,32 @@ func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, i
 	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
 }
 
+// Expert management
+func (m *defaultCore) CreateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateExpert(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateExpert(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetExpertList(ctx context.Context, in *ExpertListReq, opts ...grpc.CallOption) (*ExpertListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetExpertList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetExpertById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ExpertInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetExpertById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteExpert(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteExpert(ctx, in, opts...)
+}
+
 // MedicalRecord management
 func (m *defaultCore) CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
@@ -562,6 +606,32 @@ func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.C
 func (m *defaultCore) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteRole(ctx, in, opts...)
+}
+
+// Service management
+func (m *defaultCore) CreateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateService(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateService(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetServiceList(ctx context.Context, in *ServiceListReq, opts ...grpc.CallOption) (*ServiceListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetServiceList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetServiceById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ServiceInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetServiceById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteService(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteService(ctx, in, opts...)
 }
 
 // Swiper management

@@ -241,11 +241,12 @@
 		"cloudFileManagement": "云文件管理",
 		"cloudFileTagManagement": "云文件标签管理",
 		"configurationManagement": "参数管理",
-		"medicine":"药品",
-		"news":"新闻",
-		"swiper":"轮播图",
-		"appointment":"预约"
-
+		"medicine": "药品",
+		"news": "新闻",
+		"swiper": "轮播图",
+		"appointment": "预约",
+		"expert": "专家",
+		"service": "服务"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",

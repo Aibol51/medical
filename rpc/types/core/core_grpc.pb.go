@@ -53,6 +53,11 @@ const (
 	Core_GetDictionaryDetailById_FullMethodName             = "/core.Core/getDictionaryDetailById"
 	Core_DeleteDictionaryDetail_FullMethodName              = "/core.Core/deleteDictionaryDetail"
 	Core_GetDictionaryDetailByDictionaryName_FullMethodName = "/core.Core/getDictionaryDetailByDictionaryName"
+	Core_CreateExpert_FullMethodName                        = "/core.Core/createExpert"
+	Core_UpdateExpert_FullMethodName                        = "/core.Core/updateExpert"
+	Core_GetExpertList_FullMethodName                       = "/core.Core/getExpertList"
+	Core_GetExpertById_FullMethodName                       = "/core.Core/getExpertById"
+	Core_DeleteExpert_FullMethodName                        = "/core.Core/deleteExpert"
 	Core_CreateMedicalRecord_FullMethodName                 = "/core.Core/createMedicalRecord"
 	Core_UpdateMedicalRecord_FullMethodName                 = "/core.Core/updateMedicalRecord"
 	Core_GetMedicalRecordList_FullMethodName                = "/core.Core/getMedicalRecordList"
@@ -90,6 +95,11 @@ const (
 	Core_GetRoleList_FullMethodName                         = "/core.Core/getRoleList"
 	Core_GetRoleById_FullMethodName                         = "/core.Core/getRoleById"
 	Core_DeleteRole_FullMethodName                          = "/core.Core/deleteRole"
+	Core_CreateService_FullMethodName                       = "/core.Core/createService"
+	Core_UpdateService_FullMethodName                       = "/core.Core/updateService"
+	Core_GetServiceList_FullMethodName                      = "/core.Core/getServiceList"
+	Core_GetServiceById_FullMethodName                      = "/core.Core/getServiceById"
+	Core_DeleteService_FullMethodName                       = "/core.Core/deleteService"
 	Core_CreateSwiper_FullMethodName                        = "/core.Core/createSwiper"
 	Core_UpdateSwiper_FullMethodName                        = "/core.Core/updateSwiper"
 	Core_GetSwiperList_FullMethodName                       = "/core.Core/getSwiperList"
@@ -187,6 +197,17 @@ type CoreClient interface {
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+	// Expert management
+	// group: expert
+	CreateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: expert
+	UpdateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: expert
+	GetExpertList(ctx context.Context, in *ExpertListReq, opts ...grpc.CallOption) (*ExpertListResp, error)
+	// group: expert
+	GetExpertById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ExpertInfo, error)
+	// group: expert
+	DeleteExpert(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// MedicalRecord management
 	// group: medicalRecord
 	CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
@@ -267,6 +288,17 @@ type CoreClient interface {
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 	//  group: role
 	DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Service management
+	// group: service
+	CreateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: service
+	UpdateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: service
+	GetServiceList(ctx context.Context, in *ServiceListReq, opts ...grpc.CallOption) (*ServiceListResp, error)
+	// group: service
+	GetServiceById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ServiceInfo, error)
+	// group: service
+	DeleteService(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Swiper management
 	// group: swiper
 	CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -654,6 +686,56 @@ func (c *coreClient) GetDictionaryDetailByDictionaryName(ctx context.Context, in
 	return out, nil
 }
 
+func (c *coreClient) CreateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateExpert_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateExpert(ctx context.Context, in *ExpertInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateExpert_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetExpertList(ctx context.Context, in *ExpertListReq, opts ...grpc.CallOption) (*ExpertListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExpertListResp)
+	err := c.cc.Invoke(ctx, Core_GetExpertList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetExpertById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ExpertInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExpertInfo)
+	err := c.cc.Invoke(ctx, Core_GetExpertById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteExpert(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteExpert_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateMedicalRecord(ctx context.Context, in *MedicalRecordInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseUUIDResp)
@@ -1024,6 +1106,56 @@ func (c *coreClient) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *coreClient) CreateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateService_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateService_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetServiceList(ctx context.Context, in *ServiceListReq, opts ...grpc.CallOption) (*ServiceListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ServiceListResp)
+	err := c.cc.Invoke(ctx, Core_GetServiceList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetServiceById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ServiceInfo, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ServiceInfo)
+	err := c.cc.Invoke(ctx, Core_GetServiceById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteService(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteService_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateSwiper(ctx context.Context, in *SwiperInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseIDResp)
@@ -1272,6 +1404,17 @@ type CoreServer interface {
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
 	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
+	// Expert management
+	// group: expert
+	CreateExpert(context.Context, *ExpertInfo) (*BaseIDResp, error)
+	// group: expert
+	UpdateExpert(context.Context, *ExpertInfo) (*BaseResp, error)
+	// group: expert
+	GetExpertList(context.Context, *ExpertListReq) (*ExpertListResp, error)
+	// group: expert
+	GetExpertById(context.Context, *IDReq) (*ExpertInfo, error)
+	// group: expert
+	DeleteExpert(context.Context, *IDsReq) (*BaseResp, error)
 	// MedicalRecord management
 	// group: medicalRecord
 	CreateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseUUIDResp, error)
@@ -1352,6 +1495,17 @@ type CoreServer interface {
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
 	//  group: role
 	DeleteRole(context.Context, *IDsReq) (*BaseResp, error)
+	// Service management
+	// group: service
+	CreateService(context.Context, *ServiceInfo) (*BaseIDResp, error)
+	// group: service
+	UpdateService(context.Context, *ServiceInfo) (*BaseResp, error)
+	// group: service
+	GetServiceList(context.Context, *ServiceListReq) (*ServiceListResp, error)
+	// group: service
+	GetServiceById(context.Context, *IDReq) (*ServiceInfo, error)
+	// group: service
+	DeleteService(context.Context, *IDsReq) (*BaseResp, error)
 	// Swiper management
 	// group: swiper
 	CreateSwiper(context.Context, *SwiperInfo) (*BaseIDResp, error)
@@ -1501,6 +1655,21 @@ func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) 
 func (UnimplementedCoreServer) GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryDetailByDictionaryName not implemented")
 }
+func (UnimplementedCoreServer) CreateExpert(context.Context, *ExpertInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateExpert not implemented")
+}
+func (UnimplementedCoreServer) UpdateExpert(context.Context, *ExpertInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExpert not implemented")
+}
+func (UnimplementedCoreServer) GetExpertList(context.Context, *ExpertListReq) (*ExpertListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExpertList not implemented")
+}
+func (UnimplementedCoreServer) GetExpertById(context.Context, *IDReq) (*ExpertInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExpertById not implemented")
+}
+func (UnimplementedCoreServer) DeleteExpert(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteExpert not implemented")
+}
 func (UnimplementedCoreServer) CreateMedicalRecord(context.Context, *MedicalRecordInfo) (*BaseUUIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMedicalRecord not implemented")
 }
@@ -1611,6 +1780,21 @@ func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, 
 }
 func (UnimplementedCoreServer) DeleteRole(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedCoreServer) CreateService(context.Context, *ServiceInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateService not implemented")
+}
+func (UnimplementedCoreServer) UpdateService(context.Context, *ServiceInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateService not implemented")
+}
+func (UnimplementedCoreServer) GetServiceList(context.Context, *ServiceListReq) (*ServiceListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServiceList not implemented")
+}
+func (UnimplementedCoreServer) GetServiceById(context.Context, *IDReq) (*ServiceInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServiceById not implemented")
+}
+func (UnimplementedCoreServer) DeleteService(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteService not implemented")
 }
 func (UnimplementedCoreServer) CreateSwiper(context.Context, *SwiperInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSwiper not implemented")
@@ -2296,6 +2480,96 @@ func _Core_GetDictionaryDetailByDictionaryName_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateExpert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpertInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateExpert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateExpert_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateExpert(ctx, req.(*ExpertInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateExpert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpertInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateExpert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateExpert_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateExpert(ctx, req.(*ExpertInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetExpertList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpertListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetExpertList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetExpertList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetExpertList(ctx, req.(*ExpertListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetExpertById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetExpertById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetExpertById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetExpertById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteExpert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteExpert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteExpert_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteExpert(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateMedicalRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MedicalRecordInfo)
 	if err := dec(in); err != nil {
@@ -2962,6 +3236,96 @@ func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ServiceInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateService(ctx, req.(*ServiceInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ServiceInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateService(ctx, req.(*ServiceInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetServiceList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ServiceListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetServiceList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetServiceList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetServiceList(ctx, req.(*ServiceListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetServiceById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetServiceById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetServiceById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetServiceById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteService(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateSwiper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SwiperInfo)
 	if err := dec(in); err != nil {
@@ -3412,6 +3776,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetDictionaryDetailByDictionaryName_Handler,
 		},
 		{
+			MethodName: "createExpert",
+			Handler:    _Core_CreateExpert_Handler,
+		},
+		{
+			MethodName: "updateExpert",
+			Handler:    _Core_UpdateExpert_Handler,
+		},
+		{
+			MethodName: "getExpertList",
+			Handler:    _Core_GetExpertList_Handler,
+		},
+		{
+			MethodName: "getExpertById",
+			Handler:    _Core_GetExpertById_Handler,
+		},
+		{
+			MethodName: "deleteExpert",
+			Handler:    _Core_DeleteExpert_Handler,
+		},
+		{
 			MethodName: "createMedicalRecord",
 			Handler:    _Core_CreateMedicalRecord_Handler,
 		},
@@ -3558,6 +3942,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteRole",
 			Handler:    _Core_DeleteRole_Handler,
+		},
+		{
+			MethodName: "createService",
+			Handler:    _Core_CreateService_Handler,
+		},
+		{
+			MethodName: "updateService",
+			Handler:    _Core_UpdateService_Handler,
+		},
+		{
+			MethodName: "getServiceList",
+			Handler:    _Core_GetServiceList_Handler,
+		},
+		{
+			MethodName: "getServiceById",
+			Handler:    _Core_GetServiceById_Handler,
+		},
+		{
+			MethodName: "deleteService",
+			Handler:    _Core_DeleteService_Handler,
 		},
 		{
 			MethodName: "createSwiper",

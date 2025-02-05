@@ -15,6 +15,7 @@ import (
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
 	emaillog "github.com/suyuan32/simple-admin-core/api/internal/handler/emaillog"
 	emailprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/emailprovider"
+	expert "github.com/suyuan32/simple-admin-core/api/internal/handler/expert"
 	medicalrecord "github.com/suyuan32/simple-admin-core/api/internal/handler/medicalrecord"
 	medicine "github.com/suyuan32/simple-admin-core/api/internal/handler/medicine"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
@@ -25,6 +26,7 @@ import (
 	publicapi "github.com/suyuan32/simple-admin-core/api/internal/handler/publicapi"
 	publicuser "github.com/suyuan32/simple-admin-core/api/internal/handler/publicuser"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
+	service "github.com/suyuan32/simple-admin-core/api/internal/handler/service"
 	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
 	smsprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/smsprovider"
 	swiper "github.com/suyuan32/simple-admin-core/api/internal/handler/swiper"
@@ -1002,6 +1004,74 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/medical_record",
 					Handler: medicalrecord.GetMedicalRecordByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/expert/create",
+					Handler: expert.CreateExpertHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/expert/update",
+					Handler: expert.UpdateExpertHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/expert/delete",
+					Handler: expert.DeleteExpertHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/expert/list",
+					Handler: expert.GetExpertListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/expert",
+					Handler: expert.GetExpertByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/service/create",
+					Handler: service.CreateServiceHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/service/update",
+					Handler: service.UpdateServiceHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/service/delete",
+					Handler: service.DeleteServiceHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/service/list",
+					Handler: service.GetServiceListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/service",
+					Handler: service.GetServiceByIdHandler(serverCtx),
 				},
 			}...,
 		),

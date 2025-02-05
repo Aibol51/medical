@@ -203,6 +203,47 @@ message DictionaryListResp {
 //  base message
 message Empty {}
 
+message ExpertInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  Chinese name | 中文名称
+  optional string name_zh = 6;
+  //  English name | 英文名称
+  optional string name_en = 7;
+  //  Russian name | 俄语名称
+  optional string name_ru = 8;
+  //  Kazakh name | 哈萨克语名称
+  optional string name_kk = 9;
+  //  Chinese content | 中文内容
+  optional string content_zh = 10;
+  //  English content | 英文内容
+  optional string content_en = 11;
+  //  Russian content | 俄语内容
+  optional string content_ru = 12;
+  //  Kazakh content | 哈萨克语内容
+  optional string content_kk = 13;
+  //  Cover image URL | 封面图片URL
+  optional string cover_url = 14;
+}
+
+message ExpertListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name_zh = 3;
+  optional string name_en = 4;
+  optional string name_ru = 5;
+}
+
+message ExpertListResp {
+  uint64 total = 1;
+  repeated ExpertInfo data = 2;
+}
+
 message IDReq {
   uint64 id = 1;
 }
@@ -496,6 +537,47 @@ message RoleMenuAuthorityResp {
   repeated uint64 menu_ids = 1;
 }
 
+message ServiceInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  Service chinese name | 服务中文名称
+  optional string name_zh = 6;
+  //  Service english name | 服务英文名称
+  optional string name_en = 7;
+  //  Service russian name | 服务俄语名称
+  optional string name_ru = 8;
+  //  Service kazakh name | 服务哈萨克语名称
+  optional string name_kk = 9;
+  //  Description chinese | 服务中文描述
+  optional string description_zh = 10;
+  //  Description english | 服务英文描述
+  optional string description_en = 11;
+  //  Description russian | 服务俄语描述
+  optional string description_ru = 12;
+  //  Description kazakh | 服务哈萨克语描述
+  optional string description_kk = 13;
+  //  Cover image URL | 封面图片URL
+  optional string cover_url = 14;
+}
+
+message ServiceListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name_zh = 3;
+  optional string name_en = 4;
+  optional string name_ru = 5;
+}
+
+message ServiceListResp {
+  uint64 total = 1;
+  repeated ServiceInfo data = 2;
+}
+
 message SwiperInfo {
   optional uint64 id = 1;
   optional int64 created_at = 2;
@@ -696,6 +778,17 @@ service Core {
   rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
   //  group: dictionarydetail
   rpc getDictionaryDetailByDictionaryName(BaseMsg) returns (DictionaryDetailListResp);
+  //  Expert management
+  //  group: expert
+  rpc createExpert(ExpertInfo) returns (BaseIDResp);
+  //  group: expert
+  rpc updateExpert(ExpertInfo) returns (BaseResp);
+  //  group: expert
+  rpc getExpertList(ExpertListReq) returns (ExpertListResp);
+  //  group: expert
+  rpc getExpertById(IDReq) returns (ExpertInfo);
+  //  group: expert
+  rpc deleteExpert(IDsReq) returns (BaseResp);
   //  MedicalRecord management
   //  group: medicalRecord
   rpc createMedicalRecord(MedicalRecordInfo) returns (BaseUUIDResp);
@@ -776,6 +869,17 @@ service Core {
   rpc getRoleById(IDReq) returns (RoleInfo);
   //  group: role
   rpc deleteRole(IDsReq) returns (BaseResp);
+  //  Service management
+  //  group: service
+  rpc createService(ServiceInfo) returns (BaseIDResp);
+  //  group: service
+  rpc updateService(ServiceInfo) returns (BaseResp);
+  //  group: service
+  rpc getServiceList(ServiceListReq) returns (ServiceListResp);
+  //  group: service
+  rpc getServiceById(IDReq) returns (ServiceInfo);
+  //  group: service
+  rpc deleteService(IDsReq) returns (BaseResp);
   //  Swiper management
   //  group: swiper
   rpc createSwiper(SwiperInfo) returns (BaseIDResp);

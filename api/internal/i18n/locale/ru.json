@@ -239,7 +239,9 @@
 		"medicine": "Медицина",
 		"news": "Новости",
 		"swiper": "Карусель",
-		"appointment": "Запись на прием"
+		"appointment": "Запись на прием",
+		"expert":"Специалисты",
+		"service":"Услуги"
 	},
 	"login": {
 		"loginSuccessTitle": "Вход успешен",

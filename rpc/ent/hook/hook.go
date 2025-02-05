@@ -81,6 +81,18 @@ func (f DictionaryDetailFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictionaryDetailMutation", m)
 }
 
+// The ExpertFunc type is an adapter to allow the use of ordinary
+// function as Expert mutator.
+type ExpertFunc func(context.Context, *ent.ExpertMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ExpertFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.ExpertMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ExpertMutation", m)
+}
+
 // The MedicalRecordFunc type is an adapter to allow the use of ordinary
 // function as MedicalRecord mutator.
 type MedicalRecordFunc func(context.Context, *ent.MedicalRecordMutation) (ent.Value, error)
@@ -163,6 +175,18 @@ func (f RoleFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RoleMutation", m)
+}
+
+// The ServiceFunc type is an adapter to allow the use of ordinary
+// function as Service mutator.
+type ServiceFunc func(context.Context, *ent.ServiceMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ServiceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.ServiceMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ServiceMutation", m)
 }
 
 // The SwiperFunc type is an adapter to allow the use of ordinary

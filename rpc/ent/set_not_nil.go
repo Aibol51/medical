@@ -1161,6 +1161,294 @@ func (dd *DictionaryDetailCreate) SetNotNilDictionaryID(value *uint64) *Dictiona
 }
 
 // set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilUpdatedAt(value *time.Time) *ExpertUpdate {
+	if value != nil {
+		return e.SetUpdatedAt(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetUpdatedAt(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilUpdatedAt(value *time.Time) *ExpertCreate {
+	if value != nil {
+		return e.SetUpdatedAt(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilStatus(value *uint8) *ExpertUpdate {
+	if value != nil {
+		return e.SetStatus(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilStatus(value *uint8) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetStatus(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilStatus(value *uint8) *ExpertCreate {
+	if value != nil {
+		return e.SetStatus(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilSort(value *uint32) *ExpertUpdate {
+	if value != nil {
+		return e.SetSort(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilSort(value *uint32) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetSort(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilSort(value *uint32) *ExpertCreate {
+	if value != nil {
+		return e.SetSort(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilNameZh(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetNameZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilNameZh(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetNameZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilNameZh(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetNameZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilNameEn(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetNameEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilNameEn(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetNameEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilNameEn(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetNameEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilNameRu(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetNameRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilNameRu(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetNameRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilNameRu(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetNameRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilNameKk(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetNameKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilNameKk(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetNameKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilNameKk(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetNameKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilContentZh(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetContentZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilContentZh(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetContentZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilContentZh(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetContentZh(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilContentEn(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetContentEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilContentEn(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetContentEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilContentEn(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetContentEn(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilContentRu(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetContentRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilContentRu(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetContentRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilContentRu(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetContentRu(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilContentKk(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetContentKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilContentKk(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetContentKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilContentKk(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetContentKk(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdate) SetNotNilCoverURL(value *string) *ExpertUpdate {
+	if value != nil {
+		return e.SetCoverURL(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertUpdateOne) SetNotNilCoverURL(value *string) *ExpertUpdateOne {
+	if value != nil {
+		return e.SetCoverURL(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
+func (e *ExpertCreate) SetNotNilCoverURL(value *string) *ExpertCreate {
+	if value != nil {
+		return e.SetCoverURL(*value)
+	}
+	return e
+}
+
+// set field if value's pointer is not nil.
 func (mr *MedicalRecordUpdate) SetNotNilUpdatedAt(value *time.Time) *MedicalRecordUpdate {
 	if value != nil {
 		return mr.SetUpdatedAt(*value)
@@ -3294,6 +3582,294 @@ func (r *RoleCreate) SetNotNilSort(value *uint32) *RoleCreate {
 		return r.SetSort(*value)
 	}
 	return r
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilUpdatedAt(value *time.Time) *ServiceUpdate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilUpdatedAt(value *time.Time) *ServiceCreate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilStatus(value *uint8) *ServiceUpdate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilStatus(value *uint8) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilStatus(value *uint8) *ServiceCreate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilSort(value *uint32) *ServiceUpdate {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilSort(value *uint32) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilSort(value *uint32) *ServiceCreate {
+	if value != nil {
+		return s.SetSort(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilNameZh(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetNameZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilNameZh(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetNameZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilNameZh(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetNameZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilNameEn(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetNameEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilNameEn(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetNameEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilNameEn(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetNameEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilNameRu(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetNameRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilNameRu(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetNameRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilNameRu(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetNameRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilNameKk(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetNameKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilNameKk(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetNameKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilNameKk(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetNameKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilDescriptionZh(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetDescriptionZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilDescriptionZh(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetDescriptionZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilDescriptionZh(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetDescriptionZh(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilDescriptionEn(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetDescriptionEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilDescriptionEn(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetDescriptionEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilDescriptionEn(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetDescriptionEn(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilDescriptionRu(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetDescriptionRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilDescriptionRu(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetDescriptionRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilDescriptionRu(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetDescriptionRu(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilDescriptionKk(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetDescriptionKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilDescriptionKk(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetDescriptionKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilDescriptionKk(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetDescriptionKk(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdate) SetNotNilCoverURL(value *string) *ServiceUpdate {
+	if value != nil {
+		return s.SetCoverURL(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceUpdateOne) SetNotNilCoverURL(value *string) *ServiceUpdateOne {
+	if value != nil {
+		return s.SetCoverURL(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *ServiceCreate) SetNotNilCoverURL(value *string) *ServiceCreate {
+	if value != nil {
+		return s.SetCoverURL(*value)
+	}
+	return s
 }
 
 // set field if value's pointer is not nil.

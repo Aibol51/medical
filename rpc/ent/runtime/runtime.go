@@ -12,6 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/expert"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicalrecord"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/medicine"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
@@ -20,6 +21,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/service"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/swiper"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
@@ -185,6 +187,33 @@ func init() {
 	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
 	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
 	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
+	expertMixin := schema.Expert{}.Mixin()
+	expertMixinFields0 := expertMixin[0].Fields()
+	_ = expertMixinFields0
+	expertMixinFields1 := expertMixin[1].Fields()
+	_ = expertMixinFields1
+	expertMixinFields2 := expertMixin[2].Fields()
+	_ = expertMixinFields2
+	expertFields := schema.Expert{}.Fields()
+	_ = expertFields
+	// expertDescCreatedAt is the schema descriptor for created_at field.
+	expertDescCreatedAt := expertMixinFields0[1].Descriptor()
+	// expert.DefaultCreatedAt holds the default value on creation for the created_at field.
+	expert.DefaultCreatedAt = expertDescCreatedAt.Default.(func() time.Time)
+	// expertDescUpdatedAt is the schema descriptor for updated_at field.
+	expertDescUpdatedAt := expertMixinFields0[2].Descriptor()
+	// expert.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	expert.DefaultUpdatedAt = expertDescUpdatedAt.Default.(func() time.Time)
+	// expert.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	expert.UpdateDefaultUpdatedAt = expertDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// expertDescStatus is the schema descriptor for status field.
+	expertDescStatus := expertMixinFields1[0].Descriptor()
+	// expert.DefaultStatus holds the default value on creation for the status field.
+	expert.DefaultStatus = expertDescStatus.Default.(uint8)
+	// expertDescSort is the schema descriptor for sort field.
+	expertDescSort := expertMixinFields2[0].Descriptor()
+	// expert.DefaultSort holds the default value on creation for the sort field.
+	expert.DefaultSort = expertDescSort.Default.(uint32)
 	medicalrecordMixin := schema.MedicalRecord{}.Mixin()
 	medicalrecordMixinFields0 := medicalrecordMixin[0].Fields()
 	_ = medicalrecordMixinFields0
@@ -418,6 +447,33 @@ func init() {
 	roleDescSort := roleFields[4].Descriptor()
 	// role.DefaultSort holds the default value on creation for the sort field.
 	role.DefaultSort = roleDescSort.Default.(uint32)
+	serviceMixin := schema.Service{}.Mixin()
+	serviceMixinFields0 := serviceMixin[0].Fields()
+	_ = serviceMixinFields0
+	serviceMixinFields1 := serviceMixin[1].Fields()
+	_ = serviceMixinFields1
+	serviceMixinFields2 := serviceMixin[2].Fields()
+	_ = serviceMixinFields2
+	serviceFields := schema.Service{}.Fields()
+	_ = serviceFields
+	// serviceDescCreatedAt is the schema descriptor for created_at field.
+	serviceDescCreatedAt := serviceMixinFields0[1].Descriptor()
+	// service.DefaultCreatedAt holds the default value on creation for the created_at field.
+	service.DefaultCreatedAt = serviceDescCreatedAt.Default.(func() time.Time)
+	// serviceDescUpdatedAt is the schema descriptor for updated_at field.
+	serviceDescUpdatedAt := serviceMixinFields0[2].Descriptor()
+	// service.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	service.DefaultUpdatedAt = serviceDescUpdatedAt.Default.(func() time.Time)
+	// service.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	service.UpdateDefaultUpdatedAt = serviceDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// serviceDescStatus is the schema descriptor for status field.
+	serviceDescStatus := serviceMixinFields1[0].Descriptor()
+	// service.DefaultStatus holds the default value on creation for the status field.
+	service.DefaultStatus = serviceDescStatus.Default.(uint8)
+	// serviceDescSort is the schema descriptor for sort field.
+	serviceDescSort := serviceMixinFields2[0].Descriptor()
+	// service.DefaultSort holds the default value on creation for the sort field.
+	service.DefaultSort = serviceDescSort.Default.(uint32)
 	swiperMixin := schema.Swiper{}.Mixin()
 	swiperMixinFields0 := swiperMixin[0].Fields()
 	_ = swiperMixinFields0
