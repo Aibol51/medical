@@ -35,6 +35,9 @@ func (l *GetMedicalRecordListLogic) GetMedicalRecordList(in *core.MedicalRecordL
 	if in.PhoneNumber != nil {
 		predicates = append(predicates, medicalrecord.PhoneNumberContains(*in.PhoneNumber))
 	}
+	if in.UserId != nil {
+		predicates = append(predicates, medicalrecord.UserIDContains(*in.UserId))
+	}
 	result, err := l.svcCtx.DB.MedicalRecord.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
 	if err != nil {
