@@ -64,6 +64,7 @@ message AppointmentListReq {
   optional string phone_number = 4;
   optional string id_card = 5;
   optional string user_id = 6;
+  optional int32 status = 7;
 }
 
 message AppointmentListResp {

@@ -1850,6 +1850,8 @@ type AppointmentListReq struct {
 	IdCard *string `json:"idCard,optional"`
 	// UserId
 	UserId *string `json:"userId,optional"`
+	// Status
+	Status *int32 `json:"status,optional"`
 }
 
 // The appointment information response | Appointment信息返回体
