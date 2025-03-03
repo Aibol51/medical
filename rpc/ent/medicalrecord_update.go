@@ -49,32 +49,6 @@ func (mru *MedicalRecordUpdate) SetNillablePatientName(s *string) *MedicalRecord
 	return mru
 }
 
-// ClearPatientName clears the value of the "patient_name" field.
-func (mru *MedicalRecordUpdate) ClearPatientName() *MedicalRecordUpdate {
-	mru.mutation.ClearPatientName()
-	return mru
-}
-
-// SetPhoneNumber sets the "phone_number" field.
-func (mru *MedicalRecordUpdate) SetPhoneNumber(s string) *MedicalRecordUpdate {
-	mru.mutation.SetPhoneNumber(s)
-	return mru
-}
-
-// SetNillablePhoneNumber sets the "phone_number" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillablePhoneNumber(s *string) *MedicalRecordUpdate {
-	if s != nil {
-		mru.SetPhoneNumber(*s)
-	}
-	return mru
-}
-
-// ClearPhoneNumber clears the value of the "phone_number" field.
-func (mru *MedicalRecordUpdate) ClearPhoneNumber() *MedicalRecordUpdate {
-	mru.mutation.ClearPhoneNumber()
-	return mru
-}
-
 // SetGender sets the "gender" field.
 func (mru *MedicalRecordUpdate) SetGender(i int32) *MedicalRecordUpdate {
 	mru.mutation.ResetGender()
@@ -93,12 +67,6 @@ func (mru *MedicalRecordUpdate) SetNillableGender(i *int32) *MedicalRecordUpdate
 // AddGender adds i to the "gender" field.
 func (mru *MedicalRecordUpdate) AddGender(i int32) *MedicalRecordUpdate {
 	mru.mutation.AddGender(i)
-	return mru
-}
-
-// ClearGender clears the value of the "gender" field.
-func (mru *MedicalRecordUpdate) ClearGender() *MedicalRecordUpdate {
-	mru.mutation.ClearGender()
 	return mru
 }
 
@@ -123,36 +91,360 @@ func (mru *MedicalRecordUpdate) AddAge(i int32) *MedicalRecordUpdate {
 	return mru
 }
 
-// ClearAge clears the value of the "age" field.
-func (mru *MedicalRecordUpdate) ClearAge() *MedicalRecordUpdate {
-	mru.mutation.ClearAge()
+// SetIDCardNumber sets the "id_card_number" field.
+func (mru *MedicalRecordUpdate) SetIDCardNumber(s string) *MedicalRecordUpdate {
+	mru.mutation.SetIDCardNumber(s)
 	return mru
 }
 
-// SetVisitTime sets the "visit_time" field.
-func (mru *MedicalRecordUpdate) SetVisitTime(i int64) *MedicalRecordUpdate {
-	mru.mutation.ResetVisitTime()
-	mru.mutation.SetVisitTime(i)
-	return mru
-}
-
-// SetNillableVisitTime sets the "visit_time" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillableVisitTime(i *int64) *MedicalRecordUpdate {
-	if i != nil {
-		mru.SetVisitTime(*i)
+// SetNillableIDCardNumber sets the "id_card_number" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableIDCardNumber(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetIDCardNumber(*s)
 	}
 	return mru
 }
 
-// AddVisitTime adds i to the "visit_time" field.
-func (mru *MedicalRecordUpdate) AddVisitTime(i int64) *MedicalRecordUpdate {
-	mru.mutation.AddVisitTime(i)
+// ClearIDCardNumber clears the value of the "id_card_number" field.
+func (mru *MedicalRecordUpdate) ClearIDCardNumber() *MedicalRecordUpdate {
+	mru.mutation.ClearIDCardNumber()
 	return mru
 }
 
-// ClearVisitTime clears the value of the "visit_time" field.
-func (mru *MedicalRecordUpdate) ClearVisitTime() *MedicalRecordUpdate {
-	mru.mutation.ClearVisitTime()
+// SetPhoneNumber sets the "phone_number" field.
+func (mru *MedicalRecordUpdate) SetPhoneNumber(s string) *MedicalRecordUpdate {
+	mru.mutation.SetPhoneNumber(s)
+	return mru
+}
+
+// SetNillablePhoneNumber sets the "phone_number" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillablePhoneNumber(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetPhoneNumber(*s)
+	}
+	return mru
+}
+
+// SetChiefComplaint sets the "chief_complaint" field.
+func (mru *MedicalRecordUpdate) SetChiefComplaint(s string) *MedicalRecordUpdate {
+	mru.mutation.SetChiefComplaint(s)
+	return mru
+}
+
+// SetNillableChiefComplaint sets the "chief_complaint" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableChiefComplaint(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetChiefComplaint(*s)
+	}
+	return mru
+}
+
+// ClearChiefComplaint clears the value of the "chief_complaint" field.
+func (mru *MedicalRecordUpdate) ClearChiefComplaint() *MedicalRecordUpdate {
+	mru.mutation.ClearChiefComplaint()
+	return mru
+}
+
+// SetPresentIllness sets the "present_illness" field.
+func (mru *MedicalRecordUpdate) SetPresentIllness(s string) *MedicalRecordUpdate {
+	mru.mutation.SetPresentIllness(s)
+	return mru
+}
+
+// SetNillablePresentIllness sets the "present_illness" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillablePresentIllness(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetPresentIllness(*s)
+	}
+	return mru
+}
+
+// ClearPresentIllness clears the value of the "present_illness" field.
+func (mru *MedicalRecordUpdate) ClearPresentIllness() *MedicalRecordUpdate {
+	mru.mutation.ClearPresentIllness()
+	return mru
+}
+
+// SetPastHistory sets the "past_history" field.
+func (mru *MedicalRecordUpdate) SetPastHistory(s string) *MedicalRecordUpdate {
+	mru.mutation.SetPastHistory(s)
+	return mru
+}
+
+// SetNillablePastHistory sets the "past_history" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillablePastHistory(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetPastHistory(*s)
+	}
+	return mru
+}
+
+// ClearPastHistory clears the value of the "past_history" field.
+func (mru *MedicalRecordUpdate) ClearPastHistory() *MedicalRecordUpdate {
+	mru.mutation.ClearPastHistory()
+	return mru
+}
+
+// SetSmokingHistory sets the "smoking_history" field.
+func (mru *MedicalRecordUpdate) SetSmokingHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetSmokingHistory()
+	mru.mutation.SetSmokingHistory(i)
+	return mru
+}
+
+// SetNillableSmokingHistory sets the "smoking_history" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableSmokingHistory(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetSmokingHistory(*i)
+	}
+	return mru
+}
+
+// AddSmokingHistory adds i to the "smoking_history" field.
+func (mru *MedicalRecordUpdate) AddSmokingHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddSmokingHistory(i)
+	return mru
+}
+
+// ClearSmokingHistory clears the value of the "smoking_history" field.
+func (mru *MedicalRecordUpdate) ClearSmokingHistory() *MedicalRecordUpdate {
+	mru.mutation.ClearSmokingHistory()
+	return mru
+}
+
+// SetDrinkingHistory sets the "drinking_history" field.
+func (mru *MedicalRecordUpdate) SetDrinkingHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetDrinkingHistory()
+	mru.mutation.SetDrinkingHistory(i)
+	return mru
+}
+
+// SetNillableDrinkingHistory sets the "drinking_history" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableDrinkingHistory(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetDrinkingHistory(*i)
+	}
+	return mru
+}
+
+// AddDrinkingHistory adds i to the "drinking_history" field.
+func (mru *MedicalRecordUpdate) AddDrinkingHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddDrinkingHistory(i)
+	return mru
+}
+
+// ClearDrinkingHistory clears the value of the "drinking_history" field.
+func (mru *MedicalRecordUpdate) ClearDrinkingHistory() *MedicalRecordUpdate {
+	mru.mutation.ClearDrinkingHistory()
+	return mru
+}
+
+// SetAllergyHistory sets the "allergy_history" field.
+func (mru *MedicalRecordUpdate) SetAllergyHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetAllergyHistory()
+	mru.mutation.SetAllergyHistory(i)
+	return mru
+}
+
+// SetNillableAllergyHistory sets the "allergy_history" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableAllergyHistory(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetAllergyHistory(*i)
+	}
+	return mru
+}
+
+// AddAllergyHistory adds i to the "allergy_history" field.
+func (mru *MedicalRecordUpdate) AddAllergyHistory(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddAllergyHistory(i)
+	return mru
+}
+
+// ClearAllergyHistory clears the value of the "allergy_history" field.
+func (mru *MedicalRecordUpdate) ClearAllergyHistory() *MedicalRecordUpdate {
+	mru.mutation.ClearAllergyHistory()
+	return mru
+}
+
+// SetHeartRate sets the "heart_rate" field.
+func (mru *MedicalRecordUpdate) SetHeartRate(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetHeartRate()
+	mru.mutation.SetHeartRate(i)
+	return mru
+}
+
+// SetNillableHeartRate sets the "heart_rate" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableHeartRate(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetHeartRate(*i)
+	}
+	return mru
+}
+
+// AddHeartRate adds i to the "heart_rate" field.
+func (mru *MedicalRecordUpdate) AddHeartRate(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddHeartRate(i)
+	return mru
+}
+
+// ClearHeartRate clears the value of the "heart_rate" field.
+func (mru *MedicalRecordUpdate) ClearHeartRate() *MedicalRecordUpdate {
+	mru.mutation.ClearHeartRate()
+	return mru
+}
+
+// SetBloodPressure sets the "blood_pressure" field.
+func (mru *MedicalRecordUpdate) SetBloodPressure(s string) *MedicalRecordUpdate {
+	mru.mutation.SetBloodPressure(s)
+	return mru
+}
+
+// SetNillableBloodPressure sets the "blood_pressure" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableBloodPressure(s *string) *MedicalRecordUpdate {
+	if s != nil {
+		mru.SetBloodPressure(*s)
+	}
+	return mru
+}
+
+// ClearBloodPressure clears the value of the "blood_pressure" field.
+func (mru *MedicalRecordUpdate) ClearBloodPressure() *MedicalRecordUpdate {
+	mru.mutation.ClearBloodPressure()
+	return mru
+}
+
+// SetOxygenSaturation sets the "oxygen_saturation" field.
+func (mru *MedicalRecordUpdate) SetOxygenSaturation(f float64) *MedicalRecordUpdate {
+	mru.mutation.ResetOxygenSaturation()
+	mru.mutation.SetOxygenSaturation(f)
+	return mru
+}
+
+// SetNillableOxygenSaturation sets the "oxygen_saturation" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableOxygenSaturation(f *float64) *MedicalRecordUpdate {
+	if f != nil {
+		mru.SetOxygenSaturation(*f)
+	}
+	return mru
+}
+
+// AddOxygenSaturation adds f to the "oxygen_saturation" field.
+func (mru *MedicalRecordUpdate) AddOxygenSaturation(f float64) *MedicalRecordUpdate {
+	mru.mutation.AddOxygenSaturation(f)
+	return mru
+}
+
+// ClearOxygenSaturation clears the value of the "oxygen_saturation" field.
+func (mru *MedicalRecordUpdate) ClearOxygenSaturation() *MedicalRecordUpdate {
+	mru.mutation.ClearOxygenSaturation()
+	return mru
+}
+
+// SetBloodGlucose sets the "blood_glucose" field.
+func (mru *MedicalRecordUpdate) SetBloodGlucose(f float64) *MedicalRecordUpdate {
+	mru.mutation.ResetBloodGlucose()
+	mru.mutation.SetBloodGlucose(f)
+	return mru
+}
+
+// SetNillableBloodGlucose sets the "blood_glucose" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableBloodGlucose(f *float64) *MedicalRecordUpdate {
+	if f != nil {
+		mru.SetBloodGlucose(*f)
+	}
+	return mru
+}
+
+// AddBloodGlucose adds f to the "blood_glucose" field.
+func (mru *MedicalRecordUpdate) AddBloodGlucose(f float64) *MedicalRecordUpdate {
+	mru.mutation.AddBloodGlucose(f)
+	return mru
+}
+
+// ClearBloodGlucose clears the value of the "blood_glucose" field.
+func (mru *MedicalRecordUpdate) ClearBloodGlucose() *MedicalRecordUpdate {
+	mru.mutation.ClearBloodGlucose()
+	return mru
+}
+
+// SetWeight sets the "weight" field.
+func (mru *MedicalRecordUpdate) SetWeight(f float64) *MedicalRecordUpdate {
+	mru.mutation.ResetWeight()
+	mru.mutation.SetWeight(f)
+	return mru
+}
+
+// SetNillableWeight sets the "weight" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableWeight(f *float64) *MedicalRecordUpdate {
+	if f != nil {
+		mru.SetWeight(*f)
+	}
+	return mru
+}
+
+// AddWeight adds f to the "weight" field.
+func (mru *MedicalRecordUpdate) AddWeight(f float64) *MedicalRecordUpdate {
+	mru.mutation.AddWeight(f)
+	return mru
+}
+
+// ClearWeight clears the value of the "weight" field.
+func (mru *MedicalRecordUpdate) ClearWeight() *MedicalRecordUpdate {
+	mru.mutation.ClearWeight()
+	return mru
+}
+
+// SetWaistCircumference sets the "waist_circumference" field.
+func (mru *MedicalRecordUpdate) SetWaistCircumference(f float64) *MedicalRecordUpdate {
+	mru.mutation.ResetWaistCircumference()
+	mru.mutation.SetWaistCircumference(f)
+	return mru
+}
+
+// SetNillableWaistCircumference sets the "waist_circumference" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableWaistCircumference(f *float64) *MedicalRecordUpdate {
+	if f != nil {
+		mru.SetWaistCircumference(*f)
+	}
+	return mru
+}
+
+// AddWaistCircumference adds f to the "waist_circumference" field.
+func (mru *MedicalRecordUpdate) AddWaistCircumference(f float64) *MedicalRecordUpdate {
+	mru.mutation.AddWaistCircumference(f)
+	return mru
+}
+
+// ClearWaistCircumference clears the value of the "waist_circumference" field.
+func (mru *MedicalRecordUpdate) ClearWaistCircumference() *MedicalRecordUpdate {
+	mru.mutation.ClearWaistCircumference()
+	return mru
+}
+
+// SetBodyFat sets the "body_fat" field.
+func (mru *MedicalRecordUpdate) SetBodyFat(f float64) *MedicalRecordUpdate {
+	mru.mutation.ResetBodyFat()
+	mru.mutation.SetBodyFat(f)
+	return mru
+}
+
+// SetNillableBodyFat sets the "body_fat" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableBodyFat(f *float64) *MedicalRecordUpdate {
+	if f != nil {
+		mru.SetBodyFat(*f)
+	}
+	return mru
+}
+
+// AddBodyFat adds f to the "body_fat" field.
+func (mru *MedicalRecordUpdate) AddBodyFat(f float64) *MedicalRecordUpdate {
+	mru.mutation.AddBodyFat(f)
+	return mru
+}
+
+// ClearBodyFat clears the value of the "body_fat" field.
+func (mru *MedicalRecordUpdate) ClearBodyFat() *MedicalRecordUpdate {
+	mru.mutation.ClearBodyFat()
 	return mru
 }
 
@@ -176,6 +468,87 @@ func (mru *MedicalRecordUpdate) ClearDiagnosis() *MedicalRecordUpdate {
 	return mru
 }
 
+// SetDietTherapy sets the "diet_therapy" field.
+func (mru *MedicalRecordUpdate) SetDietTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetDietTherapy()
+	mru.mutation.SetDietTherapy(i)
+	return mru
+}
+
+// SetNillableDietTherapy sets the "diet_therapy" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableDietTherapy(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetDietTherapy(*i)
+	}
+	return mru
+}
+
+// AddDietTherapy adds i to the "diet_therapy" field.
+func (mru *MedicalRecordUpdate) AddDietTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddDietTherapy(i)
+	return mru
+}
+
+// ClearDietTherapy clears the value of the "diet_therapy" field.
+func (mru *MedicalRecordUpdate) ClearDietTherapy() *MedicalRecordUpdate {
+	mru.mutation.ClearDietTherapy()
+	return mru
+}
+
+// SetExerciseTherapy sets the "exercise_therapy" field.
+func (mru *MedicalRecordUpdate) SetExerciseTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetExerciseTherapy()
+	mru.mutation.SetExerciseTherapy(i)
+	return mru
+}
+
+// SetNillableExerciseTherapy sets the "exercise_therapy" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableExerciseTherapy(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetExerciseTherapy(*i)
+	}
+	return mru
+}
+
+// AddExerciseTherapy adds i to the "exercise_therapy" field.
+func (mru *MedicalRecordUpdate) AddExerciseTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddExerciseTherapy(i)
+	return mru
+}
+
+// ClearExerciseTherapy clears the value of the "exercise_therapy" field.
+func (mru *MedicalRecordUpdate) ClearExerciseTherapy() *MedicalRecordUpdate {
+	mru.mutation.ClearExerciseTherapy()
+	return mru
+}
+
+// SetMedicationTherapy sets the "medication_therapy" field.
+func (mru *MedicalRecordUpdate) SetMedicationTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.ResetMedicationTherapy()
+	mru.mutation.SetMedicationTherapy(i)
+	return mru
+}
+
+// SetNillableMedicationTherapy sets the "medication_therapy" field if the given value is not nil.
+func (mru *MedicalRecordUpdate) SetNillableMedicationTherapy(i *int32) *MedicalRecordUpdate {
+	if i != nil {
+		mru.SetMedicationTherapy(*i)
+	}
+	return mru
+}
+
+// AddMedicationTherapy adds i to the "medication_therapy" field.
+func (mru *MedicalRecordUpdate) AddMedicationTherapy(i int32) *MedicalRecordUpdate {
+	mru.mutation.AddMedicationTherapy(i)
+	return mru
+}
+
+// ClearMedicationTherapy clears the value of the "medication_therapy" field.
+func (mru *MedicalRecordUpdate) ClearMedicationTherapy() *MedicalRecordUpdate {
+	mru.mutation.ClearMedicationTherapy()
+	return mru
+}
+
 // SetTreatmentPlan sets the "treatment_plan" field.
 func (mru *MedicalRecordUpdate) SetTreatmentPlan(s string) *MedicalRecordUpdate {
 	mru.mutation.SetTreatmentPlan(s)
@@ -196,66 +569,6 @@ func (mru *MedicalRecordUpdate) ClearTreatmentPlan() *MedicalRecordUpdate {
 	return mru
 }
 
-// SetPrescription sets the "prescription" field.
-func (mru *MedicalRecordUpdate) SetPrescription(s string) *MedicalRecordUpdate {
-	mru.mutation.SetPrescription(s)
-	return mru
-}
-
-// SetNillablePrescription sets the "prescription" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillablePrescription(s *string) *MedicalRecordUpdate {
-	if s != nil {
-		mru.SetPrescription(*s)
-	}
-	return mru
-}
-
-// ClearPrescription clears the value of the "prescription" field.
-func (mru *MedicalRecordUpdate) ClearPrescription() *MedicalRecordUpdate {
-	mru.mutation.ClearPrescription()
-	return mru
-}
-
-// SetExaminationResults sets the "examination_results" field.
-func (mru *MedicalRecordUpdate) SetExaminationResults(s string) *MedicalRecordUpdate {
-	mru.mutation.SetExaminationResults(s)
-	return mru
-}
-
-// SetNillableExaminationResults sets the "examination_results" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillableExaminationResults(s *string) *MedicalRecordUpdate {
-	if s != nil {
-		mru.SetExaminationResults(*s)
-	}
-	return mru
-}
-
-// ClearExaminationResults clears the value of the "examination_results" field.
-func (mru *MedicalRecordUpdate) ClearExaminationResults() *MedicalRecordUpdate {
-	mru.mutation.ClearExaminationResults()
-	return mru
-}
-
-// SetDoctorAdvice sets the "doctor_advice" field.
-func (mru *MedicalRecordUpdate) SetDoctorAdvice(s string) *MedicalRecordUpdate {
-	mru.mutation.SetDoctorAdvice(s)
-	return mru
-}
-
-// SetNillableDoctorAdvice sets the "doctor_advice" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillableDoctorAdvice(s *string) *MedicalRecordUpdate {
-	if s != nil {
-		mru.SetDoctorAdvice(*s)
-	}
-	return mru
-}
-
-// ClearDoctorAdvice clears the value of the "doctor_advice" field.
-func (mru *MedicalRecordUpdate) ClearDoctorAdvice() *MedicalRecordUpdate {
-	mru.mutation.ClearDoctorAdvice()
-	return mru
-}
-
 // SetDoctorID sets the "doctor_id" field.
 func (mru *MedicalRecordUpdate) SetDoctorID(s string) *MedicalRecordUpdate {
 	mru.mutation.SetDoctorID(s)
@@ -273,26 +586,6 @@ func (mru *MedicalRecordUpdate) SetNillableDoctorID(s *string) *MedicalRecordUpd
 // ClearDoctorID clears the value of the "doctor_id" field.
 func (mru *MedicalRecordUpdate) ClearDoctorID() *MedicalRecordUpdate {
 	mru.mutation.ClearDoctorID()
-	return mru
-}
-
-// SetDepartment sets the "department" field.
-func (mru *MedicalRecordUpdate) SetDepartment(s string) *MedicalRecordUpdate {
-	mru.mutation.SetDepartment(s)
-	return mru
-}
-
-// SetNillableDepartment sets the "department" field if the given value is not nil.
-func (mru *MedicalRecordUpdate) SetNillableDepartment(s *string) *MedicalRecordUpdate {
-	if s != nil {
-		mru.SetDepartment(*s)
-	}
-	return mru
-}
-
-// ClearDepartment clears the value of the "department" field.
-func (mru *MedicalRecordUpdate) ClearDepartment() *MedicalRecordUpdate {
-	mru.mutation.ClearDepartment()
 	return mru
 }
 
@@ -418,23 +711,11 @@ func (mru *MedicalRecordUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	if value, ok := mru.mutation.PatientName(); ok {
 		_spec.SetField(medicalrecord.FieldPatientName, field.TypeString, value)
 	}
-	if mru.mutation.PatientNameCleared() {
-		_spec.ClearField(medicalrecord.FieldPatientName, field.TypeString)
-	}
-	if value, ok := mru.mutation.PhoneNumber(); ok {
-		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
-	}
-	if mru.mutation.PhoneNumberCleared() {
-		_spec.ClearField(medicalrecord.FieldPhoneNumber, field.TypeString)
-	}
 	if value, ok := mru.mutation.Gender(); ok {
 		_spec.SetField(medicalrecord.FieldGender, field.TypeInt32, value)
 	}
 	if value, ok := mru.mutation.AddedGender(); ok {
 		_spec.AddField(medicalrecord.FieldGender, field.TypeInt32, value)
-	}
-	if mru.mutation.GenderCleared() {
-		_spec.ClearField(medicalrecord.FieldGender, field.TypeInt32)
 	}
 	if value, ok := mru.mutation.Age(); ok {
 		_spec.SetField(medicalrecord.FieldAge, field.TypeInt32, value)
@@ -442,17 +723,119 @@ func (mru *MedicalRecordUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	if value, ok := mru.mutation.AddedAge(); ok {
 		_spec.AddField(medicalrecord.FieldAge, field.TypeInt32, value)
 	}
-	if mru.mutation.AgeCleared() {
-		_spec.ClearField(medicalrecord.FieldAge, field.TypeInt32)
+	if value, ok := mru.mutation.IDCardNumber(); ok {
+		_spec.SetField(medicalrecord.FieldIDCardNumber, field.TypeString, value)
 	}
-	if value, ok := mru.mutation.VisitTime(); ok {
-		_spec.SetField(medicalrecord.FieldVisitTime, field.TypeInt64, value)
+	if mru.mutation.IDCardNumberCleared() {
+		_spec.ClearField(medicalrecord.FieldIDCardNumber, field.TypeString)
 	}
-	if value, ok := mru.mutation.AddedVisitTime(); ok {
-		_spec.AddField(medicalrecord.FieldVisitTime, field.TypeInt64, value)
+	if value, ok := mru.mutation.PhoneNumber(); ok {
+		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
 	}
-	if mru.mutation.VisitTimeCleared() {
-		_spec.ClearField(medicalrecord.FieldVisitTime, field.TypeInt64)
+	if value, ok := mru.mutation.ChiefComplaint(); ok {
+		_spec.SetField(medicalrecord.FieldChiefComplaint, field.TypeString, value)
+	}
+	if mru.mutation.ChiefComplaintCleared() {
+		_spec.ClearField(medicalrecord.FieldChiefComplaint, field.TypeString)
+	}
+	if value, ok := mru.mutation.PresentIllness(); ok {
+		_spec.SetField(medicalrecord.FieldPresentIllness, field.TypeString, value)
+	}
+	if mru.mutation.PresentIllnessCleared() {
+		_spec.ClearField(medicalrecord.FieldPresentIllness, field.TypeString)
+	}
+	if value, ok := mru.mutation.PastHistory(); ok {
+		_spec.SetField(medicalrecord.FieldPastHistory, field.TypeString, value)
+	}
+	if mru.mutation.PastHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldPastHistory, field.TypeString)
+	}
+	if value, ok := mru.mutation.SmokingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldSmokingHistory, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedSmokingHistory(); ok {
+		_spec.AddField(medicalrecord.FieldSmokingHistory, field.TypeInt32, value)
+	}
+	if mru.mutation.SmokingHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldSmokingHistory, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.DrinkingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldDrinkingHistory, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedDrinkingHistory(); ok {
+		_spec.AddField(medicalrecord.FieldDrinkingHistory, field.TypeInt32, value)
+	}
+	if mru.mutation.DrinkingHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldDrinkingHistory, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.AllergyHistory(); ok {
+		_spec.SetField(medicalrecord.FieldAllergyHistory, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedAllergyHistory(); ok {
+		_spec.AddField(medicalrecord.FieldAllergyHistory, field.TypeInt32, value)
+	}
+	if mru.mutation.AllergyHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldAllergyHistory, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.HeartRate(); ok {
+		_spec.SetField(medicalrecord.FieldHeartRate, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedHeartRate(); ok {
+		_spec.AddField(medicalrecord.FieldHeartRate, field.TypeInt32, value)
+	}
+	if mru.mutation.HeartRateCleared() {
+		_spec.ClearField(medicalrecord.FieldHeartRate, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.BloodPressure(); ok {
+		_spec.SetField(medicalrecord.FieldBloodPressure, field.TypeString, value)
+	}
+	if mru.mutation.BloodPressureCleared() {
+		_spec.ClearField(medicalrecord.FieldBloodPressure, field.TypeString)
+	}
+	if value, ok := mru.mutation.OxygenSaturation(); ok {
+		_spec.SetField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64, value)
+	}
+	if value, ok := mru.mutation.AddedOxygenSaturation(); ok {
+		_spec.AddField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64, value)
+	}
+	if mru.mutation.OxygenSaturationCleared() {
+		_spec.ClearField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64)
+	}
+	if value, ok := mru.mutation.BloodGlucose(); ok {
+		_spec.SetField(medicalrecord.FieldBloodGlucose, field.TypeFloat64, value)
+	}
+	if value, ok := mru.mutation.AddedBloodGlucose(); ok {
+		_spec.AddField(medicalrecord.FieldBloodGlucose, field.TypeFloat64, value)
+	}
+	if mru.mutation.BloodGlucoseCleared() {
+		_spec.ClearField(medicalrecord.FieldBloodGlucose, field.TypeFloat64)
+	}
+	if value, ok := mru.mutation.Weight(); ok {
+		_spec.SetField(medicalrecord.FieldWeight, field.TypeFloat64, value)
+	}
+	if value, ok := mru.mutation.AddedWeight(); ok {
+		_spec.AddField(medicalrecord.FieldWeight, field.TypeFloat64, value)
+	}
+	if mru.mutation.WeightCleared() {
+		_spec.ClearField(medicalrecord.FieldWeight, field.TypeFloat64)
+	}
+	if value, ok := mru.mutation.WaistCircumference(); ok {
+		_spec.SetField(medicalrecord.FieldWaistCircumference, field.TypeFloat64, value)
+	}
+	if value, ok := mru.mutation.AddedWaistCircumference(); ok {
+		_spec.AddField(medicalrecord.FieldWaistCircumference, field.TypeFloat64, value)
+	}
+	if mru.mutation.WaistCircumferenceCleared() {
+		_spec.ClearField(medicalrecord.FieldWaistCircumference, field.TypeFloat64)
+	}
+	if value, ok := mru.mutation.BodyFat(); ok {
+		_spec.SetField(medicalrecord.FieldBodyFat, field.TypeFloat64, value)
+	}
+	if value, ok := mru.mutation.AddedBodyFat(); ok {
+		_spec.AddField(medicalrecord.FieldBodyFat, field.TypeFloat64, value)
+	}
+	if mru.mutation.BodyFatCleared() {
+		_spec.ClearField(medicalrecord.FieldBodyFat, field.TypeFloat64)
 	}
 	if value, ok := mru.mutation.Diagnosis(); ok {
 		_spec.SetField(medicalrecord.FieldDiagnosis, field.TypeString, value)
@@ -460,41 +843,44 @@ func (mru *MedicalRecordUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	if mru.mutation.DiagnosisCleared() {
 		_spec.ClearField(medicalrecord.FieldDiagnosis, field.TypeString)
 	}
+	if value, ok := mru.mutation.DietTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldDietTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedDietTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldDietTherapy, field.TypeInt32, value)
+	}
+	if mru.mutation.DietTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldDietTherapy, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.ExerciseTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldExerciseTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedExerciseTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldExerciseTherapy, field.TypeInt32, value)
+	}
+	if mru.mutation.ExerciseTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldExerciseTherapy, field.TypeInt32)
+	}
+	if value, ok := mru.mutation.MedicationTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldMedicationTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mru.mutation.AddedMedicationTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldMedicationTherapy, field.TypeInt32, value)
+	}
+	if mru.mutation.MedicationTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldMedicationTherapy, field.TypeInt32)
+	}
 	if value, ok := mru.mutation.TreatmentPlan(); ok {
 		_spec.SetField(medicalrecord.FieldTreatmentPlan, field.TypeString, value)
 	}
 	if mru.mutation.TreatmentPlanCleared() {
 		_spec.ClearField(medicalrecord.FieldTreatmentPlan, field.TypeString)
 	}
-	if value, ok := mru.mutation.Prescription(); ok {
-		_spec.SetField(medicalrecord.FieldPrescription, field.TypeString, value)
-	}
-	if mru.mutation.PrescriptionCleared() {
-		_spec.ClearField(medicalrecord.FieldPrescription, field.TypeString)
-	}
-	if value, ok := mru.mutation.ExaminationResults(); ok {
-		_spec.SetField(medicalrecord.FieldExaminationResults, field.TypeString, value)
-	}
-	if mru.mutation.ExaminationResultsCleared() {
-		_spec.ClearField(medicalrecord.FieldExaminationResults, field.TypeString)
-	}
-	if value, ok := mru.mutation.DoctorAdvice(); ok {
-		_spec.SetField(medicalrecord.FieldDoctorAdvice, field.TypeString, value)
-	}
-	if mru.mutation.DoctorAdviceCleared() {
-		_spec.ClearField(medicalrecord.FieldDoctorAdvice, field.TypeString)
-	}
 	if value, ok := mru.mutation.DoctorID(); ok {
 		_spec.SetField(medicalrecord.FieldDoctorID, field.TypeString, value)
 	}
 	if mru.mutation.DoctorIDCleared() {
 		_spec.ClearField(medicalrecord.FieldDoctorID, field.TypeString)
-	}
-	if value, ok := mru.mutation.Department(); ok {
-		_spec.SetField(medicalrecord.FieldDepartment, field.TypeString, value)
-	}
-	if mru.mutation.DepartmentCleared() {
-		_spec.ClearField(medicalrecord.FieldDepartment, field.TypeString)
 	}
 	if value, ok := mru.mutation.AppointmentID(); ok {
 		_spec.SetField(medicalrecord.FieldAppointmentID, field.TypeString, value)
@@ -556,32 +942,6 @@ func (mruo *MedicalRecordUpdateOne) SetNillablePatientName(s *string) *MedicalRe
 	return mruo
 }
 
-// ClearPatientName clears the value of the "patient_name" field.
-func (mruo *MedicalRecordUpdateOne) ClearPatientName() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearPatientName()
-	return mruo
-}
-
-// SetPhoneNumber sets the "phone_number" field.
-func (mruo *MedicalRecordUpdateOne) SetPhoneNumber(s string) *MedicalRecordUpdateOne {
-	mruo.mutation.SetPhoneNumber(s)
-	return mruo
-}
-
-// SetNillablePhoneNumber sets the "phone_number" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillablePhoneNumber(s *string) *MedicalRecordUpdateOne {
-	if s != nil {
-		mruo.SetPhoneNumber(*s)
-	}
-	return mruo
-}
-
-// ClearPhoneNumber clears the value of the "phone_number" field.
-func (mruo *MedicalRecordUpdateOne) ClearPhoneNumber() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearPhoneNumber()
-	return mruo
-}
-
 // SetGender sets the "gender" field.
 func (mruo *MedicalRecordUpdateOne) SetGender(i int32) *MedicalRecordUpdateOne {
 	mruo.mutation.ResetGender()
@@ -600,12 +960,6 @@ func (mruo *MedicalRecordUpdateOne) SetNillableGender(i *int32) *MedicalRecordUp
 // AddGender adds i to the "gender" field.
 func (mruo *MedicalRecordUpdateOne) AddGender(i int32) *MedicalRecordUpdateOne {
 	mruo.mutation.AddGender(i)
-	return mruo
-}
-
-// ClearGender clears the value of the "gender" field.
-func (mruo *MedicalRecordUpdateOne) ClearGender() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearGender()
 	return mruo
 }
 
@@ -630,36 +984,360 @@ func (mruo *MedicalRecordUpdateOne) AddAge(i int32) *MedicalRecordUpdateOne {
 	return mruo
 }
 
-// ClearAge clears the value of the "age" field.
-func (mruo *MedicalRecordUpdateOne) ClearAge() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearAge()
+// SetIDCardNumber sets the "id_card_number" field.
+func (mruo *MedicalRecordUpdateOne) SetIDCardNumber(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetIDCardNumber(s)
 	return mruo
 }
 
-// SetVisitTime sets the "visit_time" field.
-func (mruo *MedicalRecordUpdateOne) SetVisitTime(i int64) *MedicalRecordUpdateOne {
-	mruo.mutation.ResetVisitTime()
-	mruo.mutation.SetVisitTime(i)
-	return mruo
-}
-
-// SetNillableVisitTime sets the "visit_time" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillableVisitTime(i *int64) *MedicalRecordUpdateOne {
-	if i != nil {
-		mruo.SetVisitTime(*i)
+// SetNillableIDCardNumber sets the "id_card_number" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableIDCardNumber(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetIDCardNumber(*s)
 	}
 	return mruo
 }
 
-// AddVisitTime adds i to the "visit_time" field.
-func (mruo *MedicalRecordUpdateOne) AddVisitTime(i int64) *MedicalRecordUpdateOne {
-	mruo.mutation.AddVisitTime(i)
+// ClearIDCardNumber clears the value of the "id_card_number" field.
+func (mruo *MedicalRecordUpdateOne) ClearIDCardNumber() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearIDCardNumber()
 	return mruo
 }
 
-// ClearVisitTime clears the value of the "visit_time" field.
-func (mruo *MedicalRecordUpdateOne) ClearVisitTime() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearVisitTime()
+// SetPhoneNumber sets the "phone_number" field.
+func (mruo *MedicalRecordUpdateOne) SetPhoneNumber(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetPhoneNumber(s)
+	return mruo
+}
+
+// SetNillablePhoneNumber sets the "phone_number" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillablePhoneNumber(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetPhoneNumber(*s)
+	}
+	return mruo
+}
+
+// SetChiefComplaint sets the "chief_complaint" field.
+func (mruo *MedicalRecordUpdateOne) SetChiefComplaint(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetChiefComplaint(s)
+	return mruo
+}
+
+// SetNillableChiefComplaint sets the "chief_complaint" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableChiefComplaint(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetChiefComplaint(*s)
+	}
+	return mruo
+}
+
+// ClearChiefComplaint clears the value of the "chief_complaint" field.
+func (mruo *MedicalRecordUpdateOne) ClearChiefComplaint() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearChiefComplaint()
+	return mruo
+}
+
+// SetPresentIllness sets the "present_illness" field.
+func (mruo *MedicalRecordUpdateOne) SetPresentIllness(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetPresentIllness(s)
+	return mruo
+}
+
+// SetNillablePresentIllness sets the "present_illness" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillablePresentIllness(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetPresentIllness(*s)
+	}
+	return mruo
+}
+
+// ClearPresentIllness clears the value of the "present_illness" field.
+func (mruo *MedicalRecordUpdateOne) ClearPresentIllness() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearPresentIllness()
+	return mruo
+}
+
+// SetPastHistory sets the "past_history" field.
+func (mruo *MedicalRecordUpdateOne) SetPastHistory(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetPastHistory(s)
+	return mruo
+}
+
+// SetNillablePastHistory sets the "past_history" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillablePastHistory(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetPastHistory(*s)
+	}
+	return mruo
+}
+
+// ClearPastHistory clears the value of the "past_history" field.
+func (mruo *MedicalRecordUpdateOne) ClearPastHistory() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearPastHistory()
+	return mruo
+}
+
+// SetSmokingHistory sets the "smoking_history" field.
+func (mruo *MedicalRecordUpdateOne) SetSmokingHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetSmokingHistory()
+	mruo.mutation.SetSmokingHistory(i)
+	return mruo
+}
+
+// SetNillableSmokingHistory sets the "smoking_history" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableSmokingHistory(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetSmokingHistory(*i)
+	}
+	return mruo
+}
+
+// AddSmokingHistory adds i to the "smoking_history" field.
+func (mruo *MedicalRecordUpdateOne) AddSmokingHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddSmokingHistory(i)
+	return mruo
+}
+
+// ClearSmokingHistory clears the value of the "smoking_history" field.
+func (mruo *MedicalRecordUpdateOne) ClearSmokingHistory() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearSmokingHistory()
+	return mruo
+}
+
+// SetDrinkingHistory sets the "drinking_history" field.
+func (mruo *MedicalRecordUpdateOne) SetDrinkingHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetDrinkingHistory()
+	mruo.mutation.SetDrinkingHistory(i)
+	return mruo
+}
+
+// SetNillableDrinkingHistory sets the "drinking_history" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableDrinkingHistory(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetDrinkingHistory(*i)
+	}
+	return mruo
+}
+
+// AddDrinkingHistory adds i to the "drinking_history" field.
+func (mruo *MedicalRecordUpdateOne) AddDrinkingHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddDrinkingHistory(i)
+	return mruo
+}
+
+// ClearDrinkingHistory clears the value of the "drinking_history" field.
+func (mruo *MedicalRecordUpdateOne) ClearDrinkingHistory() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearDrinkingHistory()
+	return mruo
+}
+
+// SetAllergyHistory sets the "allergy_history" field.
+func (mruo *MedicalRecordUpdateOne) SetAllergyHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetAllergyHistory()
+	mruo.mutation.SetAllergyHistory(i)
+	return mruo
+}
+
+// SetNillableAllergyHistory sets the "allergy_history" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableAllergyHistory(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetAllergyHistory(*i)
+	}
+	return mruo
+}
+
+// AddAllergyHistory adds i to the "allergy_history" field.
+func (mruo *MedicalRecordUpdateOne) AddAllergyHistory(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddAllergyHistory(i)
+	return mruo
+}
+
+// ClearAllergyHistory clears the value of the "allergy_history" field.
+func (mruo *MedicalRecordUpdateOne) ClearAllergyHistory() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearAllergyHistory()
+	return mruo
+}
+
+// SetHeartRate sets the "heart_rate" field.
+func (mruo *MedicalRecordUpdateOne) SetHeartRate(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetHeartRate()
+	mruo.mutation.SetHeartRate(i)
+	return mruo
+}
+
+// SetNillableHeartRate sets the "heart_rate" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableHeartRate(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetHeartRate(*i)
+	}
+	return mruo
+}
+
+// AddHeartRate adds i to the "heart_rate" field.
+func (mruo *MedicalRecordUpdateOne) AddHeartRate(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddHeartRate(i)
+	return mruo
+}
+
+// ClearHeartRate clears the value of the "heart_rate" field.
+func (mruo *MedicalRecordUpdateOne) ClearHeartRate() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearHeartRate()
+	return mruo
+}
+
+// SetBloodPressure sets the "blood_pressure" field.
+func (mruo *MedicalRecordUpdateOne) SetBloodPressure(s string) *MedicalRecordUpdateOne {
+	mruo.mutation.SetBloodPressure(s)
+	return mruo
+}
+
+// SetNillableBloodPressure sets the "blood_pressure" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableBloodPressure(s *string) *MedicalRecordUpdateOne {
+	if s != nil {
+		mruo.SetBloodPressure(*s)
+	}
+	return mruo
+}
+
+// ClearBloodPressure clears the value of the "blood_pressure" field.
+func (mruo *MedicalRecordUpdateOne) ClearBloodPressure() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearBloodPressure()
+	return mruo
+}
+
+// SetOxygenSaturation sets the "oxygen_saturation" field.
+func (mruo *MedicalRecordUpdateOne) SetOxygenSaturation(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetOxygenSaturation()
+	mruo.mutation.SetOxygenSaturation(f)
+	return mruo
+}
+
+// SetNillableOxygenSaturation sets the "oxygen_saturation" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableOxygenSaturation(f *float64) *MedicalRecordUpdateOne {
+	if f != nil {
+		mruo.SetOxygenSaturation(*f)
+	}
+	return mruo
+}
+
+// AddOxygenSaturation adds f to the "oxygen_saturation" field.
+func (mruo *MedicalRecordUpdateOne) AddOxygenSaturation(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.AddOxygenSaturation(f)
+	return mruo
+}
+
+// ClearOxygenSaturation clears the value of the "oxygen_saturation" field.
+func (mruo *MedicalRecordUpdateOne) ClearOxygenSaturation() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearOxygenSaturation()
+	return mruo
+}
+
+// SetBloodGlucose sets the "blood_glucose" field.
+func (mruo *MedicalRecordUpdateOne) SetBloodGlucose(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetBloodGlucose()
+	mruo.mutation.SetBloodGlucose(f)
+	return mruo
+}
+
+// SetNillableBloodGlucose sets the "blood_glucose" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableBloodGlucose(f *float64) *MedicalRecordUpdateOne {
+	if f != nil {
+		mruo.SetBloodGlucose(*f)
+	}
+	return mruo
+}
+
+// AddBloodGlucose adds f to the "blood_glucose" field.
+func (mruo *MedicalRecordUpdateOne) AddBloodGlucose(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.AddBloodGlucose(f)
+	return mruo
+}
+
+// ClearBloodGlucose clears the value of the "blood_glucose" field.
+func (mruo *MedicalRecordUpdateOne) ClearBloodGlucose() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearBloodGlucose()
+	return mruo
+}
+
+// SetWeight sets the "weight" field.
+func (mruo *MedicalRecordUpdateOne) SetWeight(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetWeight()
+	mruo.mutation.SetWeight(f)
+	return mruo
+}
+
+// SetNillableWeight sets the "weight" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableWeight(f *float64) *MedicalRecordUpdateOne {
+	if f != nil {
+		mruo.SetWeight(*f)
+	}
+	return mruo
+}
+
+// AddWeight adds f to the "weight" field.
+func (mruo *MedicalRecordUpdateOne) AddWeight(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.AddWeight(f)
+	return mruo
+}
+
+// ClearWeight clears the value of the "weight" field.
+func (mruo *MedicalRecordUpdateOne) ClearWeight() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearWeight()
+	return mruo
+}
+
+// SetWaistCircumference sets the "waist_circumference" field.
+func (mruo *MedicalRecordUpdateOne) SetWaistCircumference(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetWaistCircumference()
+	mruo.mutation.SetWaistCircumference(f)
+	return mruo
+}
+
+// SetNillableWaistCircumference sets the "waist_circumference" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableWaistCircumference(f *float64) *MedicalRecordUpdateOne {
+	if f != nil {
+		mruo.SetWaistCircumference(*f)
+	}
+	return mruo
+}
+
+// AddWaistCircumference adds f to the "waist_circumference" field.
+func (mruo *MedicalRecordUpdateOne) AddWaistCircumference(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.AddWaistCircumference(f)
+	return mruo
+}
+
+// ClearWaistCircumference clears the value of the "waist_circumference" field.
+func (mruo *MedicalRecordUpdateOne) ClearWaistCircumference() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearWaistCircumference()
+	return mruo
+}
+
+// SetBodyFat sets the "body_fat" field.
+func (mruo *MedicalRecordUpdateOne) SetBodyFat(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetBodyFat()
+	mruo.mutation.SetBodyFat(f)
+	return mruo
+}
+
+// SetNillableBodyFat sets the "body_fat" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableBodyFat(f *float64) *MedicalRecordUpdateOne {
+	if f != nil {
+		mruo.SetBodyFat(*f)
+	}
+	return mruo
+}
+
+// AddBodyFat adds f to the "body_fat" field.
+func (mruo *MedicalRecordUpdateOne) AddBodyFat(f float64) *MedicalRecordUpdateOne {
+	mruo.mutation.AddBodyFat(f)
+	return mruo
+}
+
+// ClearBodyFat clears the value of the "body_fat" field.
+func (mruo *MedicalRecordUpdateOne) ClearBodyFat() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearBodyFat()
 	return mruo
 }
 
@@ -683,6 +1361,87 @@ func (mruo *MedicalRecordUpdateOne) ClearDiagnosis() *MedicalRecordUpdateOne {
 	return mruo
 }
 
+// SetDietTherapy sets the "diet_therapy" field.
+func (mruo *MedicalRecordUpdateOne) SetDietTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetDietTherapy()
+	mruo.mutation.SetDietTherapy(i)
+	return mruo
+}
+
+// SetNillableDietTherapy sets the "diet_therapy" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableDietTherapy(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetDietTherapy(*i)
+	}
+	return mruo
+}
+
+// AddDietTherapy adds i to the "diet_therapy" field.
+func (mruo *MedicalRecordUpdateOne) AddDietTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddDietTherapy(i)
+	return mruo
+}
+
+// ClearDietTherapy clears the value of the "diet_therapy" field.
+func (mruo *MedicalRecordUpdateOne) ClearDietTherapy() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearDietTherapy()
+	return mruo
+}
+
+// SetExerciseTherapy sets the "exercise_therapy" field.
+func (mruo *MedicalRecordUpdateOne) SetExerciseTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetExerciseTherapy()
+	mruo.mutation.SetExerciseTherapy(i)
+	return mruo
+}
+
+// SetNillableExerciseTherapy sets the "exercise_therapy" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableExerciseTherapy(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetExerciseTherapy(*i)
+	}
+	return mruo
+}
+
+// AddExerciseTherapy adds i to the "exercise_therapy" field.
+func (mruo *MedicalRecordUpdateOne) AddExerciseTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddExerciseTherapy(i)
+	return mruo
+}
+
+// ClearExerciseTherapy clears the value of the "exercise_therapy" field.
+func (mruo *MedicalRecordUpdateOne) ClearExerciseTherapy() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearExerciseTherapy()
+	return mruo
+}
+
+// SetMedicationTherapy sets the "medication_therapy" field.
+func (mruo *MedicalRecordUpdateOne) SetMedicationTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.ResetMedicationTherapy()
+	mruo.mutation.SetMedicationTherapy(i)
+	return mruo
+}
+
+// SetNillableMedicationTherapy sets the "medication_therapy" field if the given value is not nil.
+func (mruo *MedicalRecordUpdateOne) SetNillableMedicationTherapy(i *int32) *MedicalRecordUpdateOne {
+	if i != nil {
+		mruo.SetMedicationTherapy(*i)
+	}
+	return mruo
+}
+
+// AddMedicationTherapy adds i to the "medication_therapy" field.
+func (mruo *MedicalRecordUpdateOne) AddMedicationTherapy(i int32) *MedicalRecordUpdateOne {
+	mruo.mutation.AddMedicationTherapy(i)
+	return mruo
+}
+
+// ClearMedicationTherapy clears the value of the "medication_therapy" field.
+func (mruo *MedicalRecordUpdateOne) ClearMedicationTherapy() *MedicalRecordUpdateOne {
+	mruo.mutation.ClearMedicationTherapy()
+	return mruo
+}
+
 // SetTreatmentPlan sets the "treatment_plan" field.
 func (mruo *MedicalRecordUpdateOne) SetTreatmentPlan(s string) *MedicalRecordUpdateOne {
 	mruo.mutation.SetTreatmentPlan(s)
@@ -703,66 +1462,6 @@ func (mruo *MedicalRecordUpdateOne) ClearTreatmentPlan() *MedicalRecordUpdateOne
 	return mruo
 }
 
-// SetPrescription sets the "prescription" field.
-func (mruo *MedicalRecordUpdateOne) SetPrescription(s string) *MedicalRecordUpdateOne {
-	mruo.mutation.SetPrescription(s)
-	return mruo
-}
-
-// SetNillablePrescription sets the "prescription" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillablePrescription(s *string) *MedicalRecordUpdateOne {
-	if s != nil {
-		mruo.SetPrescription(*s)
-	}
-	return mruo
-}
-
-// ClearPrescription clears the value of the "prescription" field.
-func (mruo *MedicalRecordUpdateOne) ClearPrescription() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearPrescription()
-	return mruo
-}
-
-// SetExaminationResults sets the "examination_results" field.
-func (mruo *MedicalRecordUpdateOne) SetExaminationResults(s string) *MedicalRecordUpdateOne {
-	mruo.mutation.SetExaminationResults(s)
-	return mruo
-}
-
-// SetNillableExaminationResults sets the "examination_results" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillableExaminationResults(s *string) *MedicalRecordUpdateOne {
-	if s != nil {
-		mruo.SetExaminationResults(*s)
-	}
-	return mruo
-}
-
-// ClearExaminationResults clears the value of the "examination_results" field.
-func (mruo *MedicalRecordUpdateOne) ClearExaminationResults() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearExaminationResults()
-	return mruo
-}
-
-// SetDoctorAdvice sets the "doctor_advice" field.
-func (mruo *MedicalRecordUpdateOne) SetDoctorAdvice(s string) *MedicalRecordUpdateOne {
-	mruo.mutation.SetDoctorAdvice(s)
-	return mruo
-}
-
-// SetNillableDoctorAdvice sets the "doctor_advice" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillableDoctorAdvice(s *string) *MedicalRecordUpdateOne {
-	if s != nil {
-		mruo.SetDoctorAdvice(*s)
-	}
-	return mruo
-}
-
-// ClearDoctorAdvice clears the value of the "doctor_advice" field.
-func (mruo *MedicalRecordUpdateOne) ClearDoctorAdvice() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearDoctorAdvice()
-	return mruo
-}
-
 // SetDoctorID sets the "doctor_id" field.
 func (mruo *MedicalRecordUpdateOne) SetDoctorID(s string) *MedicalRecordUpdateOne {
 	mruo.mutation.SetDoctorID(s)
@@ -780,26 +1479,6 @@ func (mruo *MedicalRecordUpdateOne) SetNillableDoctorID(s *string) *MedicalRecor
 // ClearDoctorID clears the value of the "doctor_id" field.
 func (mruo *MedicalRecordUpdateOne) ClearDoctorID() *MedicalRecordUpdateOne {
 	mruo.mutation.ClearDoctorID()
-	return mruo
-}
-
-// SetDepartment sets the "department" field.
-func (mruo *MedicalRecordUpdateOne) SetDepartment(s string) *MedicalRecordUpdateOne {
-	mruo.mutation.SetDepartment(s)
-	return mruo
-}
-
-// SetNillableDepartment sets the "department" field if the given value is not nil.
-func (mruo *MedicalRecordUpdateOne) SetNillableDepartment(s *string) *MedicalRecordUpdateOne {
-	if s != nil {
-		mruo.SetDepartment(*s)
-	}
-	return mruo
-}
-
-// ClearDepartment clears the value of the "department" field.
-func (mruo *MedicalRecordUpdateOne) ClearDepartment() *MedicalRecordUpdateOne {
-	mruo.mutation.ClearDepartment()
 	return mruo
 }
 
@@ -955,23 +1634,11 @@ func (mruo *MedicalRecordUpdateOne) sqlSave(ctx context.Context) (_node *Medical
 	if value, ok := mruo.mutation.PatientName(); ok {
 		_spec.SetField(medicalrecord.FieldPatientName, field.TypeString, value)
 	}
-	if mruo.mutation.PatientNameCleared() {
-		_spec.ClearField(medicalrecord.FieldPatientName, field.TypeString)
-	}
-	if value, ok := mruo.mutation.PhoneNumber(); ok {
-		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
-	}
-	if mruo.mutation.PhoneNumberCleared() {
-		_spec.ClearField(medicalrecord.FieldPhoneNumber, field.TypeString)
-	}
 	if value, ok := mruo.mutation.Gender(); ok {
 		_spec.SetField(medicalrecord.FieldGender, field.TypeInt32, value)
 	}
 	if value, ok := mruo.mutation.AddedGender(); ok {
 		_spec.AddField(medicalrecord.FieldGender, field.TypeInt32, value)
-	}
-	if mruo.mutation.GenderCleared() {
-		_spec.ClearField(medicalrecord.FieldGender, field.TypeInt32)
 	}
 	if value, ok := mruo.mutation.Age(); ok {
 		_spec.SetField(medicalrecord.FieldAge, field.TypeInt32, value)
@@ -979,17 +1646,119 @@ func (mruo *MedicalRecordUpdateOne) sqlSave(ctx context.Context) (_node *Medical
 	if value, ok := mruo.mutation.AddedAge(); ok {
 		_spec.AddField(medicalrecord.FieldAge, field.TypeInt32, value)
 	}
-	if mruo.mutation.AgeCleared() {
-		_spec.ClearField(medicalrecord.FieldAge, field.TypeInt32)
+	if value, ok := mruo.mutation.IDCardNumber(); ok {
+		_spec.SetField(medicalrecord.FieldIDCardNumber, field.TypeString, value)
 	}
-	if value, ok := mruo.mutation.VisitTime(); ok {
-		_spec.SetField(medicalrecord.FieldVisitTime, field.TypeInt64, value)
+	if mruo.mutation.IDCardNumberCleared() {
+		_spec.ClearField(medicalrecord.FieldIDCardNumber, field.TypeString)
 	}
-	if value, ok := mruo.mutation.AddedVisitTime(); ok {
-		_spec.AddField(medicalrecord.FieldVisitTime, field.TypeInt64, value)
+	if value, ok := mruo.mutation.PhoneNumber(); ok {
+		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
 	}
-	if mruo.mutation.VisitTimeCleared() {
-		_spec.ClearField(medicalrecord.FieldVisitTime, field.TypeInt64)
+	if value, ok := mruo.mutation.ChiefComplaint(); ok {
+		_spec.SetField(medicalrecord.FieldChiefComplaint, field.TypeString, value)
+	}
+	if mruo.mutation.ChiefComplaintCleared() {
+		_spec.ClearField(medicalrecord.FieldChiefComplaint, field.TypeString)
+	}
+	if value, ok := mruo.mutation.PresentIllness(); ok {
+		_spec.SetField(medicalrecord.FieldPresentIllness, field.TypeString, value)
+	}
+	if mruo.mutation.PresentIllnessCleared() {
+		_spec.ClearField(medicalrecord.FieldPresentIllness, field.TypeString)
+	}
+	if value, ok := mruo.mutation.PastHistory(); ok {
+		_spec.SetField(medicalrecord.FieldPastHistory, field.TypeString, value)
+	}
+	if mruo.mutation.PastHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldPastHistory, field.TypeString)
+	}
+	if value, ok := mruo.mutation.SmokingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldSmokingHistory, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedSmokingHistory(); ok {
+		_spec.AddField(medicalrecord.FieldSmokingHistory, field.TypeInt32, value)
+	}
+	if mruo.mutation.SmokingHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldSmokingHistory, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.DrinkingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldDrinkingHistory, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedDrinkingHistory(); ok {
+		_spec.AddField(medicalrecord.FieldDrinkingHistory, field.TypeInt32, value)
+	}
+	if mruo.mutation.DrinkingHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldDrinkingHistory, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.AllergyHistory(); ok {
+		_spec.SetField(medicalrecord.FieldAllergyHistory, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedAllergyHistory(); ok {
+		_spec.AddField(medicalrecord.FieldAllergyHistory, field.TypeInt32, value)
+	}
+	if mruo.mutation.AllergyHistoryCleared() {
+		_spec.ClearField(medicalrecord.FieldAllergyHistory, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.HeartRate(); ok {
+		_spec.SetField(medicalrecord.FieldHeartRate, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedHeartRate(); ok {
+		_spec.AddField(medicalrecord.FieldHeartRate, field.TypeInt32, value)
+	}
+	if mruo.mutation.HeartRateCleared() {
+		_spec.ClearField(medicalrecord.FieldHeartRate, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.BloodPressure(); ok {
+		_spec.SetField(medicalrecord.FieldBloodPressure, field.TypeString, value)
+	}
+	if mruo.mutation.BloodPressureCleared() {
+		_spec.ClearField(medicalrecord.FieldBloodPressure, field.TypeString)
+	}
+	if value, ok := mruo.mutation.OxygenSaturation(); ok {
+		_spec.SetField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64, value)
+	}
+	if value, ok := mruo.mutation.AddedOxygenSaturation(); ok {
+		_spec.AddField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64, value)
+	}
+	if mruo.mutation.OxygenSaturationCleared() {
+		_spec.ClearField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64)
+	}
+	if value, ok := mruo.mutation.BloodGlucose(); ok {
+		_spec.SetField(medicalrecord.FieldBloodGlucose, field.TypeFloat64, value)
+	}
+	if value, ok := mruo.mutation.AddedBloodGlucose(); ok {
+		_spec.AddField(medicalrecord.FieldBloodGlucose, field.TypeFloat64, value)
+	}
+	if mruo.mutation.BloodGlucoseCleared() {
+		_spec.ClearField(medicalrecord.FieldBloodGlucose, field.TypeFloat64)
+	}
+	if value, ok := mruo.mutation.Weight(); ok {
+		_spec.SetField(medicalrecord.FieldWeight, field.TypeFloat64, value)
+	}
+	if value, ok := mruo.mutation.AddedWeight(); ok {
+		_spec.AddField(medicalrecord.FieldWeight, field.TypeFloat64, value)
+	}
+	if mruo.mutation.WeightCleared() {
+		_spec.ClearField(medicalrecord.FieldWeight, field.TypeFloat64)
+	}
+	if value, ok := mruo.mutation.WaistCircumference(); ok {
+		_spec.SetField(medicalrecord.FieldWaistCircumference, field.TypeFloat64, value)
+	}
+	if value, ok := mruo.mutation.AddedWaistCircumference(); ok {
+		_spec.AddField(medicalrecord.FieldWaistCircumference, field.TypeFloat64, value)
+	}
+	if mruo.mutation.WaistCircumferenceCleared() {
+		_spec.ClearField(medicalrecord.FieldWaistCircumference, field.TypeFloat64)
+	}
+	if value, ok := mruo.mutation.BodyFat(); ok {
+		_spec.SetField(medicalrecord.FieldBodyFat, field.TypeFloat64, value)
+	}
+	if value, ok := mruo.mutation.AddedBodyFat(); ok {
+		_spec.AddField(medicalrecord.FieldBodyFat, field.TypeFloat64, value)
+	}
+	if mruo.mutation.BodyFatCleared() {
+		_spec.ClearField(medicalrecord.FieldBodyFat, field.TypeFloat64)
 	}
 	if value, ok := mruo.mutation.Diagnosis(); ok {
 		_spec.SetField(medicalrecord.FieldDiagnosis, field.TypeString, value)
@@ -997,41 +1766,44 @@ func (mruo *MedicalRecordUpdateOne) sqlSave(ctx context.Context) (_node *Medical
 	if mruo.mutation.DiagnosisCleared() {
 		_spec.ClearField(medicalrecord.FieldDiagnosis, field.TypeString)
 	}
+	if value, ok := mruo.mutation.DietTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldDietTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedDietTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldDietTherapy, field.TypeInt32, value)
+	}
+	if mruo.mutation.DietTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldDietTherapy, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.ExerciseTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldExerciseTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedExerciseTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldExerciseTherapy, field.TypeInt32, value)
+	}
+	if mruo.mutation.ExerciseTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldExerciseTherapy, field.TypeInt32)
+	}
+	if value, ok := mruo.mutation.MedicationTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldMedicationTherapy, field.TypeInt32, value)
+	}
+	if value, ok := mruo.mutation.AddedMedicationTherapy(); ok {
+		_spec.AddField(medicalrecord.FieldMedicationTherapy, field.TypeInt32, value)
+	}
+	if mruo.mutation.MedicationTherapyCleared() {
+		_spec.ClearField(medicalrecord.FieldMedicationTherapy, field.TypeInt32)
+	}
 	if value, ok := mruo.mutation.TreatmentPlan(); ok {
 		_spec.SetField(medicalrecord.FieldTreatmentPlan, field.TypeString, value)
 	}
 	if mruo.mutation.TreatmentPlanCleared() {
 		_spec.ClearField(medicalrecord.FieldTreatmentPlan, field.TypeString)
 	}
-	if value, ok := mruo.mutation.Prescription(); ok {
-		_spec.SetField(medicalrecord.FieldPrescription, field.TypeString, value)
-	}
-	if mruo.mutation.PrescriptionCleared() {
-		_spec.ClearField(medicalrecord.FieldPrescription, field.TypeString)
-	}
-	if value, ok := mruo.mutation.ExaminationResults(); ok {
-		_spec.SetField(medicalrecord.FieldExaminationResults, field.TypeString, value)
-	}
-	if mruo.mutation.ExaminationResultsCleared() {
-		_spec.ClearField(medicalrecord.FieldExaminationResults, field.TypeString)
-	}
-	if value, ok := mruo.mutation.DoctorAdvice(); ok {
-		_spec.SetField(medicalrecord.FieldDoctorAdvice, field.TypeString, value)
-	}
-	if mruo.mutation.DoctorAdviceCleared() {
-		_spec.ClearField(medicalrecord.FieldDoctorAdvice, field.TypeString)
-	}
 	if value, ok := mruo.mutation.DoctorID(); ok {
 		_spec.SetField(medicalrecord.FieldDoctorID, field.TypeString, value)
 	}
 	if mruo.mutation.DoctorIDCleared() {
 		_spec.ClearField(medicalrecord.FieldDoctorID, field.TypeString)
-	}
-	if value, ok := mruo.mutation.Department(); ok {
-		_spec.SetField(medicalrecord.FieldDepartment, field.TypeString, value)
-	}
-	if mruo.mutation.DepartmentCleared() {
-		_spec.ClearField(medicalrecord.FieldDepartment, field.TypeString)
 	}
 	if value, ok := mruo.mutation.AppointmentID(); ok {
 		_spec.SetField(medicalrecord.FieldAppointmentID, field.TypeString, value)

@@ -229,6 +229,18 @@ func init() {
 	medicalrecord.DefaultUpdatedAt = medicalrecordDescUpdatedAt.Default.(func() time.Time)
 	// medicalrecord.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	medicalrecord.UpdateDefaultUpdatedAt = medicalrecordDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// medicalrecordDescSmokingHistory is the schema descriptor for smoking_history field.
+	medicalrecordDescSmokingHistory := medicalrecordFields[8].Descriptor()
+	// medicalrecord.DefaultSmokingHistory holds the default value on creation for the smoking_history field.
+	medicalrecord.DefaultSmokingHistory = medicalrecordDescSmokingHistory.Default.(int32)
+	// medicalrecordDescDrinkingHistory is the schema descriptor for drinking_history field.
+	medicalrecordDescDrinkingHistory := medicalrecordFields[9].Descriptor()
+	// medicalrecord.DefaultDrinkingHistory holds the default value on creation for the drinking_history field.
+	medicalrecord.DefaultDrinkingHistory = medicalrecordDescDrinkingHistory.Default.(int32)
+	// medicalrecordDescAllergyHistory is the schema descriptor for allergy_history field.
+	medicalrecordDescAllergyHistory := medicalrecordFields[10].Descriptor()
+	// medicalrecord.DefaultAllergyHistory holds the default value on creation for the allergy_history field.
+	medicalrecord.DefaultAllergyHistory = medicalrecordDescAllergyHistory.Default.(int32)
 	// medicalrecordDescID is the schema descriptor for id field.
 	medicalrecordDescID := medicalrecordMixinFields0[0].Descriptor()
 	// medicalrecord.DefaultID holds the default value on creation for the id field.

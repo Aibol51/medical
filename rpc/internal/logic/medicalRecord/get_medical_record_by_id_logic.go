@@ -7,8 +7,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,24 +33,35 @@ func (l *GetMedicalRecordByIdLogic) GetMedicalRecordById(in *core.UUIDReq) (*cor
 	}
 
 	return &core.MedicalRecordInfo{
-		Id:          pointy.GetPointer(result.ID.String()),
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		PatientName:	&result.PatientName,
-		PhoneNumber:	&result.PhoneNumber,
-		Gender:	&result.Gender,
-		Age:	&result.Age,
-		VisitTime:	&result.VisitTime,
-		Diagnosis:	&result.Diagnosis,
-		TreatmentPlan:	&result.TreatmentPlan,
-		Prescription:	&result.Prescription,
-		ExaminationResults:	&result.ExaminationResults,
-		DoctorAdvice:	&result.DoctorAdvice,
-		DoctorId:	&result.DoctorID,
-		Department:	&result.Department,
-		AppointmentId:	&result.AppointmentID,
-		Remarks:	&result.Remarks,
-		UserId:	&result.UserID,
+		Id:                 pointy.GetPointer(result.ID.String()),
+		CreatedAt:          pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:          pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		PatientName:        &result.PatientName,
+		Gender:             &result.Gender,
+		Age:                &result.Age,
+		IdCardNumber:       &result.IDCardNumber,
+		PhoneNumber:        &result.PhoneNumber,
+		ChiefComplaint:     &result.ChiefComplaint,
+		PresentIllness:     &result.PresentIllness,
+		PastHistory:        &result.PastHistory,
+		SmokingHistory:     &result.SmokingHistory,
+		DrinkingHistory:    &result.DrinkingHistory,
+		AllergyHistory:     &result.AllergyHistory,
+		HeartRate:          &result.HeartRate,
+		BloodPressure:      &result.BloodPressure,
+		OxygenSaturation:   &result.OxygenSaturation,
+		BloodGlucose:       &result.BloodGlucose,
+		Weight:             &result.Weight,
+		WaistCircumference: &result.WaistCircumference,
+		BodyFat:            &result.BodyFat,
+		Diagnosis:          &result.Diagnosis,
+		DietTherapy:        &result.DietTherapy,
+		ExerciseTherapy:    &result.ExerciseTherapy,
+		MedicationTherapy:  &result.MedicationTherapy,
+		TreatmentPlan:      &result.TreatmentPlan,
+		DoctorId:           &result.DoctorID,
+		AppointmentId:      &result.AppointmentID,
+		Remarks:            &result.Remarks,
+		UserId:             &result.UserID,
 	}, nil
 }
-

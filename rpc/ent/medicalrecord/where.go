@@ -70,11 +70,6 @@ func PatientName(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldPatientName, v))
 }
 
-// PhoneNumber applies equality check predicate on the "phone_number" field. It's identical to PhoneNumberEQ.
-func PhoneNumber(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldPhoneNumber, v))
-}
-
 // Gender applies equality check predicate on the "gender" field. It's identical to GenderEQ.
 func Gender(v int32) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldGender, v))
@@ -85,9 +80,79 @@ func Age(v int32) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldAge, v))
 }
 
-// VisitTime applies equality check predicate on the "visit_time" field. It's identical to VisitTimeEQ.
-func VisitTime(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldVisitTime, v))
+// IDCardNumber applies equality check predicate on the "id_card_number" field. It's identical to IDCardNumberEQ.
+func IDCardNumber(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldIDCardNumber, v))
+}
+
+// PhoneNumber applies equality check predicate on the "phone_number" field. It's identical to PhoneNumberEQ.
+func PhoneNumber(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldPhoneNumber, v))
+}
+
+// ChiefComplaint applies equality check predicate on the "chief_complaint" field. It's identical to ChiefComplaintEQ.
+func ChiefComplaint(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldChiefComplaint, v))
+}
+
+// PresentIllness applies equality check predicate on the "present_illness" field. It's identical to PresentIllnessEQ.
+func PresentIllness(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldPresentIllness, v))
+}
+
+// PastHistory applies equality check predicate on the "past_history" field. It's identical to PastHistoryEQ.
+func PastHistory(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldPastHistory, v))
+}
+
+// SmokingHistory applies equality check predicate on the "smoking_history" field. It's identical to SmokingHistoryEQ.
+func SmokingHistory(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldSmokingHistory, v))
+}
+
+// DrinkingHistory applies equality check predicate on the "drinking_history" field. It's identical to DrinkingHistoryEQ.
+func DrinkingHistory(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldDrinkingHistory, v))
+}
+
+// AllergyHistory applies equality check predicate on the "allergy_history" field. It's identical to AllergyHistoryEQ.
+func AllergyHistory(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldAllergyHistory, v))
+}
+
+// HeartRate applies equality check predicate on the "heart_rate" field. It's identical to HeartRateEQ.
+func HeartRate(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldHeartRate, v))
+}
+
+// BloodPressure applies equality check predicate on the "blood_pressure" field. It's identical to BloodPressureEQ.
+func BloodPressure(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBloodPressure, v))
+}
+
+// OxygenSaturation applies equality check predicate on the "oxygen_saturation" field. It's identical to OxygenSaturationEQ.
+func OxygenSaturation(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldOxygenSaturation, v))
+}
+
+// BloodGlucose applies equality check predicate on the "blood_glucose" field. It's identical to BloodGlucoseEQ.
+func BloodGlucose(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBloodGlucose, v))
+}
+
+// Weight applies equality check predicate on the "weight" field. It's identical to WeightEQ.
+func Weight(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldWeight, v))
+}
+
+// WaistCircumference applies equality check predicate on the "waist_circumference" field. It's identical to WaistCircumferenceEQ.
+func WaistCircumference(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldWaistCircumference, v))
+}
+
+// BodyFat applies equality check predicate on the "body_fat" field. It's identical to BodyFatEQ.
+func BodyFat(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBodyFat, v))
 }
 
 // Diagnosis applies equality check predicate on the "diagnosis" field. It's identical to DiagnosisEQ.
@@ -95,34 +160,29 @@ func Diagnosis(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldDiagnosis, v))
 }
 
+// DietTherapy applies equality check predicate on the "diet_therapy" field. It's identical to DietTherapyEQ.
+func DietTherapy(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldDietTherapy, v))
+}
+
+// ExerciseTherapy applies equality check predicate on the "exercise_therapy" field. It's identical to ExerciseTherapyEQ.
+func ExerciseTherapy(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldExerciseTherapy, v))
+}
+
+// MedicationTherapy applies equality check predicate on the "medication_therapy" field. It's identical to MedicationTherapyEQ.
+func MedicationTherapy(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldMedicationTherapy, v))
+}
+
 // TreatmentPlan applies equality check predicate on the "treatment_plan" field. It's identical to TreatmentPlanEQ.
 func TreatmentPlan(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldTreatmentPlan, v))
 }
 
-// Prescription applies equality check predicate on the "prescription" field. It's identical to PrescriptionEQ.
-func Prescription(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldPrescription, v))
-}
-
-// ExaminationResults applies equality check predicate on the "examination_results" field. It's identical to ExaminationResultsEQ.
-func ExaminationResults(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldExaminationResults, v))
-}
-
-// DoctorAdvice applies equality check predicate on the "doctor_advice" field. It's identical to DoctorAdviceEQ.
-func DoctorAdvice(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldDoctorAdvice, v))
-}
-
 // DoctorID applies equality check predicate on the "doctor_id" field. It's identical to DoctorIDEQ.
 func DoctorID(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldDoctorID, v))
-}
-
-// Department applies equality check predicate on the "department" field. It's identical to DepartmentEQ.
-func Department(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldDepartment, v))
 }
 
 // AppointmentID applies equality check predicate on the "appointment_id" field. It's identical to AppointmentIDEQ.
@@ -275,16 +335,6 @@ func PatientNameHasSuffix(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldPatientName, v))
 }
 
-// PatientNameIsNil applies the IsNil predicate on the "patient_name" field.
-func PatientNameIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldPatientName))
-}
-
-// PatientNameNotNil applies the NotNil predicate on the "patient_name" field.
-func PatientNameNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldPatientName))
-}
-
 // PatientNameEqualFold applies the EqualFold predicate on the "patient_name" field.
 func PatientNameEqualFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEqualFold(FieldPatientName, v))
@@ -293,6 +343,161 @@ func PatientNameEqualFold(v string) predicate.MedicalRecord {
 // PatientNameContainsFold applies the ContainsFold predicate on the "patient_name" field.
 func PatientNameContainsFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldContainsFold(FieldPatientName, v))
+}
+
+// GenderEQ applies the EQ predicate on the "gender" field.
+func GenderEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldGender, v))
+}
+
+// GenderNEQ applies the NEQ predicate on the "gender" field.
+func GenderNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldGender, v))
+}
+
+// GenderIn applies the In predicate on the "gender" field.
+func GenderIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldGender, vs...))
+}
+
+// GenderNotIn applies the NotIn predicate on the "gender" field.
+func GenderNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldGender, vs...))
+}
+
+// GenderGT applies the GT predicate on the "gender" field.
+func GenderGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldGender, v))
+}
+
+// GenderGTE applies the GTE predicate on the "gender" field.
+func GenderGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldGender, v))
+}
+
+// GenderLT applies the LT predicate on the "gender" field.
+func GenderLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldGender, v))
+}
+
+// GenderLTE applies the LTE predicate on the "gender" field.
+func GenderLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldGender, v))
+}
+
+// AgeEQ applies the EQ predicate on the "age" field.
+func AgeEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldAge, v))
+}
+
+// AgeNEQ applies the NEQ predicate on the "age" field.
+func AgeNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldAge, v))
+}
+
+// AgeIn applies the In predicate on the "age" field.
+func AgeIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldAge, vs...))
+}
+
+// AgeNotIn applies the NotIn predicate on the "age" field.
+func AgeNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldAge, vs...))
+}
+
+// AgeGT applies the GT predicate on the "age" field.
+func AgeGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldAge, v))
+}
+
+// AgeGTE applies the GTE predicate on the "age" field.
+func AgeGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldAge, v))
+}
+
+// AgeLT applies the LT predicate on the "age" field.
+func AgeLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldAge, v))
+}
+
+// AgeLTE applies the LTE predicate on the "age" field.
+func AgeLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldAge, v))
+}
+
+// IDCardNumberEQ applies the EQ predicate on the "id_card_number" field.
+func IDCardNumberEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldIDCardNumber, v))
+}
+
+// IDCardNumberNEQ applies the NEQ predicate on the "id_card_number" field.
+func IDCardNumberNEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldIDCardNumber, v))
+}
+
+// IDCardNumberIn applies the In predicate on the "id_card_number" field.
+func IDCardNumberIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldIDCardNumber, vs...))
+}
+
+// IDCardNumberNotIn applies the NotIn predicate on the "id_card_number" field.
+func IDCardNumberNotIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldIDCardNumber, vs...))
+}
+
+// IDCardNumberGT applies the GT predicate on the "id_card_number" field.
+func IDCardNumberGT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldIDCardNumber, v))
+}
+
+// IDCardNumberGTE applies the GTE predicate on the "id_card_number" field.
+func IDCardNumberGTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldIDCardNumber, v))
+}
+
+// IDCardNumberLT applies the LT predicate on the "id_card_number" field.
+func IDCardNumberLT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldIDCardNumber, v))
+}
+
+// IDCardNumberLTE applies the LTE predicate on the "id_card_number" field.
+func IDCardNumberLTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldIDCardNumber, v))
+}
+
+// IDCardNumberContains applies the Contains predicate on the "id_card_number" field.
+func IDCardNumberContains(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContains(FieldIDCardNumber, v))
+}
+
+// IDCardNumberHasPrefix applies the HasPrefix predicate on the "id_card_number" field.
+func IDCardNumberHasPrefix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldIDCardNumber, v))
+}
+
+// IDCardNumberHasSuffix applies the HasSuffix predicate on the "id_card_number" field.
+func IDCardNumberHasSuffix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldIDCardNumber, v))
+}
+
+// IDCardNumberIsNil applies the IsNil predicate on the "id_card_number" field.
+func IDCardNumberIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldIDCardNumber))
+}
+
+// IDCardNumberNotNil applies the NotNil predicate on the "id_card_number" field.
+func IDCardNumberNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldIDCardNumber))
+}
+
+// IDCardNumberEqualFold applies the EqualFold predicate on the "id_card_number" field.
+func IDCardNumberEqualFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEqualFold(FieldIDCardNumber, v))
+}
+
+// IDCardNumberContainsFold applies the ContainsFold predicate on the "id_card_number" field.
+func IDCardNumberContainsFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContainsFold(FieldIDCardNumber, v))
 }
 
 // PhoneNumberEQ applies the EQ predicate on the "phone_number" field.
@@ -350,16 +555,6 @@ func PhoneNumberHasSuffix(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldPhoneNumber, v))
 }
 
-// PhoneNumberIsNil applies the IsNil predicate on the "phone_number" field.
-func PhoneNumberIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldPhoneNumber))
-}
-
-// PhoneNumberNotNil applies the NotNil predicate on the "phone_number" field.
-func PhoneNumberNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldPhoneNumber))
-}
-
 // PhoneNumberEqualFold applies the EqualFold predicate on the "phone_number" field.
 func PhoneNumberEqualFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEqualFold(FieldPhoneNumber, v))
@@ -370,154 +565,754 @@ func PhoneNumberContainsFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldContainsFold(FieldPhoneNumber, v))
 }
 
-// GenderEQ applies the EQ predicate on the "gender" field.
-func GenderEQ(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldGender, v))
+// ChiefComplaintEQ applies the EQ predicate on the "chief_complaint" field.
+func ChiefComplaintEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldChiefComplaint, v))
 }
 
-// GenderNEQ applies the NEQ predicate on the "gender" field.
-func GenderNEQ(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldGender, v))
+// ChiefComplaintNEQ applies the NEQ predicate on the "chief_complaint" field.
+func ChiefComplaintNEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldChiefComplaint, v))
 }
 
-// GenderIn applies the In predicate on the "gender" field.
-func GenderIn(vs ...int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldGender, vs...))
+// ChiefComplaintIn applies the In predicate on the "chief_complaint" field.
+func ChiefComplaintIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldChiefComplaint, vs...))
 }
 
-// GenderNotIn applies the NotIn predicate on the "gender" field.
-func GenderNotIn(vs ...int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldGender, vs...))
+// ChiefComplaintNotIn applies the NotIn predicate on the "chief_complaint" field.
+func ChiefComplaintNotIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldChiefComplaint, vs...))
 }
 
-// GenderGT applies the GT predicate on the "gender" field.
-func GenderGT(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldGender, v))
+// ChiefComplaintGT applies the GT predicate on the "chief_complaint" field.
+func ChiefComplaintGT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldChiefComplaint, v))
 }
 
-// GenderGTE applies the GTE predicate on the "gender" field.
-func GenderGTE(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldGender, v))
+// ChiefComplaintGTE applies the GTE predicate on the "chief_complaint" field.
+func ChiefComplaintGTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldChiefComplaint, v))
 }
 
-// GenderLT applies the LT predicate on the "gender" field.
-func GenderLT(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldGender, v))
+// ChiefComplaintLT applies the LT predicate on the "chief_complaint" field.
+func ChiefComplaintLT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldChiefComplaint, v))
 }
 
-// GenderLTE applies the LTE predicate on the "gender" field.
-func GenderLTE(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldGender, v))
+// ChiefComplaintLTE applies the LTE predicate on the "chief_complaint" field.
+func ChiefComplaintLTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldChiefComplaint, v))
 }
 
-// GenderIsNil applies the IsNil predicate on the "gender" field.
-func GenderIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldGender))
+// ChiefComplaintContains applies the Contains predicate on the "chief_complaint" field.
+func ChiefComplaintContains(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContains(FieldChiefComplaint, v))
 }
 
-// GenderNotNil applies the NotNil predicate on the "gender" field.
-func GenderNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldGender))
+// ChiefComplaintHasPrefix applies the HasPrefix predicate on the "chief_complaint" field.
+func ChiefComplaintHasPrefix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldChiefComplaint, v))
 }
 
-// AgeEQ applies the EQ predicate on the "age" field.
-func AgeEQ(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldAge, v))
+// ChiefComplaintHasSuffix applies the HasSuffix predicate on the "chief_complaint" field.
+func ChiefComplaintHasSuffix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldChiefComplaint, v))
 }
 
-// AgeNEQ applies the NEQ predicate on the "age" field.
-func AgeNEQ(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldAge, v))
+// ChiefComplaintIsNil applies the IsNil predicate on the "chief_complaint" field.
+func ChiefComplaintIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldChiefComplaint))
 }
 
-// AgeIn applies the In predicate on the "age" field.
-func AgeIn(vs ...int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldAge, vs...))
+// ChiefComplaintNotNil applies the NotNil predicate on the "chief_complaint" field.
+func ChiefComplaintNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldChiefComplaint))
 }
 
-// AgeNotIn applies the NotIn predicate on the "age" field.
-func AgeNotIn(vs ...int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldAge, vs...))
+// ChiefComplaintEqualFold applies the EqualFold predicate on the "chief_complaint" field.
+func ChiefComplaintEqualFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEqualFold(FieldChiefComplaint, v))
 }
 
-// AgeGT applies the GT predicate on the "age" field.
-func AgeGT(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldAge, v))
+// ChiefComplaintContainsFold applies the ContainsFold predicate on the "chief_complaint" field.
+func ChiefComplaintContainsFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContainsFold(FieldChiefComplaint, v))
 }
 
-// AgeGTE applies the GTE predicate on the "age" field.
-func AgeGTE(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldAge, v))
+// PresentIllnessEQ applies the EQ predicate on the "present_illness" field.
+func PresentIllnessEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldPresentIllness, v))
 }
 
-// AgeLT applies the LT predicate on the "age" field.
-func AgeLT(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldAge, v))
+// PresentIllnessNEQ applies the NEQ predicate on the "present_illness" field.
+func PresentIllnessNEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldPresentIllness, v))
 }
 
-// AgeLTE applies the LTE predicate on the "age" field.
-func AgeLTE(v int32) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldAge, v))
+// PresentIllnessIn applies the In predicate on the "present_illness" field.
+func PresentIllnessIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldPresentIllness, vs...))
 }
 
-// AgeIsNil applies the IsNil predicate on the "age" field.
-func AgeIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldAge))
+// PresentIllnessNotIn applies the NotIn predicate on the "present_illness" field.
+func PresentIllnessNotIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldPresentIllness, vs...))
 }
 
-// AgeNotNil applies the NotNil predicate on the "age" field.
-func AgeNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldAge))
+// PresentIllnessGT applies the GT predicate on the "present_illness" field.
+func PresentIllnessGT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldPresentIllness, v))
 }
 
-// VisitTimeEQ applies the EQ predicate on the "visit_time" field.
-func VisitTimeEQ(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldVisitTime, v))
+// PresentIllnessGTE applies the GTE predicate on the "present_illness" field.
+func PresentIllnessGTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldPresentIllness, v))
 }
 
-// VisitTimeNEQ applies the NEQ predicate on the "visit_time" field.
-func VisitTimeNEQ(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldVisitTime, v))
+// PresentIllnessLT applies the LT predicate on the "present_illness" field.
+func PresentIllnessLT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldPresentIllness, v))
 }
 
-// VisitTimeIn applies the In predicate on the "visit_time" field.
-func VisitTimeIn(vs ...int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldVisitTime, vs...))
+// PresentIllnessLTE applies the LTE predicate on the "present_illness" field.
+func PresentIllnessLTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldPresentIllness, v))
 }
 
-// VisitTimeNotIn applies the NotIn predicate on the "visit_time" field.
-func VisitTimeNotIn(vs ...int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldVisitTime, vs...))
+// PresentIllnessContains applies the Contains predicate on the "present_illness" field.
+func PresentIllnessContains(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContains(FieldPresentIllness, v))
 }
 
-// VisitTimeGT applies the GT predicate on the "visit_time" field.
-func VisitTimeGT(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldVisitTime, v))
+// PresentIllnessHasPrefix applies the HasPrefix predicate on the "present_illness" field.
+func PresentIllnessHasPrefix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldPresentIllness, v))
 }
 
-// VisitTimeGTE applies the GTE predicate on the "visit_time" field.
-func VisitTimeGTE(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldVisitTime, v))
+// PresentIllnessHasSuffix applies the HasSuffix predicate on the "present_illness" field.
+func PresentIllnessHasSuffix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldPresentIllness, v))
 }
 
-// VisitTimeLT applies the LT predicate on the "visit_time" field.
-func VisitTimeLT(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldVisitTime, v))
+// PresentIllnessIsNil applies the IsNil predicate on the "present_illness" field.
+func PresentIllnessIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldPresentIllness))
 }
 
-// VisitTimeLTE applies the LTE predicate on the "visit_time" field.
-func VisitTimeLTE(v int64) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldVisitTime, v))
+// PresentIllnessNotNil applies the NotNil predicate on the "present_illness" field.
+func PresentIllnessNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldPresentIllness))
 }
 
-// VisitTimeIsNil applies the IsNil predicate on the "visit_time" field.
-func VisitTimeIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldVisitTime))
+// PresentIllnessEqualFold applies the EqualFold predicate on the "present_illness" field.
+func PresentIllnessEqualFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEqualFold(FieldPresentIllness, v))
 }
 
-// VisitTimeNotNil applies the NotNil predicate on the "visit_time" field.
-func VisitTimeNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldVisitTime))
+// PresentIllnessContainsFold applies the ContainsFold predicate on the "present_illness" field.
+func PresentIllnessContainsFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContainsFold(FieldPresentIllness, v))
+}
+
+// PastHistoryEQ applies the EQ predicate on the "past_history" field.
+func PastHistoryEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldPastHistory, v))
+}
+
+// PastHistoryNEQ applies the NEQ predicate on the "past_history" field.
+func PastHistoryNEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldPastHistory, v))
+}
+
+// PastHistoryIn applies the In predicate on the "past_history" field.
+func PastHistoryIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldPastHistory, vs...))
+}
+
+// PastHistoryNotIn applies the NotIn predicate on the "past_history" field.
+func PastHistoryNotIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldPastHistory, vs...))
+}
+
+// PastHistoryGT applies the GT predicate on the "past_history" field.
+func PastHistoryGT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldPastHistory, v))
+}
+
+// PastHistoryGTE applies the GTE predicate on the "past_history" field.
+func PastHistoryGTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldPastHistory, v))
+}
+
+// PastHistoryLT applies the LT predicate on the "past_history" field.
+func PastHistoryLT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldPastHistory, v))
+}
+
+// PastHistoryLTE applies the LTE predicate on the "past_history" field.
+func PastHistoryLTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldPastHistory, v))
+}
+
+// PastHistoryContains applies the Contains predicate on the "past_history" field.
+func PastHistoryContains(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContains(FieldPastHistory, v))
+}
+
+// PastHistoryHasPrefix applies the HasPrefix predicate on the "past_history" field.
+func PastHistoryHasPrefix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldPastHistory, v))
+}
+
+// PastHistoryHasSuffix applies the HasSuffix predicate on the "past_history" field.
+func PastHistoryHasSuffix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldPastHistory, v))
+}
+
+// PastHistoryIsNil applies the IsNil predicate on the "past_history" field.
+func PastHistoryIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldPastHistory))
+}
+
+// PastHistoryNotNil applies the NotNil predicate on the "past_history" field.
+func PastHistoryNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldPastHistory))
+}
+
+// PastHistoryEqualFold applies the EqualFold predicate on the "past_history" field.
+func PastHistoryEqualFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEqualFold(FieldPastHistory, v))
+}
+
+// PastHistoryContainsFold applies the ContainsFold predicate on the "past_history" field.
+func PastHistoryContainsFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContainsFold(FieldPastHistory, v))
+}
+
+// SmokingHistoryEQ applies the EQ predicate on the "smoking_history" field.
+func SmokingHistoryEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryNEQ applies the NEQ predicate on the "smoking_history" field.
+func SmokingHistoryNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryIn applies the In predicate on the "smoking_history" field.
+func SmokingHistoryIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldSmokingHistory, vs...))
+}
+
+// SmokingHistoryNotIn applies the NotIn predicate on the "smoking_history" field.
+func SmokingHistoryNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldSmokingHistory, vs...))
+}
+
+// SmokingHistoryGT applies the GT predicate on the "smoking_history" field.
+func SmokingHistoryGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryGTE applies the GTE predicate on the "smoking_history" field.
+func SmokingHistoryGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryLT applies the LT predicate on the "smoking_history" field.
+func SmokingHistoryLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryLTE applies the LTE predicate on the "smoking_history" field.
+func SmokingHistoryLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldSmokingHistory, v))
+}
+
+// SmokingHistoryIsNil applies the IsNil predicate on the "smoking_history" field.
+func SmokingHistoryIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldSmokingHistory))
+}
+
+// SmokingHistoryNotNil applies the NotNil predicate on the "smoking_history" field.
+func SmokingHistoryNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldSmokingHistory))
+}
+
+// DrinkingHistoryEQ applies the EQ predicate on the "drinking_history" field.
+func DrinkingHistoryEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryNEQ applies the NEQ predicate on the "drinking_history" field.
+func DrinkingHistoryNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryIn applies the In predicate on the "drinking_history" field.
+func DrinkingHistoryIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldDrinkingHistory, vs...))
+}
+
+// DrinkingHistoryNotIn applies the NotIn predicate on the "drinking_history" field.
+func DrinkingHistoryNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldDrinkingHistory, vs...))
+}
+
+// DrinkingHistoryGT applies the GT predicate on the "drinking_history" field.
+func DrinkingHistoryGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryGTE applies the GTE predicate on the "drinking_history" field.
+func DrinkingHistoryGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryLT applies the LT predicate on the "drinking_history" field.
+func DrinkingHistoryLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryLTE applies the LTE predicate on the "drinking_history" field.
+func DrinkingHistoryLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldDrinkingHistory, v))
+}
+
+// DrinkingHistoryIsNil applies the IsNil predicate on the "drinking_history" field.
+func DrinkingHistoryIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldDrinkingHistory))
+}
+
+// DrinkingHistoryNotNil applies the NotNil predicate on the "drinking_history" field.
+func DrinkingHistoryNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldDrinkingHistory))
+}
+
+// AllergyHistoryEQ applies the EQ predicate on the "allergy_history" field.
+func AllergyHistoryEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryNEQ applies the NEQ predicate on the "allergy_history" field.
+func AllergyHistoryNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryIn applies the In predicate on the "allergy_history" field.
+func AllergyHistoryIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldAllergyHistory, vs...))
+}
+
+// AllergyHistoryNotIn applies the NotIn predicate on the "allergy_history" field.
+func AllergyHistoryNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldAllergyHistory, vs...))
+}
+
+// AllergyHistoryGT applies the GT predicate on the "allergy_history" field.
+func AllergyHistoryGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryGTE applies the GTE predicate on the "allergy_history" field.
+func AllergyHistoryGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryLT applies the LT predicate on the "allergy_history" field.
+func AllergyHistoryLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryLTE applies the LTE predicate on the "allergy_history" field.
+func AllergyHistoryLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldAllergyHistory, v))
+}
+
+// AllergyHistoryIsNil applies the IsNil predicate on the "allergy_history" field.
+func AllergyHistoryIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldAllergyHistory))
+}
+
+// AllergyHistoryNotNil applies the NotNil predicate on the "allergy_history" field.
+func AllergyHistoryNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldAllergyHistory))
+}
+
+// HeartRateEQ applies the EQ predicate on the "heart_rate" field.
+func HeartRateEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldHeartRate, v))
+}
+
+// HeartRateNEQ applies the NEQ predicate on the "heart_rate" field.
+func HeartRateNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldHeartRate, v))
+}
+
+// HeartRateIn applies the In predicate on the "heart_rate" field.
+func HeartRateIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldHeartRate, vs...))
+}
+
+// HeartRateNotIn applies the NotIn predicate on the "heart_rate" field.
+func HeartRateNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldHeartRate, vs...))
+}
+
+// HeartRateGT applies the GT predicate on the "heart_rate" field.
+func HeartRateGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldHeartRate, v))
+}
+
+// HeartRateGTE applies the GTE predicate on the "heart_rate" field.
+func HeartRateGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldHeartRate, v))
+}
+
+// HeartRateLT applies the LT predicate on the "heart_rate" field.
+func HeartRateLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldHeartRate, v))
+}
+
+// HeartRateLTE applies the LTE predicate on the "heart_rate" field.
+func HeartRateLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldHeartRate, v))
+}
+
+// HeartRateIsNil applies the IsNil predicate on the "heart_rate" field.
+func HeartRateIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldHeartRate))
+}
+
+// HeartRateNotNil applies the NotNil predicate on the "heart_rate" field.
+func HeartRateNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldHeartRate))
+}
+
+// BloodPressureEQ applies the EQ predicate on the "blood_pressure" field.
+func BloodPressureEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBloodPressure, v))
+}
+
+// BloodPressureNEQ applies the NEQ predicate on the "blood_pressure" field.
+func BloodPressureNEQ(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldBloodPressure, v))
+}
+
+// BloodPressureIn applies the In predicate on the "blood_pressure" field.
+func BloodPressureIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldBloodPressure, vs...))
+}
+
+// BloodPressureNotIn applies the NotIn predicate on the "blood_pressure" field.
+func BloodPressureNotIn(vs ...string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldBloodPressure, vs...))
+}
+
+// BloodPressureGT applies the GT predicate on the "blood_pressure" field.
+func BloodPressureGT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldBloodPressure, v))
+}
+
+// BloodPressureGTE applies the GTE predicate on the "blood_pressure" field.
+func BloodPressureGTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldBloodPressure, v))
+}
+
+// BloodPressureLT applies the LT predicate on the "blood_pressure" field.
+func BloodPressureLT(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldBloodPressure, v))
+}
+
+// BloodPressureLTE applies the LTE predicate on the "blood_pressure" field.
+func BloodPressureLTE(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldBloodPressure, v))
+}
+
+// BloodPressureContains applies the Contains predicate on the "blood_pressure" field.
+func BloodPressureContains(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContains(FieldBloodPressure, v))
+}
+
+// BloodPressureHasPrefix applies the HasPrefix predicate on the "blood_pressure" field.
+func BloodPressureHasPrefix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldBloodPressure, v))
+}
+
+// BloodPressureHasSuffix applies the HasSuffix predicate on the "blood_pressure" field.
+func BloodPressureHasSuffix(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldBloodPressure, v))
+}
+
+// BloodPressureIsNil applies the IsNil predicate on the "blood_pressure" field.
+func BloodPressureIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldBloodPressure))
+}
+
+// BloodPressureNotNil applies the NotNil predicate on the "blood_pressure" field.
+func BloodPressureNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldBloodPressure))
+}
+
+// BloodPressureEqualFold applies the EqualFold predicate on the "blood_pressure" field.
+func BloodPressureEqualFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEqualFold(FieldBloodPressure, v))
+}
+
+// BloodPressureContainsFold applies the ContainsFold predicate on the "blood_pressure" field.
+func BloodPressureContainsFold(v string) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldContainsFold(FieldBloodPressure, v))
+}
+
+// OxygenSaturationEQ applies the EQ predicate on the "oxygen_saturation" field.
+func OxygenSaturationEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationNEQ applies the NEQ predicate on the "oxygen_saturation" field.
+func OxygenSaturationNEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationIn applies the In predicate on the "oxygen_saturation" field.
+func OxygenSaturationIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldOxygenSaturation, vs...))
+}
+
+// OxygenSaturationNotIn applies the NotIn predicate on the "oxygen_saturation" field.
+func OxygenSaturationNotIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldOxygenSaturation, vs...))
+}
+
+// OxygenSaturationGT applies the GT predicate on the "oxygen_saturation" field.
+func OxygenSaturationGT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationGTE applies the GTE predicate on the "oxygen_saturation" field.
+func OxygenSaturationGTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationLT applies the LT predicate on the "oxygen_saturation" field.
+func OxygenSaturationLT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationLTE applies the LTE predicate on the "oxygen_saturation" field.
+func OxygenSaturationLTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldOxygenSaturation, v))
+}
+
+// OxygenSaturationIsNil applies the IsNil predicate on the "oxygen_saturation" field.
+func OxygenSaturationIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldOxygenSaturation))
+}
+
+// OxygenSaturationNotNil applies the NotNil predicate on the "oxygen_saturation" field.
+func OxygenSaturationNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldOxygenSaturation))
+}
+
+// BloodGlucoseEQ applies the EQ predicate on the "blood_glucose" field.
+func BloodGlucoseEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseNEQ applies the NEQ predicate on the "blood_glucose" field.
+func BloodGlucoseNEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseIn applies the In predicate on the "blood_glucose" field.
+func BloodGlucoseIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldBloodGlucose, vs...))
+}
+
+// BloodGlucoseNotIn applies the NotIn predicate on the "blood_glucose" field.
+func BloodGlucoseNotIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldBloodGlucose, vs...))
+}
+
+// BloodGlucoseGT applies the GT predicate on the "blood_glucose" field.
+func BloodGlucoseGT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseGTE applies the GTE predicate on the "blood_glucose" field.
+func BloodGlucoseGTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseLT applies the LT predicate on the "blood_glucose" field.
+func BloodGlucoseLT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseLTE applies the LTE predicate on the "blood_glucose" field.
+func BloodGlucoseLTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldBloodGlucose, v))
+}
+
+// BloodGlucoseIsNil applies the IsNil predicate on the "blood_glucose" field.
+func BloodGlucoseIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldBloodGlucose))
+}
+
+// BloodGlucoseNotNil applies the NotNil predicate on the "blood_glucose" field.
+func BloodGlucoseNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldBloodGlucose))
+}
+
+// WeightEQ applies the EQ predicate on the "weight" field.
+func WeightEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldWeight, v))
+}
+
+// WeightNEQ applies the NEQ predicate on the "weight" field.
+func WeightNEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldWeight, v))
+}
+
+// WeightIn applies the In predicate on the "weight" field.
+func WeightIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldWeight, vs...))
+}
+
+// WeightNotIn applies the NotIn predicate on the "weight" field.
+func WeightNotIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldWeight, vs...))
+}
+
+// WeightGT applies the GT predicate on the "weight" field.
+func WeightGT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldWeight, v))
+}
+
+// WeightGTE applies the GTE predicate on the "weight" field.
+func WeightGTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldWeight, v))
+}
+
+// WeightLT applies the LT predicate on the "weight" field.
+func WeightLT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldWeight, v))
+}
+
+// WeightLTE applies the LTE predicate on the "weight" field.
+func WeightLTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldWeight, v))
+}
+
+// WeightIsNil applies the IsNil predicate on the "weight" field.
+func WeightIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldWeight))
+}
+
+// WeightNotNil applies the NotNil predicate on the "weight" field.
+func WeightNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldWeight))
+}
+
+// WaistCircumferenceEQ applies the EQ predicate on the "waist_circumference" field.
+func WaistCircumferenceEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceNEQ applies the NEQ predicate on the "waist_circumference" field.
+func WaistCircumferenceNEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceIn applies the In predicate on the "waist_circumference" field.
+func WaistCircumferenceIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldWaistCircumference, vs...))
+}
+
+// WaistCircumferenceNotIn applies the NotIn predicate on the "waist_circumference" field.
+func WaistCircumferenceNotIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldWaistCircumference, vs...))
+}
+
+// WaistCircumferenceGT applies the GT predicate on the "waist_circumference" field.
+func WaistCircumferenceGT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceGTE applies the GTE predicate on the "waist_circumference" field.
+func WaistCircumferenceGTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceLT applies the LT predicate on the "waist_circumference" field.
+func WaistCircumferenceLT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceLTE applies the LTE predicate on the "waist_circumference" field.
+func WaistCircumferenceLTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldWaistCircumference, v))
+}
+
+// WaistCircumferenceIsNil applies the IsNil predicate on the "waist_circumference" field.
+func WaistCircumferenceIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldWaistCircumference))
+}
+
+// WaistCircumferenceNotNil applies the NotNil predicate on the "waist_circumference" field.
+func WaistCircumferenceNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldWaistCircumference))
+}
+
+// BodyFatEQ applies the EQ predicate on the "body_fat" field.
+func BodyFatEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldBodyFat, v))
+}
+
+// BodyFatNEQ applies the NEQ predicate on the "body_fat" field.
+func BodyFatNEQ(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldBodyFat, v))
+}
+
+// BodyFatIn applies the In predicate on the "body_fat" field.
+func BodyFatIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldBodyFat, vs...))
+}
+
+// BodyFatNotIn applies the NotIn predicate on the "body_fat" field.
+func BodyFatNotIn(vs ...float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldBodyFat, vs...))
+}
+
+// BodyFatGT applies the GT predicate on the "body_fat" field.
+func BodyFatGT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldBodyFat, v))
+}
+
+// BodyFatGTE applies the GTE predicate on the "body_fat" field.
+func BodyFatGTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldBodyFat, v))
+}
+
+// BodyFatLT applies the LT predicate on the "body_fat" field.
+func BodyFatLT(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldBodyFat, v))
+}
+
+// BodyFatLTE applies the LTE predicate on the "body_fat" field.
+func BodyFatLTE(v float64) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldBodyFat, v))
+}
+
+// BodyFatIsNil applies the IsNil predicate on the "body_fat" field.
+func BodyFatIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldBodyFat))
+}
+
+// BodyFatNotNil applies the NotNil predicate on the "body_fat" field.
+func BodyFatNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldBodyFat))
 }
 
 // DiagnosisEQ applies the EQ predicate on the "diagnosis" field.
@@ -595,6 +1390,156 @@ func DiagnosisContainsFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldContainsFold(FieldDiagnosis, v))
 }
 
+// DietTherapyEQ applies the EQ predicate on the "diet_therapy" field.
+func DietTherapyEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldDietTherapy, v))
+}
+
+// DietTherapyNEQ applies the NEQ predicate on the "diet_therapy" field.
+func DietTherapyNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldDietTherapy, v))
+}
+
+// DietTherapyIn applies the In predicate on the "diet_therapy" field.
+func DietTherapyIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldDietTherapy, vs...))
+}
+
+// DietTherapyNotIn applies the NotIn predicate on the "diet_therapy" field.
+func DietTherapyNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldDietTherapy, vs...))
+}
+
+// DietTherapyGT applies the GT predicate on the "diet_therapy" field.
+func DietTherapyGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldDietTherapy, v))
+}
+
+// DietTherapyGTE applies the GTE predicate on the "diet_therapy" field.
+func DietTherapyGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldDietTherapy, v))
+}
+
+// DietTherapyLT applies the LT predicate on the "diet_therapy" field.
+func DietTherapyLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldDietTherapy, v))
+}
+
+// DietTherapyLTE applies the LTE predicate on the "diet_therapy" field.
+func DietTherapyLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldDietTherapy, v))
+}
+
+// DietTherapyIsNil applies the IsNil predicate on the "diet_therapy" field.
+func DietTherapyIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldDietTherapy))
+}
+
+// DietTherapyNotNil applies the NotNil predicate on the "diet_therapy" field.
+func DietTherapyNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldDietTherapy))
+}
+
+// ExerciseTherapyEQ applies the EQ predicate on the "exercise_therapy" field.
+func ExerciseTherapyEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyNEQ applies the NEQ predicate on the "exercise_therapy" field.
+func ExerciseTherapyNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyIn applies the In predicate on the "exercise_therapy" field.
+func ExerciseTherapyIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldExerciseTherapy, vs...))
+}
+
+// ExerciseTherapyNotIn applies the NotIn predicate on the "exercise_therapy" field.
+func ExerciseTherapyNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldExerciseTherapy, vs...))
+}
+
+// ExerciseTherapyGT applies the GT predicate on the "exercise_therapy" field.
+func ExerciseTherapyGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyGTE applies the GTE predicate on the "exercise_therapy" field.
+func ExerciseTherapyGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyLT applies the LT predicate on the "exercise_therapy" field.
+func ExerciseTherapyLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyLTE applies the LTE predicate on the "exercise_therapy" field.
+func ExerciseTherapyLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldExerciseTherapy, v))
+}
+
+// ExerciseTherapyIsNil applies the IsNil predicate on the "exercise_therapy" field.
+func ExerciseTherapyIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldExerciseTherapy))
+}
+
+// ExerciseTherapyNotNil applies the NotNil predicate on the "exercise_therapy" field.
+func ExerciseTherapyNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldExerciseTherapy))
+}
+
+// MedicationTherapyEQ applies the EQ predicate on the "medication_therapy" field.
+func MedicationTherapyEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldEQ(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyNEQ applies the NEQ predicate on the "medication_therapy" field.
+func MedicationTherapyNEQ(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNEQ(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyIn applies the In predicate on the "medication_therapy" field.
+func MedicationTherapyIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIn(FieldMedicationTherapy, vs...))
+}
+
+// MedicationTherapyNotIn applies the NotIn predicate on the "medication_therapy" field.
+func MedicationTherapyNotIn(vs ...int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotIn(FieldMedicationTherapy, vs...))
+}
+
+// MedicationTherapyGT applies the GT predicate on the "medication_therapy" field.
+func MedicationTherapyGT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGT(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyGTE applies the GTE predicate on the "medication_therapy" field.
+func MedicationTherapyGTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldGTE(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyLT applies the LT predicate on the "medication_therapy" field.
+func MedicationTherapyLT(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLT(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyLTE applies the LTE predicate on the "medication_therapy" field.
+func MedicationTherapyLTE(v int32) predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldLTE(FieldMedicationTherapy, v))
+}
+
+// MedicationTherapyIsNil applies the IsNil predicate on the "medication_therapy" field.
+func MedicationTherapyIsNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldIsNull(FieldMedicationTherapy))
+}
+
+// MedicationTherapyNotNil applies the NotNil predicate on the "medication_therapy" field.
+func MedicationTherapyNotNil() predicate.MedicalRecord {
+	return predicate.MedicalRecord(sql.FieldNotNull(FieldMedicationTherapy))
+}
+
 // TreatmentPlanEQ applies the EQ predicate on the "treatment_plan" field.
 func TreatmentPlanEQ(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldTreatmentPlan, v))
@@ -670,231 +1615,6 @@ func TreatmentPlanContainsFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldContainsFold(FieldTreatmentPlan, v))
 }
 
-// PrescriptionEQ applies the EQ predicate on the "prescription" field.
-func PrescriptionEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldPrescription, v))
-}
-
-// PrescriptionNEQ applies the NEQ predicate on the "prescription" field.
-func PrescriptionNEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldPrescription, v))
-}
-
-// PrescriptionIn applies the In predicate on the "prescription" field.
-func PrescriptionIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldPrescription, vs...))
-}
-
-// PrescriptionNotIn applies the NotIn predicate on the "prescription" field.
-func PrescriptionNotIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldPrescription, vs...))
-}
-
-// PrescriptionGT applies the GT predicate on the "prescription" field.
-func PrescriptionGT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldPrescription, v))
-}
-
-// PrescriptionGTE applies the GTE predicate on the "prescription" field.
-func PrescriptionGTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldPrescription, v))
-}
-
-// PrescriptionLT applies the LT predicate on the "prescription" field.
-func PrescriptionLT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldPrescription, v))
-}
-
-// PrescriptionLTE applies the LTE predicate on the "prescription" field.
-func PrescriptionLTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldPrescription, v))
-}
-
-// PrescriptionContains applies the Contains predicate on the "prescription" field.
-func PrescriptionContains(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContains(FieldPrescription, v))
-}
-
-// PrescriptionHasPrefix applies the HasPrefix predicate on the "prescription" field.
-func PrescriptionHasPrefix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldPrescription, v))
-}
-
-// PrescriptionHasSuffix applies the HasSuffix predicate on the "prescription" field.
-func PrescriptionHasSuffix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldPrescription, v))
-}
-
-// PrescriptionIsNil applies the IsNil predicate on the "prescription" field.
-func PrescriptionIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldPrescription))
-}
-
-// PrescriptionNotNil applies the NotNil predicate on the "prescription" field.
-func PrescriptionNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldPrescription))
-}
-
-// PrescriptionEqualFold applies the EqualFold predicate on the "prescription" field.
-func PrescriptionEqualFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEqualFold(FieldPrescription, v))
-}
-
-// PrescriptionContainsFold applies the ContainsFold predicate on the "prescription" field.
-func PrescriptionContainsFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContainsFold(FieldPrescription, v))
-}
-
-// ExaminationResultsEQ applies the EQ predicate on the "examination_results" field.
-func ExaminationResultsEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldExaminationResults, v))
-}
-
-// ExaminationResultsNEQ applies the NEQ predicate on the "examination_results" field.
-func ExaminationResultsNEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldExaminationResults, v))
-}
-
-// ExaminationResultsIn applies the In predicate on the "examination_results" field.
-func ExaminationResultsIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldExaminationResults, vs...))
-}
-
-// ExaminationResultsNotIn applies the NotIn predicate on the "examination_results" field.
-func ExaminationResultsNotIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldExaminationResults, vs...))
-}
-
-// ExaminationResultsGT applies the GT predicate on the "examination_results" field.
-func ExaminationResultsGT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldExaminationResults, v))
-}
-
-// ExaminationResultsGTE applies the GTE predicate on the "examination_results" field.
-func ExaminationResultsGTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldExaminationResults, v))
-}
-
-// ExaminationResultsLT applies the LT predicate on the "examination_results" field.
-func ExaminationResultsLT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldExaminationResults, v))
-}
-
-// ExaminationResultsLTE applies the LTE predicate on the "examination_results" field.
-func ExaminationResultsLTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldExaminationResults, v))
-}
-
-// ExaminationResultsContains applies the Contains predicate on the "examination_results" field.
-func ExaminationResultsContains(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContains(FieldExaminationResults, v))
-}
-
-// ExaminationResultsHasPrefix applies the HasPrefix predicate on the "examination_results" field.
-func ExaminationResultsHasPrefix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldExaminationResults, v))
-}
-
-// ExaminationResultsHasSuffix applies the HasSuffix predicate on the "examination_results" field.
-func ExaminationResultsHasSuffix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldExaminationResults, v))
-}
-
-// ExaminationResultsIsNil applies the IsNil predicate on the "examination_results" field.
-func ExaminationResultsIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldExaminationResults))
-}
-
-// ExaminationResultsNotNil applies the NotNil predicate on the "examination_results" field.
-func ExaminationResultsNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldExaminationResults))
-}
-
-// ExaminationResultsEqualFold applies the EqualFold predicate on the "examination_results" field.
-func ExaminationResultsEqualFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEqualFold(FieldExaminationResults, v))
-}
-
-// ExaminationResultsContainsFold applies the ContainsFold predicate on the "examination_results" field.
-func ExaminationResultsContainsFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContainsFold(FieldExaminationResults, v))
-}
-
-// DoctorAdviceEQ applies the EQ predicate on the "doctor_advice" field.
-func DoctorAdviceEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceNEQ applies the NEQ predicate on the "doctor_advice" field.
-func DoctorAdviceNEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceIn applies the In predicate on the "doctor_advice" field.
-func DoctorAdviceIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldDoctorAdvice, vs...))
-}
-
-// DoctorAdviceNotIn applies the NotIn predicate on the "doctor_advice" field.
-func DoctorAdviceNotIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldDoctorAdvice, vs...))
-}
-
-// DoctorAdviceGT applies the GT predicate on the "doctor_advice" field.
-func DoctorAdviceGT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceGTE applies the GTE predicate on the "doctor_advice" field.
-func DoctorAdviceGTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceLT applies the LT predicate on the "doctor_advice" field.
-func DoctorAdviceLT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceLTE applies the LTE predicate on the "doctor_advice" field.
-func DoctorAdviceLTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceContains applies the Contains predicate on the "doctor_advice" field.
-func DoctorAdviceContains(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContains(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceHasPrefix applies the HasPrefix predicate on the "doctor_advice" field.
-func DoctorAdviceHasPrefix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceHasSuffix applies the HasSuffix predicate on the "doctor_advice" field.
-func DoctorAdviceHasSuffix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceIsNil applies the IsNil predicate on the "doctor_advice" field.
-func DoctorAdviceIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldDoctorAdvice))
-}
-
-// DoctorAdviceNotNil applies the NotNil predicate on the "doctor_advice" field.
-func DoctorAdviceNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldDoctorAdvice))
-}
-
-// DoctorAdviceEqualFold applies the EqualFold predicate on the "doctor_advice" field.
-func DoctorAdviceEqualFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEqualFold(FieldDoctorAdvice, v))
-}
-
-// DoctorAdviceContainsFold applies the ContainsFold predicate on the "doctor_advice" field.
-func DoctorAdviceContainsFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContainsFold(FieldDoctorAdvice, v))
-}
-
 // DoctorIDEQ applies the EQ predicate on the "doctor_id" field.
 func DoctorIDEQ(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldEQ(FieldDoctorID, v))
@@ -968,81 +1688,6 @@ func DoctorIDEqualFold(v string) predicate.MedicalRecord {
 // DoctorIDContainsFold applies the ContainsFold predicate on the "doctor_id" field.
 func DoctorIDContainsFold(v string) predicate.MedicalRecord {
 	return predicate.MedicalRecord(sql.FieldContainsFold(FieldDoctorID, v))
-}
-
-// DepartmentEQ applies the EQ predicate on the "department" field.
-func DepartmentEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEQ(FieldDepartment, v))
-}
-
-// DepartmentNEQ applies the NEQ predicate on the "department" field.
-func DepartmentNEQ(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNEQ(FieldDepartment, v))
-}
-
-// DepartmentIn applies the In predicate on the "department" field.
-func DepartmentIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIn(FieldDepartment, vs...))
-}
-
-// DepartmentNotIn applies the NotIn predicate on the "department" field.
-func DepartmentNotIn(vs ...string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotIn(FieldDepartment, vs...))
-}
-
-// DepartmentGT applies the GT predicate on the "department" field.
-func DepartmentGT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGT(FieldDepartment, v))
-}
-
-// DepartmentGTE applies the GTE predicate on the "department" field.
-func DepartmentGTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldGTE(FieldDepartment, v))
-}
-
-// DepartmentLT applies the LT predicate on the "department" field.
-func DepartmentLT(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLT(FieldDepartment, v))
-}
-
-// DepartmentLTE applies the LTE predicate on the "department" field.
-func DepartmentLTE(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldLTE(FieldDepartment, v))
-}
-
-// DepartmentContains applies the Contains predicate on the "department" field.
-func DepartmentContains(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContains(FieldDepartment, v))
-}
-
-// DepartmentHasPrefix applies the HasPrefix predicate on the "department" field.
-func DepartmentHasPrefix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasPrefix(FieldDepartment, v))
-}
-
-// DepartmentHasSuffix applies the HasSuffix predicate on the "department" field.
-func DepartmentHasSuffix(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldHasSuffix(FieldDepartment, v))
-}
-
-// DepartmentIsNil applies the IsNil predicate on the "department" field.
-func DepartmentIsNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldIsNull(FieldDepartment))
-}
-
-// DepartmentNotNil applies the NotNil predicate on the "department" field.
-func DepartmentNotNil() predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldNotNull(FieldDepartment))
-}
-
-// DepartmentEqualFold applies the EqualFold predicate on the "department" field.
-func DepartmentEqualFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldEqualFold(FieldDepartment, v))
-}
-
-// DepartmentContainsFold applies the ContainsFold predicate on the "department" field.
-func DepartmentContainsFold(v string) predicate.MedicalRecord {
-	return predicate.MedicalRecord(sql.FieldContainsFold(FieldDepartment, v))
 }
 
 // AppointmentIDEQ applies the EQ predicate on the "appointment_id" field.

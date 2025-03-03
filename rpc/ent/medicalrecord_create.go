@@ -55,10 +55,28 @@ func (mrc *MedicalRecordCreate) SetPatientName(s string) *MedicalRecordCreate {
 	return mrc
 }
 
-// SetNillablePatientName sets the "patient_name" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillablePatientName(s *string) *MedicalRecordCreate {
+// SetGender sets the "gender" field.
+func (mrc *MedicalRecordCreate) SetGender(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetGender(i)
+	return mrc
+}
+
+// SetAge sets the "age" field.
+func (mrc *MedicalRecordCreate) SetAge(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetAge(i)
+	return mrc
+}
+
+// SetIDCardNumber sets the "id_card_number" field.
+func (mrc *MedicalRecordCreate) SetIDCardNumber(s string) *MedicalRecordCreate {
+	mrc.mutation.SetIDCardNumber(s)
+	return mrc
+}
+
+// SetNillableIDCardNumber sets the "id_card_number" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableIDCardNumber(s *string) *MedicalRecordCreate {
 	if s != nil {
-		mrc.SetPatientName(*s)
+		mrc.SetIDCardNumber(*s)
 	}
 	return mrc
 }
@@ -69,52 +87,184 @@ func (mrc *MedicalRecordCreate) SetPhoneNumber(s string) *MedicalRecordCreate {
 	return mrc
 }
 
-// SetNillablePhoneNumber sets the "phone_number" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillablePhoneNumber(s *string) *MedicalRecordCreate {
+// SetChiefComplaint sets the "chief_complaint" field.
+func (mrc *MedicalRecordCreate) SetChiefComplaint(s string) *MedicalRecordCreate {
+	mrc.mutation.SetChiefComplaint(s)
+	return mrc
+}
+
+// SetNillableChiefComplaint sets the "chief_complaint" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableChiefComplaint(s *string) *MedicalRecordCreate {
 	if s != nil {
-		mrc.SetPhoneNumber(*s)
+		mrc.SetChiefComplaint(*s)
 	}
 	return mrc
 }
 
-// SetGender sets the "gender" field.
-func (mrc *MedicalRecordCreate) SetGender(i int32) *MedicalRecordCreate {
-	mrc.mutation.SetGender(i)
+// SetPresentIllness sets the "present_illness" field.
+func (mrc *MedicalRecordCreate) SetPresentIllness(s string) *MedicalRecordCreate {
+	mrc.mutation.SetPresentIllness(s)
 	return mrc
 }
 
-// SetNillableGender sets the "gender" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableGender(i *int32) *MedicalRecordCreate {
-	if i != nil {
-		mrc.SetGender(*i)
+// SetNillablePresentIllness sets the "present_illness" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillablePresentIllness(s *string) *MedicalRecordCreate {
+	if s != nil {
+		mrc.SetPresentIllness(*s)
 	}
 	return mrc
 }
 
-// SetAge sets the "age" field.
-func (mrc *MedicalRecordCreate) SetAge(i int32) *MedicalRecordCreate {
-	mrc.mutation.SetAge(i)
+// SetPastHistory sets the "past_history" field.
+func (mrc *MedicalRecordCreate) SetPastHistory(s string) *MedicalRecordCreate {
+	mrc.mutation.SetPastHistory(s)
 	return mrc
 }
 
-// SetNillableAge sets the "age" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableAge(i *int32) *MedicalRecordCreate {
-	if i != nil {
-		mrc.SetAge(*i)
+// SetNillablePastHistory sets the "past_history" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillablePastHistory(s *string) *MedicalRecordCreate {
+	if s != nil {
+		mrc.SetPastHistory(*s)
 	}
 	return mrc
 }
 
-// SetVisitTime sets the "visit_time" field.
-func (mrc *MedicalRecordCreate) SetVisitTime(i int64) *MedicalRecordCreate {
-	mrc.mutation.SetVisitTime(i)
+// SetSmokingHistory sets the "smoking_history" field.
+func (mrc *MedicalRecordCreate) SetSmokingHistory(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetSmokingHistory(i)
 	return mrc
 }
 
-// SetNillableVisitTime sets the "visit_time" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableVisitTime(i *int64) *MedicalRecordCreate {
+// SetNillableSmokingHistory sets the "smoking_history" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableSmokingHistory(i *int32) *MedicalRecordCreate {
 	if i != nil {
-		mrc.SetVisitTime(*i)
+		mrc.SetSmokingHistory(*i)
+	}
+	return mrc
+}
+
+// SetDrinkingHistory sets the "drinking_history" field.
+func (mrc *MedicalRecordCreate) SetDrinkingHistory(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetDrinkingHistory(i)
+	return mrc
+}
+
+// SetNillableDrinkingHistory sets the "drinking_history" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableDrinkingHistory(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetDrinkingHistory(*i)
+	}
+	return mrc
+}
+
+// SetAllergyHistory sets the "allergy_history" field.
+func (mrc *MedicalRecordCreate) SetAllergyHistory(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetAllergyHistory(i)
+	return mrc
+}
+
+// SetNillableAllergyHistory sets the "allergy_history" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableAllergyHistory(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetAllergyHistory(*i)
+	}
+	return mrc
+}
+
+// SetHeartRate sets the "heart_rate" field.
+func (mrc *MedicalRecordCreate) SetHeartRate(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetHeartRate(i)
+	return mrc
+}
+
+// SetNillableHeartRate sets the "heart_rate" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableHeartRate(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetHeartRate(*i)
+	}
+	return mrc
+}
+
+// SetBloodPressure sets the "blood_pressure" field.
+func (mrc *MedicalRecordCreate) SetBloodPressure(s string) *MedicalRecordCreate {
+	mrc.mutation.SetBloodPressure(s)
+	return mrc
+}
+
+// SetNillableBloodPressure sets the "blood_pressure" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableBloodPressure(s *string) *MedicalRecordCreate {
+	if s != nil {
+		mrc.SetBloodPressure(*s)
+	}
+	return mrc
+}
+
+// SetOxygenSaturation sets the "oxygen_saturation" field.
+func (mrc *MedicalRecordCreate) SetOxygenSaturation(f float64) *MedicalRecordCreate {
+	mrc.mutation.SetOxygenSaturation(f)
+	return mrc
+}
+
+// SetNillableOxygenSaturation sets the "oxygen_saturation" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableOxygenSaturation(f *float64) *MedicalRecordCreate {
+	if f != nil {
+		mrc.SetOxygenSaturation(*f)
+	}
+	return mrc
+}
+
+// SetBloodGlucose sets the "blood_glucose" field.
+func (mrc *MedicalRecordCreate) SetBloodGlucose(f float64) *MedicalRecordCreate {
+	mrc.mutation.SetBloodGlucose(f)
+	return mrc
+}
+
+// SetNillableBloodGlucose sets the "blood_glucose" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableBloodGlucose(f *float64) *MedicalRecordCreate {
+	if f != nil {
+		mrc.SetBloodGlucose(*f)
+	}
+	return mrc
+}
+
+// SetWeight sets the "weight" field.
+func (mrc *MedicalRecordCreate) SetWeight(f float64) *MedicalRecordCreate {
+	mrc.mutation.SetWeight(f)
+	return mrc
+}
+
+// SetNillableWeight sets the "weight" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableWeight(f *float64) *MedicalRecordCreate {
+	if f != nil {
+		mrc.SetWeight(*f)
+	}
+	return mrc
+}
+
+// SetWaistCircumference sets the "waist_circumference" field.
+func (mrc *MedicalRecordCreate) SetWaistCircumference(f float64) *MedicalRecordCreate {
+	mrc.mutation.SetWaistCircumference(f)
+	return mrc
+}
+
+// SetNillableWaistCircumference sets the "waist_circumference" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableWaistCircumference(f *float64) *MedicalRecordCreate {
+	if f != nil {
+		mrc.SetWaistCircumference(*f)
+	}
+	return mrc
+}
+
+// SetBodyFat sets the "body_fat" field.
+func (mrc *MedicalRecordCreate) SetBodyFat(f float64) *MedicalRecordCreate {
+	mrc.mutation.SetBodyFat(f)
+	return mrc
+}
+
+// SetNillableBodyFat sets the "body_fat" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableBodyFat(f *float64) *MedicalRecordCreate {
+	if f != nil {
+		mrc.SetBodyFat(*f)
 	}
 	return mrc
 }
@@ -133,6 +283,48 @@ func (mrc *MedicalRecordCreate) SetNillableDiagnosis(s *string) *MedicalRecordCr
 	return mrc
 }
 
+// SetDietTherapy sets the "diet_therapy" field.
+func (mrc *MedicalRecordCreate) SetDietTherapy(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetDietTherapy(i)
+	return mrc
+}
+
+// SetNillableDietTherapy sets the "diet_therapy" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableDietTherapy(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetDietTherapy(*i)
+	}
+	return mrc
+}
+
+// SetExerciseTherapy sets the "exercise_therapy" field.
+func (mrc *MedicalRecordCreate) SetExerciseTherapy(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetExerciseTherapy(i)
+	return mrc
+}
+
+// SetNillableExerciseTherapy sets the "exercise_therapy" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableExerciseTherapy(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetExerciseTherapy(*i)
+	}
+	return mrc
+}
+
+// SetMedicationTherapy sets the "medication_therapy" field.
+func (mrc *MedicalRecordCreate) SetMedicationTherapy(i int32) *MedicalRecordCreate {
+	mrc.mutation.SetMedicationTherapy(i)
+	return mrc
+}
+
+// SetNillableMedicationTherapy sets the "medication_therapy" field if the given value is not nil.
+func (mrc *MedicalRecordCreate) SetNillableMedicationTherapy(i *int32) *MedicalRecordCreate {
+	if i != nil {
+		mrc.SetMedicationTherapy(*i)
+	}
+	return mrc
+}
+
 // SetTreatmentPlan sets the "treatment_plan" field.
 func (mrc *MedicalRecordCreate) SetTreatmentPlan(s string) *MedicalRecordCreate {
 	mrc.mutation.SetTreatmentPlan(s)
@@ -147,48 +339,6 @@ func (mrc *MedicalRecordCreate) SetNillableTreatmentPlan(s *string) *MedicalReco
 	return mrc
 }
 
-// SetPrescription sets the "prescription" field.
-func (mrc *MedicalRecordCreate) SetPrescription(s string) *MedicalRecordCreate {
-	mrc.mutation.SetPrescription(s)
-	return mrc
-}
-
-// SetNillablePrescription sets the "prescription" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillablePrescription(s *string) *MedicalRecordCreate {
-	if s != nil {
-		mrc.SetPrescription(*s)
-	}
-	return mrc
-}
-
-// SetExaminationResults sets the "examination_results" field.
-func (mrc *MedicalRecordCreate) SetExaminationResults(s string) *MedicalRecordCreate {
-	mrc.mutation.SetExaminationResults(s)
-	return mrc
-}
-
-// SetNillableExaminationResults sets the "examination_results" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableExaminationResults(s *string) *MedicalRecordCreate {
-	if s != nil {
-		mrc.SetExaminationResults(*s)
-	}
-	return mrc
-}
-
-// SetDoctorAdvice sets the "doctor_advice" field.
-func (mrc *MedicalRecordCreate) SetDoctorAdvice(s string) *MedicalRecordCreate {
-	mrc.mutation.SetDoctorAdvice(s)
-	return mrc
-}
-
-// SetNillableDoctorAdvice sets the "doctor_advice" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableDoctorAdvice(s *string) *MedicalRecordCreate {
-	if s != nil {
-		mrc.SetDoctorAdvice(*s)
-	}
-	return mrc
-}
-
 // SetDoctorID sets the "doctor_id" field.
 func (mrc *MedicalRecordCreate) SetDoctorID(s string) *MedicalRecordCreate {
 	mrc.mutation.SetDoctorID(s)
@@ -199,20 +349,6 @@ func (mrc *MedicalRecordCreate) SetDoctorID(s string) *MedicalRecordCreate {
 func (mrc *MedicalRecordCreate) SetNillableDoctorID(s *string) *MedicalRecordCreate {
 	if s != nil {
 		mrc.SetDoctorID(*s)
-	}
-	return mrc
-}
-
-// SetDepartment sets the "department" field.
-func (mrc *MedicalRecordCreate) SetDepartment(s string) *MedicalRecordCreate {
-	mrc.mutation.SetDepartment(s)
-	return mrc
-}
-
-// SetNillableDepartment sets the "department" field if the given value is not nil.
-func (mrc *MedicalRecordCreate) SetNillableDepartment(s *string) *MedicalRecordCreate {
-	if s != nil {
-		mrc.SetDepartment(*s)
 	}
 	return mrc
 }
@@ -316,6 +452,18 @@ func (mrc *MedicalRecordCreate) defaults() {
 		v := medicalrecord.DefaultUpdatedAt()
 		mrc.mutation.SetUpdatedAt(v)
 	}
+	if _, ok := mrc.mutation.SmokingHistory(); !ok {
+		v := medicalrecord.DefaultSmokingHistory
+		mrc.mutation.SetSmokingHistory(v)
+	}
+	if _, ok := mrc.mutation.DrinkingHistory(); !ok {
+		v := medicalrecord.DefaultDrinkingHistory
+		mrc.mutation.SetDrinkingHistory(v)
+	}
+	if _, ok := mrc.mutation.AllergyHistory(); !ok {
+		v := medicalrecord.DefaultAllergyHistory
+		mrc.mutation.SetAllergyHistory(v)
+	}
 	if _, ok := mrc.mutation.ID(); !ok {
 		v := medicalrecord.DefaultID()
 		mrc.mutation.SetID(v)
@@ -329,6 +477,18 @@ func (mrc *MedicalRecordCreate) check() error {
 	}
 	if _, ok := mrc.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "MedicalRecord.updated_at"`)}
+	}
+	if _, ok := mrc.mutation.PatientName(); !ok {
+		return &ValidationError{Name: "patient_name", err: errors.New(`ent: missing required field "MedicalRecord.patient_name"`)}
+	}
+	if _, ok := mrc.mutation.Gender(); !ok {
+		return &ValidationError{Name: "gender", err: errors.New(`ent: missing required field "MedicalRecord.gender"`)}
+	}
+	if _, ok := mrc.mutation.Age(); !ok {
+		return &ValidationError{Name: "age", err: errors.New(`ent: missing required field "MedicalRecord.age"`)}
+	}
+	if _, ok := mrc.mutation.PhoneNumber(); !ok {
+		return &ValidationError{Name: "phone_number", err: errors.New(`ent: missing required field "MedicalRecord.phone_number"`)}
 	}
 	return nil
 }
@@ -377,10 +537,6 @@ func (mrc *MedicalRecordCreate) createSpec() (*MedicalRecord, *sqlgraph.CreateSp
 		_spec.SetField(medicalrecord.FieldPatientName, field.TypeString, value)
 		_node.PatientName = value
 	}
-	if value, ok := mrc.mutation.PhoneNumber(); ok {
-		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
-		_node.PhoneNumber = value
-	}
 	if value, ok := mrc.mutation.Gender(); ok {
 		_spec.SetField(medicalrecord.FieldGender, field.TypeInt32, value)
 		_node.Gender = value
@@ -389,37 +545,89 @@ func (mrc *MedicalRecordCreate) createSpec() (*MedicalRecord, *sqlgraph.CreateSp
 		_spec.SetField(medicalrecord.FieldAge, field.TypeInt32, value)
 		_node.Age = value
 	}
-	if value, ok := mrc.mutation.VisitTime(); ok {
-		_spec.SetField(medicalrecord.FieldVisitTime, field.TypeInt64, value)
-		_node.VisitTime = value
+	if value, ok := mrc.mutation.IDCardNumber(); ok {
+		_spec.SetField(medicalrecord.FieldIDCardNumber, field.TypeString, value)
+		_node.IDCardNumber = value
+	}
+	if value, ok := mrc.mutation.PhoneNumber(); ok {
+		_spec.SetField(medicalrecord.FieldPhoneNumber, field.TypeString, value)
+		_node.PhoneNumber = value
+	}
+	if value, ok := mrc.mutation.ChiefComplaint(); ok {
+		_spec.SetField(medicalrecord.FieldChiefComplaint, field.TypeString, value)
+		_node.ChiefComplaint = value
+	}
+	if value, ok := mrc.mutation.PresentIllness(); ok {
+		_spec.SetField(medicalrecord.FieldPresentIllness, field.TypeString, value)
+		_node.PresentIllness = value
+	}
+	if value, ok := mrc.mutation.PastHistory(); ok {
+		_spec.SetField(medicalrecord.FieldPastHistory, field.TypeString, value)
+		_node.PastHistory = value
+	}
+	if value, ok := mrc.mutation.SmokingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldSmokingHistory, field.TypeInt32, value)
+		_node.SmokingHistory = value
+	}
+	if value, ok := mrc.mutation.DrinkingHistory(); ok {
+		_spec.SetField(medicalrecord.FieldDrinkingHistory, field.TypeInt32, value)
+		_node.DrinkingHistory = value
+	}
+	if value, ok := mrc.mutation.AllergyHistory(); ok {
+		_spec.SetField(medicalrecord.FieldAllergyHistory, field.TypeInt32, value)
+		_node.AllergyHistory = value
+	}
+	if value, ok := mrc.mutation.HeartRate(); ok {
+		_spec.SetField(medicalrecord.FieldHeartRate, field.TypeInt32, value)
+		_node.HeartRate = value
+	}
+	if value, ok := mrc.mutation.BloodPressure(); ok {
+		_spec.SetField(medicalrecord.FieldBloodPressure, field.TypeString, value)
+		_node.BloodPressure = value
+	}
+	if value, ok := mrc.mutation.OxygenSaturation(); ok {
+		_spec.SetField(medicalrecord.FieldOxygenSaturation, field.TypeFloat64, value)
+		_node.OxygenSaturation = value
+	}
+	if value, ok := mrc.mutation.BloodGlucose(); ok {
+		_spec.SetField(medicalrecord.FieldBloodGlucose, field.TypeFloat64, value)
+		_node.BloodGlucose = value
+	}
+	if value, ok := mrc.mutation.Weight(); ok {
+		_spec.SetField(medicalrecord.FieldWeight, field.TypeFloat64, value)
+		_node.Weight = value
+	}
+	if value, ok := mrc.mutation.WaistCircumference(); ok {
+		_spec.SetField(medicalrecord.FieldWaistCircumference, field.TypeFloat64, value)
+		_node.WaistCircumference = value
+	}
+	if value, ok := mrc.mutation.BodyFat(); ok {
+		_spec.SetField(medicalrecord.FieldBodyFat, field.TypeFloat64, value)
+		_node.BodyFat = value
 	}
 	if value, ok := mrc.mutation.Diagnosis(); ok {
 		_spec.SetField(medicalrecord.FieldDiagnosis, field.TypeString, value)
 		_node.Diagnosis = value
 	}
+	if value, ok := mrc.mutation.DietTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldDietTherapy, field.TypeInt32, value)
+		_node.DietTherapy = value
+	}
+	if value, ok := mrc.mutation.ExerciseTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldExerciseTherapy, field.TypeInt32, value)
+		_node.ExerciseTherapy = value
+	}
+	if value, ok := mrc.mutation.MedicationTherapy(); ok {
+		_spec.SetField(medicalrecord.FieldMedicationTherapy, field.TypeInt32, value)
+		_node.MedicationTherapy = value
+	}
 	if value, ok := mrc.mutation.TreatmentPlan(); ok {
 		_spec.SetField(medicalrecord.FieldTreatmentPlan, field.TypeString, value)
 		_node.TreatmentPlan = value
 	}
-	if value, ok := mrc.mutation.Prescription(); ok {
-		_spec.SetField(medicalrecord.FieldPrescription, field.TypeString, value)
-		_node.Prescription = value
-	}
-	if value, ok := mrc.mutation.ExaminationResults(); ok {
-		_spec.SetField(medicalrecord.FieldExaminationResults, field.TypeString, value)
-		_node.ExaminationResults = value
-	}
-	if value, ok := mrc.mutation.DoctorAdvice(); ok {
-		_spec.SetField(medicalrecord.FieldDoctorAdvice, field.TypeString, value)
-		_node.DoctorAdvice = value
-	}
 	if value, ok := mrc.mutation.DoctorID(); ok {
 		_spec.SetField(medicalrecord.FieldDoctorID, field.TypeString, value)
 		_node.DoctorID = value
-	}
-	if value, ok := mrc.mutation.Department(); ok {
-		_spec.SetField(medicalrecord.FieldDepartment, field.TypeString, value)
-		_node.Department = value
 	}
 	if value, ok := mrc.mutation.AppointmentID(); ok {
 		_spec.SetField(medicalrecord.FieldAppointmentID, field.TypeString, value)

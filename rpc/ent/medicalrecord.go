@@ -23,30 +23,54 @@ type MedicalRecord struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// Update Time | 修改日期
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// Patient name | 患者姓名
+	// Patient name | 姓名
 	PatientName string `json:"patient_name,omitempty"`
-	// Phone number | 联系电话
-	PhoneNumber string `json:"phone_number,omitempty"`
 	// Gender 1:male 2:female | 性别 1:男 2:女
 	Gender int32 `json:"gender,omitempty"`
 	// Age | 年龄
 	Age int32 `json:"age,omitempty"`
-	// Visit time | 就诊时间
-	VisitTime int64 `json:"visit_time,omitempty"`
+	// ID card number | 身份证号
+	IDCardNumber string `json:"id_card_number,omitempty"`
+	// Phone number | 电话
+	PhoneNumber string `json:"phone_number,omitempty"`
+	// Chief complaint | 主诉
+	ChiefComplaint string `json:"chief_complaint,omitempty"`
+	// Present illness history | 现病史
+	PresentIllness string `json:"present_illness,omitempty"`
+	// Past history | 既往史
+	PastHistory string `json:"past_history,omitempty"`
+	// Smoking history | 吸烟史: 1-无, 2-有, 3-一般, 4-多, 5-已戒
+	SmokingHistory int32 `json:"smoking_history,omitempty"`
+	// Drinking history | 饮酒史: 1-无, 2-有, 3-一般, 4-多, 5-已戒
+	DrinkingHistory int32 `json:"drinking_history,omitempty"`
+	// Allergy history | 过敏史: 1-无, 2-有
+	AllergyHistory int32 `json:"allergy_history,omitempty"`
+	// Heart rate (beats/min) | 心率(次/分)
+	HeartRate int32 `json:"heart_rate,omitempty"`
+	// Blood pressure (mmHg) | 血压(mmHg)
+	BloodPressure string `json:"blood_pressure,omitempty"`
+	// Oxygen saturation (%) | 指脉氧(%)
+	OxygenSaturation float64 `json:"oxygen_saturation,omitempty"`
+	// Blood glucose (mmol/L) | 血糖(mmol/L)
+	BloodGlucose float64 `json:"blood_glucose,omitempty"`
+	// Weight (kg) | 体重(kg)
+	Weight float64 `json:"weight,omitempty"`
+	// Waist circumference (cm) | 腰围(cm)
+	WaistCircumference float64 `json:"waist_circumference,omitempty"`
+	// Body fat percentage (%) | 体脂数(%)
+	BodyFat float64 `json:"body_fat,omitempty"`
 	// Diagnosis | 诊断
 	Diagnosis string `json:"diagnosis,omitempty"`
-	// Treatment plan | 治疗方案
+	// Diet therapy | 饮食治疗
+	DietTherapy int32 `json:"diet_therapy,omitempty"`
+	// Exercise therapy | 运动治疗
+	ExerciseTherapy int32 `json:"exercise_therapy,omitempty"`
+	// Medication therapy | 药物治疗
+	MedicationTherapy int32 `json:"medication_therapy,omitempty"`
+	// Overall treatment plan | 综合治疗方案
 	TreatmentPlan string `json:"treatment_plan,omitempty"`
-	// Prescription | 处方
-	Prescription string `json:"prescription,omitempty"`
-	// Examination results | 检查结果
-	ExaminationResults string `json:"examination_results,omitempty"`
-	// Doctor's advice | 医嘱
-	DoctorAdvice string `json:"doctor_advice,omitempty"`
 	// Doctor ID | 医生ID
 	DoctorID string `json:"doctor_id,omitempty"`
-	// Department | 科室
-	Department string `json:"department,omitempty"`
 	// Related appointment ID | 关联预约ID
 	AppointmentID string `json:"appointment_id,omitempty"`
 	// Remarks | 备注信息
@@ -61,9 +85,11 @@ func (*MedicalRecord) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case medicalrecord.FieldGender, medicalrecord.FieldAge, medicalrecord.FieldVisitTime:
+		case medicalrecord.FieldOxygenSaturation, medicalrecord.FieldBloodGlucose, medicalrecord.FieldWeight, medicalrecord.FieldWaistCircumference, medicalrecord.FieldBodyFat:
+			values[i] = new(sql.NullFloat64)
+		case medicalrecord.FieldGender, medicalrecord.FieldAge, medicalrecord.FieldSmokingHistory, medicalrecord.FieldDrinkingHistory, medicalrecord.FieldAllergyHistory, medicalrecord.FieldHeartRate, medicalrecord.FieldDietTherapy, medicalrecord.FieldExerciseTherapy, medicalrecord.FieldMedicationTherapy:
 			values[i] = new(sql.NullInt64)
-		case medicalrecord.FieldPatientName, medicalrecord.FieldPhoneNumber, medicalrecord.FieldDiagnosis, medicalrecord.FieldTreatmentPlan, medicalrecord.FieldPrescription, medicalrecord.FieldExaminationResults, medicalrecord.FieldDoctorAdvice, medicalrecord.FieldDoctorID, medicalrecord.FieldDepartment, medicalrecord.FieldAppointmentID, medicalrecord.FieldRemarks, medicalrecord.FieldUserID:
+		case medicalrecord.FieldPatientName, medicalrecord.FieldIDCardNumber, medicalrecord.FieldPhoneNumber, medicalrecord.FieldChiefComplaint, medicalrecord.FieldPresentIllness, medicalrecord.FieldPastHistory, medicalrecord.FieldBloodPressure, medicalrecord.FieldDiagnosis, medicalrecord.FieldTreatmentPlan, medicalrecord.FieldDoctorID, medicalrecord.FieldAppointmentID, medicalrecord.FieldRemarks, medicalrecord.FieldUserID:
 			values[i] = new(sql.NullString)
 		case medicalrecord.FieldCreatedAt, medicalrecord.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -108,12 +134,6 @@ func (mr *MedicalRecord) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				mr.PatientName = value.String
 			}
-		case medicalrecord.FieldPhoneNumber:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field phone_number", values[i])
-			} else if value.Valid {
-				mr.PhoneNumber = value.String
-			}
 		case medicalrecord.FieldGender:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field gender", values[i])
@@ -126,11 +146,95 @@ func (mr *MedicalRecord) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				mr.Age = int32(value.Int64)
 			}
-		case medicalrecord.FieldVisitTime:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field visit_time", values[i])
+		case medicalrecord.FieldIDCardNumber:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field id_card_number", values[i])
 			} else if value.Valid {
-				mr.VisitTime = value.Int64
+				mr.IDCardNumber = value.String
+			}
+		case medicalrecord.FieldPhoneNumber:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field phone_number", values[i])
+			} else if value.Valid {
+				mr.PhoneNumber = value.String
+			}
+		case medicalrecord.FieldChiefComplaint:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field chief_complaint", values[i])
+			} else if value.Valid {
+				mr.ChiefComplaint = value.String
+			}
+		case medicalrecord.FieldPresentIllness:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field present_illness", values[i])
+			} else if value.Valid {
+				mr.PresentIllness = value.String
+			}
+		case medicalrecord.FieldPastHistory:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field past_history", values[i])
+			} else if value.Valid {
+				mr.PastHistory = value.String
+			}
+		case medicalrecord.FieldSmokingHistory:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field smoking_history", values[i])
+			} else if value.Valid {
+				mr.SmokingHistory = int32(value.Int64)
+			}
+		case medicalrecord.FieldDrinkingHistory:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field drinking_history", values[i])
+			} else if value.Valid {
+				mr.DrinkingHistory = int32(value.Int64)
+			}
+		case medicalrecord.FieldAllergyHistory:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field allergy_history", values[i])
+			} else if value.Valid {
+				mr.AllergyHistory = int32(value.Int64)
+			}
+		case medicalrecord.FieldHeartRate:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field heart_rate", values[i])
+			} else if value.Valid {
+				mr.HeartRate = int32(value.Int64)
+			}
+		case medicalrecord.FieldBloodPressure:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field blood_pressure", values[i])
+			} else if value.Valid {
+				mr.BloodPressure = value.String
+			}
+		case medicalrecord.FieldOxygenSaturation:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field oxygen_saturation", values[i])
+			} else if value.Valid {
+				mr.OxygenSaturation = value.Float64
+			}
+		case medicalrecord.FieldBloodGlucose:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field blood_glucose", values[i])
+			} else if value.Valid {
+				mr.BloodGlucose = value.Float64
+			}
+		case medicalrecord.FieldWeight:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field weight", values[i])
+			} else if value.Valid {
+				mr.Weight = value.Float64
+			}
+		case medicalrecord.FieldWaistCircumference:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field waist_circumference", values[i])
+			} else if value.Valid {
+				mr.WaistCircumference = value.Float64
+			}
+		case medicalrecord.FieldBodyFat:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field body_fat", values[i])
+			} else if value.Valid {
+				mr.BodyFat = value.Float64
 			}
 		case medicalrecord.FieldDiagnosis:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -138,41 +242,35 @@ func (mr *MedicalRecord) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				mr.Diagnosis = value.String
 			}
+		case medicalrecord.FieldDietTherapy:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field diet_therapy", values[i])
+			} else if value.Valid {
+				mr.DietTherapy = int32(value.Int64)
+			}
+		case medicalrecord.FieldExerciseTherapy:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field exercise_therapy", values[i])
+			} else if value.Valid {
+				mr.ExerciseTherapy = int32(value.Int64)
+			}
+		case medicalrecord.FieldMedicationTherapy:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field medication_therapy", values[i])
+			} else if value.Valid {
+				mr.MedicationTherapy = int32(value.Int64)
+			}
 		case medicalrecord.FieldTreatmentPlan:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field treatment_plan", values[i])
 			} else if value.Valid {
 				mr.TreatmentPlan = value.String
 			}
-		case medicalrecord.FieldPrescription:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field prescription", values[i])
-			} else if value.Valid {
-				mr.Prescription = value.String
-			}
-		case medicalrecord.FieldExaminationResults:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field examination_results", values[i])
-			} else if value.Valid {
-				mr.ExaminationResults = value.String
-			}
-		case medicalrecord.FieldDoctorAdvice:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field doctor_advice", values[i])
-			} else if value.Valid {
-				mr.DoctorAdvice = value.String
-			}
 		case medicalrecord.FieldDoctorID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field doctor_id", values[i])
 			} else if value.Valid {
 				mr.DoctorID = value.String
-			}
-		case medicalrecord.FieldDepartment:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field department", values[i])
-			} else if value.Valid {
-				mr.Department = value.String
 			}
 		case medicalrecord.FieldAppointmentID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -237,38 +335,74 @@ func (mr *MedicalRecord) String() string {
 	builder.WriteString("patient_name=")
 	builder.WriteString(mr.PatientName)
 	builder.WriteString(", ")
-	builder.WriteString("phone_number=")
-	builder.WriteString(mr.PhoneNumber)
-	builder.WriteString(", ")
 	builder.WriteString("gender=")
 	builder.WriteString(fmt.Sprintf("%v", mr.Gender))
 	builder.WriteString(", ")
 	builder.WriteString("age=")
 	builder.WriteString(fmt.Sprintf("%v", mr.Age))
 	builder.WriteString(", ")
-	builder.WriteString("visit_time=")
-	builder.WriteString(fmt.Sprintf("%v", mr.VisitTime))
+	builder.WriteString("id_card_number=")
+	builder.WriteString(mr.IDCardNumber)
+	builder.WriteString(", ")
+	builder.WriteString("phone_number=")
+	builder.WriteString(mr.PhoneNumber)
+	builder.WriteString(", ")
+	builder.WriteString("chief_complaint=")
+	builder.WriteString(mr.ChiefComplaint)
+	builder.WriteString(", ")
+	builder.WriteString("present_illness=")
+	builder.WriteString(mr.PresentIllness)
+	builder.WriteString(", ")
+	builder.WriteString("past_history=")
+	builder.WriteString(mr.PastHistory)
+	builder.WriteString(", ")
+	builder.WriteString("smoking_history=")
+	builder.WriteString(fmt.Sprintf("%v", mr.SmokingHistory))
+	builder.WriteString(", ")
+	builder.WriteString("drinking_history=")
+	builder.WriteString(fmt.Sprintf("%v", mr.DrinkingHistory))
+	builder.WriteString(", ")
+	builder.WriteString("allergy_history=")
+	builder.WriteString(fmt.Sprintf("%v", mr.AllergyHistory))
+	builder.WriteString(", ")
+	builder.WriteString("heart_rate=")
+	builder.WriteString(fmt.Sprintf("%v", mr.HeartRate))
+	builder.WriteString(", ")
+	builder.WriteString("blood_pressure=")
+	builder.WriteString(mr.BloodPressure)
+	builder.WriteString(", ")
+	builder.WriteString("oxygen_saturation=")
+	builder.WriteString(fmt.Sprintf("%v", mr.OxygenSaturation))
+	builder.WriteString(", ")
+	builder.WriteString("blood_glucose=")
+	builder.WriteString(fmt.Sprintf("%v", mr.BloodGlucose))
+	builder.WriteString(", ")
+	builder.WriteString("weight=")
+	builder.WriteString(fmt.Sprintf("%v", mr.Weight))
+	builder.WriteString(", ")
+	builder.WriteString("waist_circumference=")
+	builder.WriteString(fmt.Sprintf("%v", mr.WaistCircumference))
+	builder.WriteString(", ")
+	builder.WriteString("body_fat=")
+	builder.WriteString(fmt.Sprintf("%v", mr.BodyFat))
 	builder.WriteString(", ")
 	builder.WriteString("diagnosis=")
 	builder.WriteString(mr.Diagnosis)
 	builder.WriteString(", ")
+	builder.WriteString("diet_therapy=")
+	builder.WriteString(fmt.Sprintf("%v", mr.DietTherapy))
+	builder.WriteString(", ")
+	builder.WriteString("exercise_therapy=")
+	builder.WriteString(fmt.Sprintf("%v", mr.ExerciseTherapy))
+	builder.WriteString(", ")
+	builder.WriteString("medication_therapy=")
+	builder.WriteString(fmt.Sprintf("%v", mr.MedicationTherapy))
+	builder.WriteString(", ")
 	builder.WriteString("treatment_plan=")
 	builder.WriteString(mr.TreatmentPlan)
 	builder.WriteString(", ")
-	builder.WriteString("prescription=")
-	builder.WriteString(mr.Prescription)
-	builder.WriteString(", ")
-	builder.WriteString("examination_results=")
-	builder.WriteString(mr.ExaminationResults)
-	builder.WriteString(", ")
-	builder.WriteString("doctor_advice=")
-	builder.WriteString(mr.DoctorAdvice)
-	builder.WriteString(", ")
 	builder.WriteString("doctor_id=")
 	builder.WriteString(mr.DoctorID)
-	builder.WriteString(", ")
-	builder.WriteString("department=")
-	builder.WriteString(mr.Department)
 	builder.WriteString(", ")
 	builder.WriteString("appointment_id=")
 	builder.WriteString(mr.AppointmentID)

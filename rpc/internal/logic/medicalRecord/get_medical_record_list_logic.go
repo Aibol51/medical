@@ -32,11 +32,11 @@ func (l *GetMedicalRecordListLogic) GetMedicalRecordList(in *core.MedicalRecordL
 	if in.PatientName != nil {
 		predicates = append(predicates, medicalrecord.PatientNameContains(*in.PatientName))
 	}
+	if in.IdCardNumber != nil {
+		predicates = append(predicates, medicalrecord.IDCardNumberContains(*in.IdCardNumber))
+	}
 	if in.PhoneNumber != nil {
 		predicates = append(predicates, medicalrecord.PhoneNumberContains(*in.PhoneNumber))
-	}
-	if in.UserId != nil {
-		predicates = append(predicates, medicalrecord.UserIDContains(*in.UserId))
 	}
 	result, err := l.svcCtx.DB.MedicalRecord.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
@@ -53,17 +53,29 @@ func (l *GetMedicalRecordListLogic) GetMedicalRecordList(in *core.MedicalRecordL
 			CreatedAt:          pointy.GetPointer(v.CreatedAt.UnixMilli()),
 			UpdatedAt:          pointy.GetPointer(v.UpdatedAt.UnixMilli()),
 			PatientName:        &v.PatientName,
-			PhoneNumber:        &v.PhoneNumber,
 			Gender:             &v.Gender,
 			Age:                &v.Age,
-			VisitTime:          &v.VisitTime,
+			IdCardNumber:       &v.IDCardNumber,
+			PhoneNumber:        &v.PhoneNumber,
+			ChiefComplaint:     &v.ChiefComplaint,
+			PresentIllness:     &v.PresentIllness,
+			PastHistory:        &v.PastHistory,
+			SmokingHistory:     &v.SmokingHistory,
+			DrinkingHistory:    &v.DrinkingHistory,
+			AllergyHistory:     &v.AllergyHistory,
+			HeartRate:          &v.HeartRate,
+			BloodPressure:      &v.BloodPressure,
+			OxygenSaturation:   &v.OxygenSaturation,
+			BloodGlucose:       &v.BloodGlucose,
+			Weight:             &v.Weight,
+			WaistCircumference: &v.WaistCircumference,
+			BodyFat:            &v.BodyFat,
 			Diagnosis:          &v.Diagnosis,
+			DietTherapy:        &v.DietTherapy,
+			ExerciseTherapy:    &v.ExerciseTherapy,
+			MedicationTherapy:  &v.MedicationTherapy,
 			TreatmentPlan:      &v.TreatmentPlan,
-			Prescription:       &v.Prescription,
-			ExaminationResults: &v.ExaminationResults,
-			DoctorAdvice:       &v.DoctorAdvice,
 			DoctorId:           &v.DoctorID,
-			Department:         &v.Department,
 			AppointmentId:      &v.AppointmentID,
 			Remarks:            &v.Remarks,
 			UserId:             &v.UserID,

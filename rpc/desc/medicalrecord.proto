@@ -6,36 +6,60 @@ message MedicalRecordInfo {
   optional string id = 1;
   optional int64 created_at = 2;
   optional int64 updated_at = 3;
-  // Patient name | 患者姓名
+  // Patient name | 姓名
   optional string patient_name = 4;
-  // Phone number | 联系电话
-  optional string phone_number = 5;
   // Gender 1:male 2:female | 性别 1:男 2:女
-  optional int32 gender = 6;
+  optional int32 gender = 5;
   // Age | 年龄
-  optional int32 age = 7;
-  // Visit time | 就诊时间
-  optional int64 visit_time = 8;
+  optional int32 age = 6;
+  // ID card number | 身份证号
+  optional string id_card_number = 7;
+  // Phone number | 电话
+  optional string phone_number = 8;
+  // Chief complaint | 主诉
+  optional string chief_complaint = 9;
+  // Present illness history | 现病史
+  optional string present_illness = 10;
+  // Past history | 既往史
+  optional string past_history = 11;
+  // Smoking history | 吸烟史: 1-无, 2-有, 3-一般, 4-多, 5-已戒
+  optional int32 smoking_history = 12;
+  // Drinking history | 饮酒史: 1-无, 2-有, 3-一般, 4-多, 5-已戒
+  optional int32 drinking_history = 13;
+  // Allergy history | 过敏史: 1-无, 2-有
+  optional int32 allergy_history = 14;
+  // Heart rate (beats/min) | 心率(次/分)
+  optional int32 heart_rate = 15;
+  // Blood pressure (mmHg) | 血压(mmHg)
+  optional string blood_pressure = 16;
+  // Oxygen saturation (%) | 指脉氧(%)
+  optional double oxygen_saturation = 17;
+  // Blood glucose (mmol/L) | 血糖(mmol/L)
+  optional double blood_glucose = 18;
+  // Weight (kg) | 体重(kg)
+  optional double weight = 19;
+  // Waist circumference (cm) | 腰围(cm)
+  optional double waist_circumference = 20;
+  // Body fat percentage (%) | 体脂数(%)
+  optional double body_fat = 21;
   // Diagnosis | 诊断
-  optional string diagnosis = 9;
-  // Treatment plan | 治疗方案
-  optional string treatment_plan = 10;
-  // Prescription | 处方
-  optional string prescription = 11;
-  // Examination results | 检查结果
-  optional string examination_results = 12;
-  // Doctor's advice | 医嘱
-  optional string doctor_advice = 13;
+  optional string diagnosis = 22;
+  // Diet therapy | 饮食治疗
+  optional int32 diet_therapy = 23;
+  // Exercise therapy | 运动治疗
+  optional int32 exercise_therapy = 24;
+  // Medication therapy | 药物治疗
+  optional int32 medication_therapy = 25;
+  // Overall treatment plan | 综合治疗方案
+  optional string treatment_plan = 26;
   // Doctor ID | 医生ID
-  optional string doctor_id = 14;
-  // Department | 科室
-  optional string department = 15;
+  optional string doctor_id = 27;
   // Related appointment ID | 关联预约ID
-  optional string appointment_id = 16;
+  optional string appointment_id = 28;
   // Remarks | 备注信息
-  optional string remarks = 17;
+  optional string remarks = 29;
   // User ID | 用户ID
-  optional string user_id = 18;
+  optional string user_id = 30;
 }
 
 message MedicalRecordListResp {
@@ -47,9 +71,8 @@ message MedicalRecordListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   optional string patient_name = 3;
-  optional string phone_number = 4;
-  optional string user_id = 5;
-  optional string appointment_id = 6;
+  optional string id_card_number = 4;
+  optional string phone_number = 5;
 }
 
 

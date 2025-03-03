@@ -20,28 +20,52 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldPatientName holds the string denoting the patient_name field in the database.
 	FieldPatientName = "patient_name"
-	// FieldPhoneNumber holds the string denoting the phone_number field in the database.
-	FieldPhoneNumber = "phone_number"
 	// FieldGender holds the string denoting the gender field in the database.
 	FieldGender = "gender"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
-	// FieldVisitTime holds the string denoting the visit_time field in the database.
-	FieldVisitTime = "visit_time"
+	// FieldIDCardNumber holds the string denoting the id_card_number field in the database.
+	FieldIDCardNumber = "id_card_number"
+	// FieldPhoneNumber holds the string denoting the phone_number field in the database.
+	FieldPhoneNumber = "phone_number"
+	// FieldChiefComplaint holds the string denoting the chief_complaint field in the database.
+	FieldChiefComplaint = "chief_complaint"
+	// FieldPresentIllness holds the string denoting the present_illness field in the database.
+	FieldPresentIllness = "present_illness"
+	// FieldPastHistory holds the string denoting the past_history field in the database.
+	FieldPastHistory = "past_history"
+	// FieldSmokingHistory holds the string denoting the smoking_history field in the database.
+	FieldSmokingHistory = "smoking_history"
+	// FieldDrinkingHistory holds the string denoting the drinking_history field in the database.
+	FieldDrinkingHistory = "drinking_history"
+	// FieldAllergyHistory holds the string denoting the allergy_history field in the database.
+	FieldAllergyHistory = "allergy_history"
+	// FieldHeartRate holds the string denoting the heart_rate field in the database.
+	FieldHeartRate = "heart_rate"
+	// FieldBloodPressure holds the string denoting the blood_pressure field in the database.
+	FieldBloodPressure = "blood_pressure"
+	// FieldOxygenSaturation holds the string denoting the oxygen_saturation field in the database.
+	FieldOxygenSaturation = "oxygen_saturation"
+	// FieldBloodGlucose holds the string denoting the blood_glucose field in the database.
+	FieldBloodGlucose = "blood_glucose"
+	// FieldWeight holds the string denoting the weight field in the database.
+	FieldWeight = "weight"
+	// FieldWaistCircumference holds the string denoting the waist_circumference field in the database.
+	FieldWaistCircumference = "waist_circumference"
+	// FieldBodyFat holds the string denoting the body_fat field in the database.
+	FieldBodyFat = "body_fat"
 	// FieldDiagnosis holds the string denoting the diagnosis field in the database.
 	FieldDiagnosis = "diagnosis"
+	// FieldDietTherapy holds the string denoting the diet_therapy field in the database.
+	FieldDietTherapy = "diet_therapy"
+	// FieldExerciseTherapy holds the string denoting the exercise_therapy field in the database.
+	FieldExerciseTherapy = "exercise_therapy"
+	// FieldMedicationTherapy holds the string denoting the medication_therapy field in the database.
+	FieldMedicationTherapy = "medication_therapy"
 	// FieldTreatmentPlan holds the string denoting the treatment_plan field in the database.
 	FieldTreatmentPlan = "treatment_plan"
-	// FieldPrescription holds the string denoting the prescription field in the database.
-	FieldPrescription = "prescription"
-	// FieldExaminationResults holds the string denoting the examination_results field in the database.
-	FieldExaminationResults = "examination_results"
-	// FieldDoctorAdvice holds the string denoting the doctor_advice field in the database.
-	FieldDoctorAdvice = "doctor_advice"
 	// FieldDoctorID holds the string denoting the doctor_id field in the database.
 	FieldDoctorID = "doctor_id"
-	// FieldDepartment holds the string denoting the department field in the database.
-	FieldDepartment = "department"
 	// FieldAppointmentID holds the string denoting the appointment_id field in the database.
 	FieldAppointmentID = "appointment_id"
 	// FieldRemarks holds the string denoting the remarks field in the database.
@@ -58,17 +82,29 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldPatientName,
-	FieldPhoneNumber,
 	FieldGender,
 	FieldAge,
-	FieldVisitTime,
+	FieldIDCardNumber,
+	FieldPhoneNumber,
+	FieldChiefComplaint,
+	FieldPresentIllness,
+	FieldPastHistory,
+	FieldSmokingHistory,
+	FieldDrinkingHistory,
+	FieldAllergyHistory,
+	FieldHeartRate,
+	FieldBloodPressure,
+	FieldOxygenSaturation,
+	FieldBloodGlucose,
+	FieldWeight,
+	FieldWaistCircumference,
+	FieldBodyFat,
 	FieldDiagnosis,
+	FieldDietTherapy,
+	FieldExerciseTherapy,
+	FieldMedicationTherapy,
 	FieldTreatmentPlan,
-	FieldPrescription,
-	FieldExaminationResults,
-	FieldDoctorAdvice,
 	FieldDoctorID,
-	FieldDepartment,
 	FieldAppointmentID,
 	FieldRemarks,
 	FieldUserID,
@@ -91,6 +127,12 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultSmokingHistory holds the default value on creation for the "smoking_history" field.
+	DefaultSmokingHistory int32
+	// DefaultDrinkingHistory holds the default value on creation for the "drinking_history" field.
+	DefaultDrinkingHistory int32
+	// DefaultAllergyHistory holds the default value on creation for the "allergy_history" field.
+	DefaultAllergyHistory int32
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
@@ -118,11 +160,6 @@ func ByPatientName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPatientName, opts...).ToFunc()
 }
 
-// ByPhoneNumber orders the results by the phone_number field.
-func ByPhoneNumber(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPhoneNumber, opts...).ToFunc()
-}
-
 // ByGender orders the results by the gender field.
 func ByGender(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldGender, opts...).ToFunc()
@@ -133,9 +170,79 @@ func ByAge(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAge, opts...).ToFunc()
 }
 
-// ByVisitTime orders the results by the visit_time field.
-func ByVisitTime(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldVisitTime, opts...).ToFunc()
+// ByIDCardNumber orders the results by the id_card_number field.
+func ByIDCardNumber(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIDCardNumber, opts...).ToFunc()
+}
+
+// ByPhoneNumber orders the results by the phone_number field.
+func ByPhoneNumber(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPhoneNumber, opts...).ToFunc()
+}
+
+// ByChiefComplaint orders the results by the chief_complaint field.
+func ByChiefComplaint(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldChiefComplaint, opts...).ToFunc()
+}
+
+// ByPresentIllness orders the results by the present_illness field.
+func ByPresentIllness(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPresentIllness, opts...).ToFunc()
+}
+
+// ByPastHistory orders the results by the past_history field.
+func ByPastHistory(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPastHistory, opts...).ToFunc()
+}
+
+// BySmokingHistory orders the results by the smoking_history field.
+func BySmokingHistory(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSmokingHistory, opts...).ToFunc()
+}
+
+// ByDrinkingHistory orders the results by the drinking_history field.
+func ByDrinkingHistory(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDrinkingHistory, opts...).ToFunc()
+}
+
+// ByAllergyHistory orders the results by the allergy_history field.
+func ByAllergyHistory(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAllergyHistory, opts...).ToFunc()
+}
+
+// ByHeartRate orders the results by the heart_rate field.
+func ByHeartRate(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldHeartRate, opts...).ToFunc()
+}
+
+// ByBloodPressure orders the results by the blood_pressure field.
+func ByBloodPressure(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBloodPressure, opts...).ToFunc()
+}
+
+// ByOxygenSaturation orders the results by the oxygen_saturation field.
+func ByOxygenSaturation(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOxygenSaturation, opts...).ToFunc()
+}
+
+// ByBloodGlucose orders the results by the blood_glucose field.
+func ByBloodGlucose(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBloodGlucose, opts...).ToFunc()
+}
+
+// ByWeight orders the results by the weight field.
+func ByWeight(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldWeight, opts...).ToFunc()
+}
+
+// ByWaistCircumference orders the results by the waist_circumference field.
+func ByWaistCircumference(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldWaistCircumference, opts...).ToFunc()
+}
+
+// ByBodyFat orders the results by the body_fat field.
+func ByBodyFat(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBodyFat, opts...).ToFunc()
 }
 
 // ByDiagnosis orders the results by the diagnosis field.
@@ -143,34 +250,29 @@ func ByDiagnosis(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDiagnosis, opts...).ToFunc()
 }
 
+// ByDietTherapy orders the results by the diet_therapy field.
+func ByDietTherapy(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDietTherapy, opts...).ToFunc()
+}
+
+// ByExerciseTherapy orders the results by the exercise_therapy field.
+func ByExerciseTherapy(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExerciseTherapy, opts...).ToFunc()
+}
+
+// ByMedicationTherapy orders the results by the medication_therapy field.
+func ByMedicationTherapy(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMedicationTherapy, opts...).ToFunc()
+}
+
 // ByTreatmentPlan orders the results by the treatment_plan field.
 func ByTreatmentPlan(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTreatmentPlan, opts...).ToFunc()
 }
 
-// ByPrescription orders the results by the prescription field.
-func ByPrescription(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPrescription, opts...).ToFunc()
-}
-
-// ByExaminationResults orders the results by the examination_results field.
-func ByExaminationResults(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldExaminationResults, opts...).ToFunc()
-}
-
-// ByDoctorAdvice orders the results by the doctor_advice field.
-func ByDoctorAdvice(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDoctorAdvice, opts...).ToFunc()
-}
-
 // ByDoctorID orders the results by the doctor_id field.
 func ByDoctorID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDoctorID, opts...).ToFunc()
-}
-
-// ByDepartment orders the results by the department field.
-func ByDepartment(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDepartment, opts...).ToFunc()
 }
 
 // ByAppointmentID orders the results by the appointment_id field.
